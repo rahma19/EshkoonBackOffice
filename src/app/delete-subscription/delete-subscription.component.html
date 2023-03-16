@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>Confirmation de la suppression</h1>
+<div mat-dialog-content>Etes-vous sur de vouloir supprimer cet élément ?</div>
+<div mat-dialog-actions class="mt-15">
+  <button type="submit" (click)="submit()" mat-raised-button class="bg-danger text-white" 
+  [mat-dialog-close]="true" cdkFocusInitial>Oui</button>
+  <button mat-raised-button mat-dialog-close>Non</button>
+</div>

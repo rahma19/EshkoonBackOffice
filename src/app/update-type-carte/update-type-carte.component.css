@@ -1,0 +1,12 @@
+.btn{
+    background-color: var(--primary);
+    color: white;
+}
+
+h1{color: var(--primary);}
+mat-form-field{
+    width: 100%;
+}
+.mt-15{
+    justify-content: space-between;
+}

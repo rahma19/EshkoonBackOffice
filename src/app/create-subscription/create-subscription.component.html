@@ -1,0 +1,24 @@
+<h1 mat-dialog-title cdk-overlay-transparent-backdrop>Ajouter un type</h1>
+<form [formGroup]="subsForm" (ngSubmit)="submit()">
+<div mat-dialog-content>
+    <mat-form-field appearance="outline">
+    <mat-label>Type </mat-label>
+    <input type="text" formControlName="type" matInput>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>Prix </mat-label>
+    <input type="text" formControlName="price" matInput>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>Duree </mat-label>
+    <input type="text" formControlName="duration" matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="mt-15">
+  <button type="submit" mat-raised-button class="btn"
+   cdkFocusInitial>Ajouter</button>
+  <button mat-raised-button mat-dialog-close>Annuler</button>
+</div>
+</form>

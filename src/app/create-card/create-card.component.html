@@ -1,0 +1,46 @@
+
+
+
+<h1 id="createCard" mat-dialog-title>Ajouter une nouvelle carte</h1>
+<form [formGroup]="cardForm" (ngSubmit)="submit()">
+<div mat-dialog-content>
+    <mat-form-field appearance="outline">
+    <mat-label>Nom </mat-label>
+    <input type="text" formControlName="name" matInput>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Type Carte</mat-label>
+    <mat-select formControlName="cardTypeCardTypeId" [formControl]="selectedFW">
+        <mat-option *ngFor="let item of menu" [value]="item.cardTypeId">
+        {{ item.name }}
+       </mat-option>
+      </mat-select>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <input type="text" formControlName="description" matInput>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Prix </mat-label>
+    <input type="text" formControlName="price" matInput>
+  </mat-form-field>
+
+  <div class="form-group form-row">
+    <mat-label >Importer une image</mat-label>
+    <div class="col-md-9">
+      <input type="file" id="image" (change)="onSelectedFile($event)" />
+      <div *ngIf="imagePath">
+        <br />
+        <img [src]="imagePath" width="100px">
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="mt-15">
+  <button type="submit" mat-raised-button class="btn"
+   cdkFocusInitial>Ajouter</button>
+  <button mat-raised-button mat-dialog-close>Annuler</button>
+</div>
+</form>

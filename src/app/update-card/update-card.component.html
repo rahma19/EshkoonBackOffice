@@ -1,0 +1,62 @@
+<!-- <div class="col-md-6 offset-md-3 mt-5">
+    <div class="card">
+        <h4 class="card-header">Angular 8 JWT create Example</h4>
+        <div class="card-body">
+            <form [formGroup]="cardForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="name">name</label>
+                    <input type="text" formControlName="name" value="{{formData?.name}}" class="form-control" />
+                   
+                </div>
+                <div class="form-group">
+                    <label for="type">type</label>
+                    <input type="type" formControlName="type" value="{{formData?.type}}" class="form-control" />
+                   
+                </div>
+                <div class="form-group">
+                    <label for="img">img</label>
+                    <input type="img" formControlName="img" value="{{formData?.img}}" class="form-control" />
+                   
+                </div>
+                <button  class="btn btn-primary">
+                    update
+                </button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<h1 mat-dialog-title>Modifier une carte </h1>
+<form [formGroup]="cardForm" (ngSubmit)="submit()">
+<div mat-dialog-content>
+    <mat-form-field appearance="outline">
+    <mat-label>Nom </mat-label>
+    <input type="text" formControlName="name" matInput>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Type Carte</mat-label>
+    <mat-select formControlName="cardTypeCardTypeId" [formControl]="cardTypeCardTypeId">
+        <mat-option *ngFor="let item of menu" (change)="item.cardTypeId" [value]="item.cardTypeId">
+        {{ item.name }}
+       </mat-option>
+      </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>Description </mat-label>
+    <input type="text" formControlName="description" matInput>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Image </mat-label>
+    <input type="text" formControlName="img" matInput>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Prix </mat-label>
+    <input type="text" formControlName="price" matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions  class="mt-15">
+  <button type="submit" mat-raised-button class="btn" 
+   cdkFocusInitial>Modifier</button>
+  <button mat-raised-button mat-dialog-close>Annuler</button>
+</div></form>
