@@ -9,6 +9,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { CreateCardComponent } from '../../create-card/create-card.component';
+import { OrderDetailsComponent } from 'app/order-details/order-details.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -60,6 +61,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'order-dtails/:orderId',   component: OrderDetailsComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'create-card',     component: CreateCardComponent },

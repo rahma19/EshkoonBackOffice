@@ -17,7 +17,16 @@
       </mat-select>
   </mat-form-field>
   <br>
-
+  <div class="form-group form-row">
+    <mat-label >Importer une image</mat-label>
+    <div class="col-md-9">
+      <input type="file" id="image" class="file-input" (change)="onSelectedFile($event)" />
+      <div *ngIf="imagePath">
+        <br />
+        <img [src]="imagePath" width="100px">
+      </div>
+    </div>
+  </div>
   <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
     <input type="text" formControlName="description" matInput>
@@ -27,16 +36,7 @@
     <input type="text" formControlName="price" matInput>
   </mat-form-field>
 
-  <div class="form-group form-row">
-    <mat-label >Importer une image</mat-label>
-    <div class="col-md-9">
-      <input type="file" id="image" (change)="onSelectedFile($event)" />
-      <div *ngIf="imagePath">
-        <br />
-        <img [src]="imagePath" width="100px">
-      </div>
-    </div>
-  </div>
+ 
 </div>
 <div mat-dialog-actions class="mt-15">
   <button type="submit" mat-raised-button class="btn"

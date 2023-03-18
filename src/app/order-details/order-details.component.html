@@ -30,9 +30,7 @@
                                         Image
                                     </th>
                                     <th> 
-                                        <button mat-icon-button color="success" (click)="add()">
-                                            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-                                          </button>
+                                      
                                     </th>
                                    <!-- <th>
                                         City
@@ -42,10 +40,10 @@
                                     </th> -->
                                 </thead>
                                 <tbody>
-                                    <div class="no-results" [style.display]="cards?.length == 0 ? '' : 'none'">
+                                    <div class="no-results" [style.display]="orderDetails?.length == 0 ? '' : 'none'">
                                         aucun résultat
                                       </div>
-                                    <tr *ngFor="let item of cards">
+                                    <tr *ngFor="let item of orderDetails">
                                         <td>
                                             {{item?.name}}
                                         </td>

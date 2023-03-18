@@ -1,29 +1,90 @@
-
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="card card-plain">
-          <div class="card-header card-header-danger">
-              <h4 class="card-title">Material Design Icons</h4>
-              <p class="card-category">Handcrafted by our friends from
-                  <a target="_blank" href="https://fonts.google.com/icons">Google</a>
-              </p>
-          </div>
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="card-body">
-                      <div class="iframe-container d-none d-lg-block">
-                          <iframe src="https://material.io/design/iconography/system-icons.html#grid-and-keyline-shapes">
-                              <p>Your browser does not support iframes.</p>
-                          </iframe>
-                      </div>
-                      <div class="col-md-12 d-none d-sm-block d-md-block d-lg-none d-block d-sm-none text-center ml-auto mr-auto">
-                          <h5>The icons are visible on Desktop mode inside an iframe. Since the iframe is not working on Mobile and Tablets please visit the icons on their original page on Google. Check the
-                              <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a>
-                          </h5>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="container-fluid">
+        <div class="row">
+            <mat-form-field floatPlaceholder="never" width="100%" color="accent">
+                <input matInput #filter placeholder="Recherche">
+              </mat-form-field>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Liste des commandes</h4>
+                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <!-- <th>
+                                        ID
+                                    </th> -->
+                                    <th>
+                                        Commande ID
+                                    </th>
+                                    <th> 
+                                        Nbr carte
+                                    </th>
+                                    <th> 
+                                        Total
+                                    </th>
+                                    <th> 
+                                        Crée le 
+                                    </th>
+                                    <th> 
+                                        Status
+                                    </th>
+                                    <th> 
+                                        Facture
+                                    </th>
+                                    <th>
+                                        Livrer 
+                                    </th>
+                                    <th>
+                                        
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <div class="no-results" [style.display]="orders?.length == 0 ? '' : 'none'">
+                                        aucun résultat
+                                      </div>
+                                    <tr *ngFor="let item of orders">
+                                        <td>
+                                            {{item?.orderId}}
+                                        </td>
+                                        <td> 
+                                            {{item?.orderId}}
+                                        </td>
+                                        <td> 
+                                            {{item?.total}}
+                                        </td>
+                                        <td> 
+                                            {{item?.createdAt | date:"MM/dd/yyyy"}} 
+                                        </td>
+                                        <td> 
+                                            <span class="badge text-white"
+         [ngClass]="{' bg-danger  mr-1' : item?.status.trim() == 'DISABLED' ,  ' bg-warning ': item?.status.trim() == 'pending', 
+       'bg-success ': item?.status.trim() == 'ACTIVATED'}">{{item?.status | status}}</span>
+                                        </td>
+                                        <td> 
+                                            <button class="btn btn-danger" style="font-size: 12px;"
+                                                        (click)="downloadAsPDF()">Telecharger</button>
+                                        </td>
+                                        <td> 
+                                            <mat-slide-toggle></mat-slide-toggle>
+                                        </td>
+                                        <td>
+                                            <button mat-icon-button color="accent" (click)="orderDetails(item?.orderId)">
+                                                <mat-icon class="text-warn"  aria-label="Delete">open_in_new</mat-icon>
+                                              </button>
+                                        </td>
+                                   
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 </div>

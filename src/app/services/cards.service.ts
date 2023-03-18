@@ -23,7 +23,7 @@ this.subscriptionSubject= new BehaviorSubject([]);
 
   //Cards Crud
     getAllCards() {
-    return this.http.get(`${'http://localhost:3000/api/v1'}/card/list`).pipe(map((allCards:any) => {
+    return this.http.get(`${environment.apiUrl}/card/list`).pipe(map((allCards:any) => {
       console.log(allCards);
        this.allCardsSubject.next(allCards);
     }));

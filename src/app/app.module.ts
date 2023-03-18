@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -19,6 +19,13 @@ import { DeleteCardComponent } from './delete-card/delete-card.component';
 import { CreateSubscriptionComponent } from './create-subscription/create-subscription.component';
 import { DeleteSubscriptionComponent } from './delete-subscription/delete-subscription.component';
 import { UpdateSubscriptionComponent } from './update-subscription/update-subscription.component';
+import { OrderService } from './services/order.service';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { HttpResponseInterceptor } from './core/interceptors/http-response.interceptor';
+import { AuthService } from './services/auth.service';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   imports: [
@@ -31,14 +38,23 @@ import { UpdateSubscriptionComponent } from './update-subscription/update-subscr
     AppRoutingModule,
     MatIconModule,MatDialogModule
   ],
-  declarations: [
+  declarations:[
     AppComponent,
     AdminLayoutComponent,
-],
+    LoginComponent,
+], 
   exports:[MatIconModule,MatDialogModule,MatRadioModule
   ,MatSelectModule,MatInputModule,MatFormFieldModule],
   entryComponents:[],
-  providers: [CardsService ,{provide: MAT_DIALOG_DEFAULT_OPTIONS,  useValue: {hasBackdrop: false}},
+  providers: [CardsService,OrderService, AuthService, AuthGuard,
+    JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: {} },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpResponseInterceptor,
+      multi: true,
+    },
+     ,{provide: MAT_DIALOG_DEFAULT_OPTIONS,  useValue: {hasBackdrop: false}},
 ],
   bootstrap: [AppComponent]
 })

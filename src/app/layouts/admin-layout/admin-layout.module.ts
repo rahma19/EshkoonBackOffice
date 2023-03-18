@@ -30,6 +30,9 @@ import { UpdateTypeCarteComponent } from 'app/update-type-carte/update-type-cart
 import { DeleteTypeCarteComponent } from 'app/delete-type-carte/delete-type-carte.component';
 import { CreateTypeCarteComponent } from 'app/create-type-carte/create-type-carte.component';
 import { DeleteSubscriptionComponent } from 'app/delete-subscription/delete-subscription.component';
+import { status } from 'app/core/pipes/status.pipe';
+import { OrderDetailsComponent } from 'app/order-details/order-details.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -45,9 +48,12 @@ import { DeleteSubscriptionComponent } from 'app/delete-subscription/delete-subs
     MatSelectModule,
     MatDialogModule,
     MatTooltipModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSlideToggleModule
   ],
   declarations: [
+    status,
+    OrderDetailsComponent,
     DashboardComponent,
     UserProfileComponent,
     TableListComponent,
