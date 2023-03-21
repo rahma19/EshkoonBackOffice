@@ -11,21 +11,22 @@
   <mat-form-field appearance="outline">
     <mat-label>Type Carte</mat-label>
     <mat-select formControlName="cardTypeCardTypeId" [formControl]="selectedFW">
-        <mat-option *ngFor="let item of menu" [value]="item.cardTypeId">
-        {{ item.name }}
+        <mat-option *ngFor="let item of menu" [value]="item?.cardTypeId">
+        {{ item?.name }}
        </mat-option>
       </mat-select>
   </mat-form-field>
   <br>
-  <div class="form-group form-row">
+  <!-- <input 
+  *ngIf="!imagePath" type="file" 
+  (change)="handleProfilePictureInput($event.target.files)"> -->
     <mat-label >Importer une image</mat-label>
-    <div class="col-md-9">
-      <input type="file" id="image" class="file-input" (change)="onSelectedFile($event)" />
+    <div class="col-md-9 " style="padding-bottom: 4%;">
+      <input  type="file" id="image" class="file-input" (change)="onSelectedFile($event)" />
       <div *ngIf="imagePath">
         <br />
         <img [src]="imagePath" width="100px">
       </div>
-    </div>
   </div>
   <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
@@ -35,7 +36,10 @@
     <mat-label>Prix </mat-label>
     <input type="text" formControlName="price" matInput>
   </mat-form-field>
-
+  <mat-radio-group formControlName="isService" required aria-label="Select an option">
+    <mat-radio-button class="px-3" value="false">Produit</mat-radio-button>
+    <mat-radio-button value="true">Service</mat-radio-button>
+  </mat-radio-group>
  
 </div>
 <div mat-dialog-actions class="mt-15">

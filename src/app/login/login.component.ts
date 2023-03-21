@@ -6,7 +6,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'app/services/auth.service';
 
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({ templateUrl: 'login.component.html',
+styleUrls: ['./login.component.css']
+})
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', Validators.required],
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
-                //  this.router.navigate(['./home']);
+      //  this.router.navigate(['./home']);
     }
   }
 
@@ -56,25 +58,25 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authenticationService.login(this.f['email'].value, this.f['password'].value)
-    .pipe(first())
-    .subscribe(
-      async (data:any) => {
-        this.router.navigate(['/dashboard']);
-      },
-      error => {
-      });
-      // .pipe(first())
-      // .subscribe(
-      //   data => {
-      //     this.router.navigateByUrl('/').then(() => {
-      //       // window.location.reload();
-      //     });
-      //   },
-      //   error => {
-      //     this.error = error;
-      //   });
+      .pipe(first())
+      .subscribe(
+        async (data: any) => {
+          this.router.navigate(['/']);
+        },
+        error => {
+        });
+    // .pipe(first())
+    // .subscribe(
+    //   data => {
+    //     this.router.navigateByUrl('/').then(() => {
+    //       // window.location.reload();
+    //     });
+    //   },
+    //   error => {
+    //     this.error = error;
+    //   });
   }
-  goToRegistration(){
+  goToRegistration() {
     this.router.navigateByUrl('auth/register');
   }
 }

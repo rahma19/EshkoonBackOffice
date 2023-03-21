@@ -21,7 +21,7 @@ export class OrderService {
   }
 
   public get orderDetails$(): Observable<any> {
-    return this.orderSubject.asObservable();
+    return this.orderDetailsSubject.asObservable();
   }
 
    //get all orders
@@ -32,10 +32,21 @@ export class OrderService {
     }));
   }
 
-  getOrderDetails(){
-    return this.http.get(`${environment.apiUrl}/order/listDetails`).pipe(map((orders:any) => {
-      console.log(orders);
+  getOrderDetails(orderId){
+    return this.http.get(`${environment.apiUrl}/order/listDetails/${orderId}`).subscribe((orders:any) => {
        this.orderDetailsSubject.next(orders.orders);
+    });
+  }
+
+  //update order status 
+  updateOrder(order:any){
+    console.log(order);
+    let obj={status:order.status,
+      enabled : order.enabled
+    }
+    return this.http.put(`${environment.apiUrl}/order/update/${order.orderId}`,obj).pipe(map((orders:any) => {
+      console.log(orders);
+       this.orderSubject.next(orders.data);
     }));
   }
 }

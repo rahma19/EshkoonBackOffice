@@ -1,78 +1,67 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 ml-auto mr-auto">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Material Dashboard PRO Angular</h4>
-                        <p class="card-category">Are you looking for more components? Please check our Premium Version of Material Dashboard Angular.</p>
-                    </div>
+            <div class="col-md-12">
+                        <h4 class="card-title ">Details de la commande</h4>
+                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     <div class="card-body">
-                        <div class="table-responsive table-upgrade">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th class="text-center">Free</th>
-                                        <th class="text-center">PRO</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Components</td>
-                                        <td class="text-center">60</td>
-                                        <td class="text-center">200</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Plugins</td>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">15</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Example Pages</td>
-                                        <td class="text-center">3</td>
-                                        <td class="text-center">27</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Login, Register, Pricing, Lock Pages</td>
-                                        <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                                        <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>DataTables, VectorMap, SweetAlert, Wizard, jQueryValidation, FullCalendar etc...</td>
-                                        <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                                        <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mini Sidebar</td>
-                                        <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                                        <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Premium Support</td>
-                                        <td class="text-center"><i class="fa fa-times text-danger"></i></td>
-                                        <td class="text-center"><i class="fa fa-check text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td class="text-center">Free</td>
-                                        <td class="text-center">Just $59</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"></td>
-                                        <td class="text-center">
-                                            <a href="javascript:void(0)" class="btn btn-round btn-fill btn-default disabled">Current Version</a>
-                                        </td>
-                                        <td class="text-center">
-                                            <a target="_blank" href="https://www.creative-tim.com/product/material-dashboard-pro-angular2?ref=md-free-angular-upgrade-live" class="btn btn-round btn-fill btn-info">Upgrade to PRO</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div *ngFor="let item of profiles"  class="card">
+                            <article class="row ">
+                                <div class="col-lg-4">
+                                  <figure class="itemside ">
+                                    <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div>
+                                    <figcaption class="info">
+                                      <h5  class="title">Amin Raach</h5>
+                                      <p  class="text-muted">  
+                                       <mat-icon style="cursor:pointer" [cdkCopyToClipboard]="value">file_copy</mat-icon>
+                                       <label for="clipboard-example-textarea">Text to be copied</label>
+
+                                         </p>
+                                    </figcaption>
+                                  </figure>
+                                </div>
+                                <div class=" col-sm-2">
+                                    <var class="price h6">dfg</var>
+                                  <!-- <select style="width: 100px" class="form-select">
+                                    <option>1</option>
+                                    <option>2</option>  
+                                    <option>3</option>  
+                                    <option>4</option>  
+                                  </select>  -->
+                                </div>
+                                <div class=" col-sm-2">
+                                  <div class="price-wrap lh-sm"> 
+                                    <var class="price h6">xcfgh</var>  <br>
+                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
+                                  </div> <!-- price-wrap .// -->
+                                </div>
+                                <!-- <div class="col-sm-2">
+                                    <div class="price-wrap lh-sm"> 
+                                      <var class="price h6">{{item?.color}}</var>  <br>
+                                    </div> 
+                                  </div> -->
+                                  <div class="col-md-4">
+                                    <figure class="itemside ">
+                                        <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div>
+                                        <figcaption class="info">
+                                          <h5  class="title">Amin Raach</h5>
+                                          <p  class="text-muted">  
+                                                <button>sdfdgh</button>
+                                             </p>
+                                        </figcaption>
+                                      </figure>
+                                  </div>
+                                <div class="col-auto" style="margin-top: 1%;">
+                                  <div class="price-wrap lh-sm" >
+                                    <!-- <a *ngIf="item.card.cardTypeCardTypeId!=3" (click)="edit(item)" class="btn btn-light"> <i class="fa fa-edit"></i></a> 
+                                    <a (click)="deleteItem(item?.cartId)" class="btn btn-light text-danger"> Annuler</a> -->
+                                  </div>
+                                </div>
+                              </article>
                         </div>
                     </div>
                 </div>
             </div>
+           
         </div>
-    </div>
 </div>

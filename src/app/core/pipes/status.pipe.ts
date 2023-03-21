@@ -9,10 +9,10 @@ export class status implements PipeTransform {
     switch(status){
      
       case "pending" : {
-        return 'EN ATTENTE';
+        return 'En attente';
       }
       case "ACTIVATED" : {
-        return 'ACTIF';
+        return 'Livré';
       }
       case "DISABLED" : {
         return 'INACTIF';

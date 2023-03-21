@@ -20,6 +20,9 @@
                                     <th>
                                         Commande ID
                                     </th>
+                                    <th>
+                                        Client
+                                    </th>
                                     <th> 
                                         Nbr carte
                                     </th>
@@ -30,7 +33,7 @@
                                         Crée le 
                                     </th>
                                     <th> 
-                                        Status
+                                        Livraison
                                     </th>
                                     <th> 
                                         Facture
@@ -50,8 +53,11 @@
                                         <td>
                                             {{item?.orderId}}
                                         </td>
+                                        <td>
+                                            {{item?.userEmail}}
+                                        </td>
                                         <td> 
-                                            {{item?.orderId}}
+                                            {{item?.counter}}
                                         </td>
                                         <td> 
                                             {{item?.total}}
@@ -66,10 +72,10 @@
                                         </td>
                                         <td> 
                                             <button class="btn btn-danger" style="font-size: 12px;"
-                                                        (click)="downloadAsPDF()">Telecharger</button>
+                                                        (click)="downloadAsPDF(item)">Telecharger</button>
                                         </td>
                                         <td> 
-                                            <mat-slide-toggle></mat-slide-toggle>
+                                            <mat-slide-toggle [checked]="item?.enabled" (change)="onChangeStatus($event, item)"></mat-slide-toggle>
                                         </td>
                                         <td>
                                             <button mat-icon-button color="accent" (click)="orderDetails(item?.orderId)">
@@ -85,6 +91,93 @@
                 </div>
             </div>
             
+        </div>
+    </div>
+</div>
+
+
+<div [hidden]="true">
+    <div class="container" id="pdfTable" #pdfTable>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="d-flex flex-row p-2">
+                        <div class="d-flex flex-column"> <span class="font-weight-bold">Commande
+                                ID</span> <small> {{id}}</small> </div>
+
+                    </div>
+
+                    <hr>
+                    <div class="table-responsive p-2">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="add">
+                                    <th>A</th>
+                                    <th>De</th>
+                                </tr>
+                                <tr class="content">
+                                    <td class="font-weight-bold"> {{user}}  <br></td>
+                                    <td class="font-weight-bold">info@e-shkoon.com <br></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="products p-2">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="add">
+                                    <th>Nom Carte</th>
+                                    <!-- <th>Type</th> -->
+                                    <th>Nom et prenom</th>
+                                    <th>Abonnement</th>
+                                    <!-- <th class="text-center">Total</th> -->
+                                </tr>
+                                <tr *ngFor="let item of orders" class="content">
+                                    <td>{{cardName}} </td>
+                                    <!-- <td>{{item?.typeCard}}</td> -->
+                                    <td>{{firstName}} {{lastName}}</td>
+                                    <td>{{subs}} </td>
+                                    <!-- <td class="text-center">{{item?.typeCard}}</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="products p-2">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="add">
+                                    <td></td>
+                                    <th>Sous-Total</th>
+                                    <th>Taxe</th>
+                                    <th class="text-center">Total</th>
+                                </tr>
+                                <tr class="content">
+                                    <td></td>
+                                    <td>{{total}}  TND</td>
+                                    <td>0</td>
+                                    <td class="text-center">{{total}} TND</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="address p-2">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr class="add">
+                                    <td>Adresse :</td>
+                                </tr>
+                                <tr class="content">
+                                    <td> {{address}} <br>
+                                        Num Tel : {{phoneNum}}  <br> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

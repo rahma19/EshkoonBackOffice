@@ -2,82 +2,66 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Gestion des cartes</h4>
+                        <h4 class="card-title ">Details de la commande</h4>
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
-                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <!-- <th>
-                                        ID
-                                    </th> -->
-                                    <th>
-                                        Nom
-                                    </th>
-                                    <th>
-                                        Type
-                                    </th>
-                                    <th>
-                                        Prix
-                                    </th>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Image
-                                    </th>
-                                    <th> 
-                                      
-                                    </th>
-                                   <!-- <th>
-                                        City
-                                    </th>
-                                    <th>
-                                        Salary
-                                    </th> -->
-                                </thead>
-                                <tbody>
-                                    <div class="no-results" [style.display]="orderDetails?.length == 0 ? '' : 'none'">
-                                        aucun résultat
-                                      </div>
-                                    <tr *ngFor="let item of orderDetails">
-                                        <td>
-                                            {{item?.name}}
-                                        </td>
-                                        <td>
-                                            {{item?.card_type?.name}}
-                                        </td>
-                                        <td>
-                                            {{item?.price}}
-                                        </td>
-                                        <td>
-                                            {{item?.description}}
-                                        </td>
-                                        <td>
-                                            <img width="100px" src="{{path}}{{item?.img}}">
-                                        </td>
-                                        <td>
-                                            <button mat-icon-button color="accent" (click)="edit(item)">
-                                                <mat-icon class="text-primary" aria-label="Edit">edit</mat-icon>
-                                              </button>
-                                      
-                                              <button mat-icon-button color="accent" (click)="delete(item['cardId'])">
-                                                <mat-icon class="text-danger"  aria-label="Delete">delete</mat-icon>
-                                              </button>
-                                        </td>
-                                        
-                                    </tr>
-                                   
-                                </tbody>
-                            </table>
+                        <div *ngFor="let item of cart"  class="card">
+                            <article class="row ">
+                                <div class="col-lg-4">
+                                  <figure class="itemside ">
+                                    <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div>
+                                    <figcaption class="info">
+                                      <h5  class="title">Amin Raach</h5>
+                                      <p  class="text-muted">  
+                                       <mat-icon style="cursor:pointer" [cdkCopyToClipboard]="value">file_copy</mat-icon>
+                                       <label for="clipboard-example-textarea">Text to be copied</label>
+
+                                         </p>
+                                    </figcaption>
+                                  </figure>
+                                </div>
+                                <div class=" col-sm-2">
+                                    <var class="price h6">dfg</var>
+                                  <!-- <select style="width: 100px" class="form-select">
+                                    <option>1</option>
+                                    <option>2</option>  
+                                    <option>3</option>  
+                                    <option>4</option>  
+                                  </select>  -->
+                                </div>
+                                <div class=" col-sm-2">
+                                  <div class="price-wrap lh-sm"> 
+                                    <var class="price h6">xcfgh</var>  <br>
+                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
+                                  </div> <!-- price-wrap .// -->
+                                </div>
+                                <!-- <div class="col-sm-2">
+                                    <div class="price-wrap lh-sm"> 
+                                      <var class="price h6">{{item?.color}}</var>  <br>
+                                    </div> 
+                                  </div> -->
+                                  <div class="col-md-4">
+                                    <figure class="itemside ">
+                                        <!-- <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div> -->
+                                        <figcaption class="info">
+                                          <h5  class="title">Amin Raach</h5>
+                                          <p  class="text-muted">  
+                                                <button>sdfdgh</button>
+                                             </p>
+                                        </figcaption>
+                                      </figure>
+                                  </div>
+                                <div class="col-auto" style="margin-top: 1%;">
+                                  <div class="price-wrap lh-sm" >
+                                    <!-- <a *ngIf="item.card.cardTypeCardTypeId!=3" (click)="edit(item)" class="btn btn-light"> <i class="fa fa-edit"></i></a> 
+                                    <a (click)="deleteItem(item?.cartId)" class="btn btn-light text-danger"> Annuler</a> -->
+                                  </div>
+                                </div>
+                              </article>
                         </div>
                     </div>
                 </div>
             </div>
            
         </div>
-    </div>
 </div>

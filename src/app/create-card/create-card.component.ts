@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { CardsService } from '../services/cards.service';
 import { MatDialogRef } from '@angular/material/dialog';
 @Component({
@@ -14,10 +14,10 @@ export class CreateCardComponent implements OnInit {
 
    cardForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
-    // type: ['', Validators.required],
+    isService: [false, Validators.required],
     price: ['', Validators.required],
     cardTypeCardTypeId: ['', Validators.required],
-    img: ['', Validators.required],
+    image: ['', Validators.required],
     description: ['', Validators.required]
   });
 
@@ -35,6 +35,8 @@ export class CreateCardComponent implements OnInit {
         //Submit form logic here!
     }
   }
+
+  subscription = new Subscription();
   constructor(private formBuilder: FormBuilder,  
     private cardService: CardsService,public dialogRef: MatDialogRef<CreateCardComponent>) { }
 
@@ -62,8 +64,12 @@ export class CreateCardComponent implements OnInit {
   //   return this.f['type'].value;
   // }
 
-  get img() {
-    return this.f['img'].value;
+  get image() {
+    return this.f['image'].value;
+  }
+
+  get isService() {
+    return this.f['isService'].value;
   }
 
   ngOnInit(): void {
@@ -71,49 +77,50 @@ export class CreateCardComponent implements OnInit {
     //   console.log(element.name)
     //   this.menu.push(element.name);
     // });
-    this.menu=this.cardService.getTypesValue()
+    this.cardService.getMenu().subscribe((res:any)=>{
+      console.log(res)
+    })
+      ;
+    this.cardService.getMenu();
+    this.subscription=this.cardService.cardType$.subscribe((res:any)=>{
+      console.log(this.menu);
+
+      this.menu= res;
+    });
+    
   }
 
   onSelectedFile(event:any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.cardForm.value.img=file;
-      console.log(this.cardForm.value.img);
+      this.cardForm.value.image=file;
       
     }
+    console.log(this.cardForm.value.image);
+
   }
 
   submit(){
     // if (this.cardForm.invalid) {
     //   return;
     // }    
-    // this.cardService.createCard(this.cardForm.value)
-    //   .pipe(first())
-    //   .subscribe(
-    //     async data => {
-    //       console.log(data);
-    //       await this.dialogRef.close();
-    //     },
-    //     error => {
-    //     });
     const formData = new FormData();
-    console.log(this.cardForm.value.img);
+    console.log(this.cardForm.value.image);
     
     formData.set('name', this.cardForm.value.name);
     formData.set('description', this.cardForm.value.description);
     formData.set('price', this.cardForm.value.price);
     formData.set('cardTypeCardTypeId', this.cardForm.value.cardTypeCardTypeId);
-    formData.set('image', this.cardForm.value.img);
+    formData.set('image', this.cardForm.value.image);
+    formData.set('isService', this.cardForm.value.isService);
     formData.forEach((value, key) => {
       console.log("key %s: value %s", key, value);
       })
-      console.log(formData.get("name"))
     
       this.cardService.createCard(formData).subscribe(
       async res => {
             console.log(res);
             await this.dialogRef.close();
-            // this.router.navigate(['/']);
         },
         error => console.log(error)
       );

@@ -99,8 +99,8 @@ export class AuthService {
     //   window.location.reload();
 
     // });
-    this.router.navigateByUrl('/');
-    this.LoginDialog();
+    this.router.navigateByUrl('/login');
+    // this.LoginDialog();
   }
 
   isLoggedIn() {

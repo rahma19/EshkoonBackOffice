@@ -33,6 +33,7 @@ import { DeleteSubscriptionComponent } from 'app/delete-subscription/delete-subs
 import { status } from 'app/core/pipes/status.pipe';
 import { OrderDetailsComponent } from 'app/order-details/order-details.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    ClipboardModule,
     MatRippleModule,
     MatFormFieldModule,
     MatIconModule,

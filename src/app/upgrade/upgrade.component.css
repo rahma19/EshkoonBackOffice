@@ -1,0 +1,33 @@
+.no-results {
+    display: flex;
+    justify-content: center;
+    padding: 14px;
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .row{
+    /* margin: 10% 0 5% 0; */
+}
+
+.card{
+    padding: 2%;
+}
+.btn-theme{
+    background-color: var(--primary);
+    color: white;
+    padding-left: 2%;
+}
+
+a{
+    text-decoration: none;
+}
+img{
+    width: 70%;
+    padding: 2%;
+
+}
+
+figure{
+    display: flex;
+}
