@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, Subscription } from 'rxjs';
 import { CardsService } from '../services/cards.service';
 import { MatDialogRef } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-create-card',
   templateUrl: './create-card.component.html',
@@ -17,13 +18,13 @@ export class CreateCardComponent implements OnInit {
     isService: [false, Validators.required],
     price: ['', Validators.required],
     cardTypeCardTypeId: ['', Validators.required],
-    image: ['', Validators.required],
+    img: ['', Validators.required],
     description: ['', Validators.required]
   });
 
   @ViewChild('myForm', { static: false })
   public MyForm: any;
-
+file:any;
   fname:string='';
   selectedFW = new FormControl();
   menu: any[] = [];
@@ -64,8 +65,8 @@ export class CreateCardComponent implements OnInit {
   //   return this.f['type'].value;
   // }
 
-  get image() {
-    return this.f['image'].value;
+  get img() {
+    return this.f['img'].value;
   }
 
   get isService() {
@@ -92,30 +93,22 @@ export class CreateCardComponent implements OnInit {
 
   onSelectedFile(event:any) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.cardForm.value.image=file;
-      
+      this.file = event.target.files[0];
+      this.cardForm.value.img= this.file;
     }
-    console.log(this.cardForm.value.image);
-
   }
 
   submit(){
     // if (this.cardForm.invalid) {
     //   return;
     // }    
-    const formData = new FormData();
-    console.log(this.cardForm.value.image);
-    
+    const formData = new FormData();    
     formData.set('name', this.cardForm.value.name);
     formData.set('description', this.cardForm.value.description);
     formData.set('price', this.cardForm.value.price);
     formData.set('cardTypeCardTypeId', this.cardForm.value.cardTypeCardTypeId);
-    formData.set('image', this.cardForm.value.image);
+    formData.set('image', this.file);
     formData.set('isService', this.cardForm.value.isService);
-    formData.forEach((value, key) => {
-      console.log("key %s: value %s", key, value);
-      })
     
       this.cardService.createCard(formData).subscribe(
       async res => {

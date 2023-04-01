@@ -1,9 +1,10 @@
 .no-results {
     /* display: flex; */
-   
     text-align: center;
-    /* justify-content: center; */
     padding: 14px;
     font-size: 14px;
     font-style: italic;
+  }
+  th,td{
+    width: 15px;
   }

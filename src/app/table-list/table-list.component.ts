@@ -1,34 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCardComponent } from '../create-card/create-card.component';
 import { CardsService } from 'app/services/cards.service';
 import { Subscription } from 'rxjs';
 import { DeleteCardComponent } from 'app/delete-card/delete-card.component';
 import { UpdateCardComponent } from 'app/update-card/update-card.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-table-list',
   templateUrl: './table-list.component.html',
   styleUrls: ['./table-list.component.css']  
 })
-export class TableListComponent implements OnInit {
+export class TableListComponent{
 cards:any[]=[];
+searchText = '';
+filteredData: any[] = [];
+displayedColumns = ['Nom', 'Type','Prix','Description','Image','Detail'];
+@ViewChild(MatPaginator) paginator: MatPaginator;
+@ViewChild(MatSort) sort: MatSort;
+dataSource: MatTableDataSource<any>;
+
 serviceSubscribe:Subscription = new Subscription();
 path='http://localhost:3000/uploads/cards/';
 
   constructor(private cardService : CardsService,public dialog: MatDialog) { }
 
-  ngOnInit() {
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  ngAfterViewInit() {
     this.cardService.getAllCards().subscribe((res:any)=>{
-      console.log(res);
-      // this.cards=res;
     })
-    this.cardService.getAllCards();
-    this.serviceSubscribe = this.cardService.cards$.subscribe(res => {
-      console.log('res', res);
-      this.cards = res;       
+      this.cardService.getAllCards();
+      this.serviceSubscribe = this.cardService.cards$.subscribe(res => {
+        this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  
     })
   }
+
 
   add() {    
     const dialogRef = this.dialog.open(CreateCardComponent, {

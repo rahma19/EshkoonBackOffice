@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { CreateCardComponent } from '../../create-card/create-card.component';
 import { OrderDetailsComponent } from 'app/order-details/order-details.component';
+import { AllFeatureComponent } from 'app/all-feature/all-feature.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -69,4 +70,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
+    { path: 'listSM',        component: AllFeatureComponent },
 ];

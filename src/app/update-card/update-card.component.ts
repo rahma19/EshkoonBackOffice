@@ -13,6 +13,7 @@ import { CardsService } from '../services/cards.service';
 export class UpdateCardComponent implements OnInit {
 
   id: any;
+  file:any;
   card!: any;
   cardForm: FormGroup = this.formBuilder.group({
     cardId: ['', Validators.required],
@@ -25,23 +26,27 @@ export class UpdateCardComponent implements OnInit {
     updatedAt: ['', Validators.required],
     img: ['', Validators.required],
     isService: ['', Validators.required],
-    type: ['', Validators.required]
+    // type: ['', Validators.required]
 
   });
   formData: any;
+  imagePath: string="";
+  path='http://localhost:3000/uploads/cards/';
+
   menu:any[]=[];
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,
     private cardService: CardsService, private router: Router, public dialogRef: MatDialogRef<UpdateCardComponent>,
     private route: ActivatedRoute
   ) {
     this.cardForm.setValue(data);
-  }
+  } 
 
   ngOnInit(): void {  
     console.log(this.data);
       
     this.id = this.data.cardId;
-    this.menu=this.cardService.getTypesValue()
+    this.menu=this.cardService.getTypesValue();
+    // this.file=this.
   }
 
   get f() {
@@ -71,17 +76,31 @@ export class UpdateCardComponent implements OnInit {
     return this.f['img'].value;
   }
 
+  onSelectedFile(event:any) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      this.cardForm.value.img= this.file;
+    }
+  }
+
   submit() {
     if (this.cardForm.invalid) {
       return;
     }
     console.log(this.cardForm.value);
-
-    this.cardService.updateCard(this.id, this.cardForm.value)
+    const formData = new FormData();    
+    formData.set('name', this.cardForm.value.name);
+    formData.set('description', this.cardForm.value.description);
+    formData.set('price', this.cardForm.value.price);
+    formData.set('cardTypeCardTypeId', this.cardForm.value.cardTypeCardTypeId);
+    if(this.file){
+      formData.set('image', this.file);
+    }
+    formData.set('isService', this.cardForm.value.isService);
+    this.cardService.updateCard(this.id, formData)
       .pipe(first())
       .subscribe(
         async data => {
-          console.log(this.cardService.cardTypeSubject.value);
           await this.dialogRef.close(Object.assign(this.cardForm.value));
 
           // this.cardService.getMenu();

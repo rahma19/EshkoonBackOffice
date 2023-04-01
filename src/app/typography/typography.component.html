@@ -1,14 +1,21 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
+
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">Gestion des types des cartes</h4>
+
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+                            <div style="width: 70%;">
+                                <mat-form-field floatPlaceholder="never" width="100%" color="accent">
+                                    <input matInput #filter [(ngModel)]="searchText" (input)="filterData()" placeholder="Recherche">
+                                  </mat-form-field>
+                            </div>
                             <table class="table">
                                 <thead class=" text-primary">
                                     <!-- <th>
@@ -24,10 +31,10 @@
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <div class="no-results" [style.display]="menu.length == 0 ? '' : 'none'">
-                                        aucun résultat
-                                      </div>
-                                    <tr *ngFor="let item of menu">
+                                    <tr style=" width: 100%;" [style.display]="menu.length == 0 ? '' : 'none'">
+                                        <td colspan="6" class="no-results">aucun résultat</td>
+                                      </tr>
+                                    <tr *ngFor="let item of filteredData">
                                         <td>
                                             {{item?.name}}
                                         </td>

@@ -1,67 +1,87 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                        <h4 class="card-title ">Details de la commande</h4>
-                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
-                    <div class="card-body">
-                        <div *ngFor="let item of profiles"  class="card">
-                            <article class="row ">
-                                <div class="col-lg-4">
-                                  <figure class="itemside ">
-                                    <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div>
-                                    <figcaption class="info">
-                                      <h5  class="title">Amin Raach</h5>
-                                      <p  class="text-muted">  
-                                       <mat-icon style="cursor:pointer" [cdkCopyToClipboard]="value">file_copy</mat-icon>
-                                       <label for="clipboard-example-textarea">Text to be copied</label>
+  <div class="container-fluid">
+      <div class="row">
 
-                                         </p>
-                                    </figcaption>
-                                  </figure>
-                                </div>
-                                <div class=" col-sm-2">
-                                    <var class="price h6">dfg</var>
-                                  <!-- <select style="width: 100px" class="form-select">
-                                    <option>1</option>
-                                    <option>2</option>  
-                                    <option>3</option>  
-                                    <option>4</option>  
-                                  </select>  -->
-                                </div>
-                                <div class=" col-sm-2">
-                                  <div class="price-wrap lh-sm"> 
-                                    <var class="price h6">xcfgh</var>  <br>
-                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
-                                  </div> <!-- price-wrap .// -->
-                                </div>
-                                <!-- <div class="col-sm-2">
-                                    <div class="price-wrap lh-sm"> 
-                                      <var class="price h6">{{item?.color}}</var>  <br>
-                                    </div> 
-                                  </div> -->
-                                  <div class="col-md-4">
-                                    <figure class="itemside ">
-                                        <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div>
-                                        <figcaption class="info">
-                                          <h5  class="title">Amin Raach</h5>
-                                          <p  class="text-muted">  
-                                                <button>sdfdgh</button>
-                                             </p>
-                                        </figcaption>
-                                      </figure>
-                                  </div>
-                                <div class="col-auto" style="margin-top: 1%;">
-                                  <div class="price-wrap lh-sm" >
-                                    <!-- <a *ngIf="item.card.cardTypeCardTypeId!=3" (click)="edit(item)" class="btn btn-light"> <i class="fa fa-edit"></i></a> 
-                                    <a (click)="deleteItem(item?.cartId)" class="btn btn-light text-danger"> Annuler</a> -->
-                                  </div>
-                                </div>
-                              </article>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Détails de la commande </h4>
+
+                      <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                  </div>
+                  <div class="card-body">
+                    <div style="width: 70%;">
+                      <mat-form-field floatPlaceholder="never" width="100%" color="accent">
+                          <input matInput #filter [(ngModel)]="searchText" (input)="filterData()" placeholder="Recherche">
+                        </mat-form-field>
+                  </div>
+                      <div *ngFor="let item of filteredData"  class="card">
+                          <article class="row ">
+                              <div class="col-lg-4">
+                                <figure class="itemside ">
+                                  <!-- <div style="width: 50%;"><img src="{{path}}{{item?.img}}" class="img-sm img-thumbnail"></div> -->
+                                  <figcaption class="info">
+                                    <div style="display: flex;"><mat-icon>supervised_user_circle</mat-icon>
+                                      <h5  class="title">{{item?.first_name}} {{item?.last_name}}</h5></div>
+                                    <p  class="text-muted"> 
+                                      <div style="display: flex;">
+                                      <mat-icon style="cursor:pointer"  class="text-muted" [cdkCopyToClipboard]="value">file_copy</mat-icon>
+                                     <label for="clipboard-example-textarea">Link to be copied</label>
 </div>
+                                  </figcaption>
+                                </figure>
+                              </div>
+                              <!-- <div class=" col-sm-2">
+                                  <var class="price h6">dfg</var>
+                               </div> -->
+                              <div class=" col-sm-2">
+                                <div class="price-wrap lh-sm"> 
+                                  <var class="price h6">{{item?.createdAt | date:"MM/dd/yyyy" }}</var>  <br>
+                                  <!-- <small class="text-muted"> $460.00 / per item </small>  -->
+                                </div> <!-- price-wrap .// -->
+                              </div>
+                              <!-- <div class="col-sm-2">
+                                  <div class="price-wrap lh-sm"> 
+                                    <var class="price h6">{{item?.color}}</var>  <br>
+                                  </div>  
+                                </div> -->
+                                <div style="float: right;margin-left: auto;" class="col-md-4">
+                                  <figure class="itemside ">
+                                      <div style="width: 50%;"><img src="{{path}}{{item?.qrImg}}" class="img-sm img-thumbnail"></div>
+                                      <figcaption class="info">
+                                        <h5  class="title"> </h5>
+                                        <p  class="text-muted">  
+                                              <button (click)="downloadAsPDF(item)" class="btn btn-primary">Télécharger</button>
+                                           </p>
+                                      </figcaption>
+                                    </figure>
+                                </div>
+                              <div class="col-auto" style="margin-top: 1%;">
+                                <div class="price-wrap lh-sm" >
+                                  <!-- <a *ngIf="item.card.cardTypeCardTypeId!=3" (click)="edit(item)" class="btn btn-light"> <i class="fa fa-edit"></i></a> 
+                                  <a (click)="deleteItem(item?.cartId)" class="btn btn-light text-danger"> Annuler</a> -->
+                                </div>
+                              </div>
+                            </article>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+          </div>
+          
+  </div>
+</div>
+
+
+<div [hidden]="true">
+  <div class="container" id="pdfTable" #pdfTable>
+      <div class="row d-flex justify-content-center">
+          <div class="col-md-8">
+              <div class="card">
+                <img src="{{path}}{{img}}" class="img-sm img-thumbnail">
+
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>

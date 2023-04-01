@@ -34,14 +34,21 @@ import { status } from 'app/core/pipes/status.pipe';
 import { OrderDetailsComponent } from 'app/order-details/order-details.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { CreateFeatureComponent } from 'app/create-feature/create-feature.component';
+import { DeleteFeatureComponent } from 'app/delete-feature/delete-feature.component';
+import { AllFeatureComponent } from 'app/all-feature/all-feature.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {  MatTableModule } from '@angular/material/table';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    MatPaginatorModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatTableModule,
     ClipboardModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -57,6 +64,9 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     status,
     OrderDetailsComponent,
     DashboardComponent,
+    DeleteFeatureComponent,
+    CreateFeatureComponent,
+    AllFeatureComponent,
     UserProfileComponent,
     TableListComponent,
     TypographyComponent,

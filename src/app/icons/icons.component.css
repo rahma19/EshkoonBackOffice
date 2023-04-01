@@ -1,6 +1,6 @@
 .no-results {
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    text-align: center;
     padding: 14px;
     font-size: 14px;
     font-style: italic;
@@ -9,3 +9,20 @@
   .badge{
     padding: 5px;
   }
+
+  .mat-column-Client, .mat-column-Facture {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 20% !important;
+    width: 20% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+

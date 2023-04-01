@@ -61,7 +61,12 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         async (data: any) => {
-          this.router.navigate(['/']);
+          if (JSON.parse(localStorage.getItem('user')).role!='admin'){
+            this.authenticationService.logout();            
+          }
+          else{
+            this.router.navigate(['/']);
+          }
         },
         error => {
         });

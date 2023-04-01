@@ -17,9 +17,18 @@ import { DeleteTypeCarteComponent } from 'app/delete-type-carte/delete-type-cart
 export class TypographyComponent implements OnInit {
   menu:any[]=[];
   serviceSubscribe:Subscription = new Subscription();
-  
+  searchText = '';
+  filteredData: any[] = [];
+
     constructor(private cardService : CardsService,public dialog: MatDialog) { }
-  
+    filterData() {
+      this.filteredData = this.menu.filter(item => {
+        // Return true if the item matches the search text
+        return item.name.toLowerCase().includes(this.searchText.toLowerCase())
+          // || item.email.toLowerCase().includes(this.searchText.toLowerCase());
+      });
+    }
+    
     
    add() {    
     const dialogRef = this.dialog.open(CreateTypeCarteComponent, {
@@ -77,14 +86,12 @@ export class TypographyComponent implements OnInit {
    */
   ngOnInit(): void {
     this.cardService.getMenu().subscribe((res:any)=>{
-      console.log(res);
-      // this.cards=res;
     })
     this.cardService.getMenu();
     this.serviceSubscribe = this.cardService.cardType$.subscribe(res => {
       this.menu = res;  
-      console.log(res);
-          
+      this.filteredData=res;
+                
     })
   }
 

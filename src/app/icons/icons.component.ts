@@ -4,20 +4,22 @@ import { OrderService } from 'app/services/order.service';
 import { Subscription } from 'rxjs';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 const htmlToPdfmake = require("html-to-pdfmake");
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
-
-// import pdfMake from "pdfmake/build/pdfmake";  
-// import pdfFonts from "pdfmake/build/vfs_fonts";  
-// const htmlToPdfmake = require("html-to-pdfmake");
-// (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-icons',
   templateUrl: './icons.component.html',
   styleUrls: ['./icons.component.css']
 })
-export class IconsComponent implements OnInit {
+export class IconsComponent  {
+  displayedColumns = ['Commande ID', 'Client','Nbr','Total','Date','Status','Facture','Livrer','Detail'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource: MatTableDataSource<any>;
   @ViewChild('pdfTable')
   pdfTable!: ElementRef;
 id:any="";
@@ -30,19 +32,29 @@ user='';
 total=0;
 phoneNum='';
 address='';
-  serviceSubscribe: Subscription = new Subscription();
+searchText = '';
 
   constructor(private orderService: OrderService, private router: Router) { }
 
-  ngOnInit() {
-    this.orderService.getAllOrders().subscribe((res: any) => {
-
-    })
+  /**
+   * Set the paginator and sort after the view init since this component will
+   * be able to query its view for the initialized paginator and sort.
+   */
+  ngAfterViewInit() {
     this.orderService.getAllOrders();
     this.orderService.orders$.subscribe((order: any) => {
       this.orders = order;
-      console.log(order);
+      this.dataSource = new MatTableDataSource(order);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  
     })
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   orderDetails(orderId: any) {
@@ -62,7 +74,7 @@ address='';
 
   async downloadAsPDF(item) {
      var order =await this.getDetails(item)
-    this.id= order.orderId
+    this.id= order.orderId 
     this.user=order.userEmail
     this.firstName=order.user_first_name
     this.total=order.total
@@ -80,6 +92,7 @@ address='';
     }, 500);
      
   }
+
   onChangeStatus(e, order) {
     let enabled = e.checked ? true : false;
     console.log(enabled);
@@ -94,12 +107,11 @@ address='';
       order.enabled = true; 
       // this.msgs = [{severity:'info', summary:'Le restaurant est actif', detail:''}];
     }
-    console.log(order);
-
     this.orderService.updateOrder(order).subscribe((order: any) => {
-      console.log(order);
 
     });
 
   }
 }
+
+

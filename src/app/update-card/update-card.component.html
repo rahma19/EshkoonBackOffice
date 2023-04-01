@@ -35,8 +35,8 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Type Carte</mat-label>
-    <mat-select formControlName="cardTypeCardTypeId" [formControl]="cardTypeCardTypeId">
-        <mat-option *ngFor="let item of menu" (change)="item.cardTypeId" [value]="item.cardTypeId">
+    <mat-select formControlName="cardTypeCardTypeId" >
+        <mat-option *ngFor="let item of menu"  [value]="item.cardTypeId">
         {{ item.name }}
        </mat-option>
       </mat-select>
@@ -44,12 +44,17 @@
   <br>
   <mat-form-field appearance="outline">
     <mat-label>Description </mat-label>
-    <input type="text" formControlName="description" matInput>
+    <textarea matInput formControlName="description"  cdkTextareaAutosize
+                                    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
+                                    cdkAutosizeMaxRows="5"></textarea>
   </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Image </mat-label>
-    <input type="text" formControlName="img" matInput>
-  </mat-form-field>
+  <mat-label >Importer une image</mat-label>
+    <div class="col-md-9 " style="padding-bottom: 4%;">
+      <input  type="file" id="image" class="file-input" (change)="onSelectedFile($event)" />
+      <div>
+        <img src="{{path}}{{cardForm.value.img}}" width="100px">
+      </div>
+  </div>
   <mat-form-field appearance="outline">
     <mat-label>Prix </mat-label>
     <input type="text" formControlName="price" matInput>

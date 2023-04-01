@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes =[
   {
@@ -16,13 +17,16 @@ const routes: Routes =[
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+    canActivate:[AuthGuard]
   }, {
     path: '',
     component: AdminLayoutComponent,
     children: [{
       path: '',
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
-    }]
+    }],
+    canActivate:[AuthGuard]
+
   }
 ];
 

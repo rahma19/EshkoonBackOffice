@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from 'app/services/order.service';
 import * as Chartist from 'chartist';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,8 +9,12 @@ import * as Chartist from 'chartist';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+counterOrders=0;
+counterActiveOrders=0;
+counterProfiles=0;
+private serviceSubscribe: Subscription = new Subscription; 
 
-  constructor() { }
+  constructor(private orderService:OrderService) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -67,6 +73,23 @@ export class DashboardComponent implements OnInit {
   };
   ngOnInit() {
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+      this.orderService.getAllOrderDetails().subscribe((res: any) => {
+
+      })
+      this.orderService.getAllOrderDetails();
+      this.orderService.orderDetails$.subscribe((order: any) => {
+        order.forEach(element => {
+          if(element.status==true){
+            this.counterProfiles++;
+          }
+        });
+        this.counterOrders = order.length;
+      })
+
+      this.orderService.getAllOrders();
+      this.serviceSubscribe = this.orderService.counter$.subscribe((res:any) => {        
+      this.counterActiveOrders= res;
+  });
 
       const dataDailySalesChart: any = {
           labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],

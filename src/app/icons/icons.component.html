@@ -1,96 +1,85 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <mat-form-field floatPlaceholder="never" width="100%" color="accent">
-                <input matInput #filter placeholder="Recherche">
-              </mat-form-field>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">Liste des commandes</h4>
-                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <!-- <th>
-                                        ID
-                                    </th> -->
-                                    <th>
-                                        Commande ID
-                                    </th>
-                                    <th>
-                                        Client
-                                    </th>
-                                    <th> 
-                                        Nbr carte
-                                    </th>
-                                    <th> 
-                                        Total
-                                    </th>
-                                    <th> 
-                                        Crée le 
-                                    </th>
-                                    <th> 
-                                        Livraison
-                                    </th>
-                                    <th> 
-                                        Facture
-                                    </th>
-                                    <th>
-                                        Livrer 
-                                    </th>
-                                    <th>
-                                        
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <div class="no-results" [style.display]="orders?.length == 0 ? '' : 'none'">
-                                        aucun résultat
-                                      </div>
-                                    <tr *ngFor="let item of orders">
-                                        <td>
-                                            {{item?.orderId}}
-                                        </td>
-                                        <td>
-                                            {{item?.userEmail}}
-                                        </td>
-                                        <td> 
-                                            {{item?.counter}}
-                                        </td>
-                                        <td> 
-                                            {{item?.total}}
-                                        </td>
-                                        <td> 
-                                            {{item?.createdAt | date:"MM/dd/yyyy"}} 
-                                        </td>
-                                        <td> 
-                                            <span class="badge text-white"
-         [ngClass]="{' bg-danger  mr-1' : item?.status.trim() == 'DISABLED' ,  ' bg-warning ': item?.status.trim() == 'pending', 
-       'bg-success ': item?.status.trim() == 'ACTIVATED'}">{{item?.status | status}}</span>
-                                        </td>
-                                        <td> 
-                                            <button class="btn btn-danger" style="font-size: 12px;"
-                                                        (click)="downloadAsPDF(item)">Telecharger</button>
-                                        </td>
-                                        <td> 
-                                            <mat-slide-toggle [checked]="item?.enabled" (change)="onChangeStatus($event, item)"></mat-slide-toggle>
-                                        </td>
-                                        <td>
-                                            <button mat-icon-button color="accent" (click)="orderDetails(item?.orderId)">
-                                                <mat-icon class="text-warn"  aria-label="Delete">open_in_new</mat-icon>
-                                              </button>
-                                        </td>
-                                   
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div style="width: 70%;">
+                                <mat-form-field floatPlaceholder="never" width="100%" color="accent">
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
+                                </mat-form-field>
+                            </div>
+                            <mat-table [dataSource]="dataSource" matSort>
+                                <ng-container matColumnDef="Commande ID">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Commande ID </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.orderId}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Client">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Client</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row?.userEmail}}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Nbr">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nbr carte</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row?.counter}}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Total">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row?.total}} TND</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Date">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Crée le</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row?.createdAt | date:"MM/dd/yyyy"}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Status">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Livraison</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"><span class="badge text-white" [ngClass]="{' bg-danger  mr-1' : row?.status.trim() == 'DISABLED' ,  ' bg-warning ': row?.status.trim() == 'pending', 
+                                      'bg-success ': row?.status.trim() == 'ACTIVATED'}">{{row?.status |
+                                            status}}</span> </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Facture">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Facture</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <button class="btn btn-danger"
+                                            style="font-size: 12px;" (click)="downloadAsPDF(item)">Telecharger</button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Livrer">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Livrer</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <mat-slide-toggle [checked]="item?.enabled"
+                                            (change)="onChangeStatus($event, item)"></mat-slide-toggle>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Detail">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <button mat-icon-button color="accent"
+                                            (click)="orderDetails(item?.orderId)">
+                                            <mat-icon class="text-warn" aria-label="Delete">open_in_new</mat-icon>
+                                        </button> </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </mat-row>
+                            </mat-table>
+
+                            <mat-paginator [pageSizeOptions]="[ 10, 25, 50, 100]"></mat-paginator>
+
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -116,7 +105,7 @@
                                     <th>De</th>
                                 </tr>
                                 <tr class="content">
-                                    <td class="font-weight-bold"> {{user}}  <br></td>
+                                    <td class="font-weight-bold"> {{user}} <br></td>
                                     <td class="font-weight-bold">info@e-shkoon.com <br></td>
                                 </tr>
                             </tbody>
@@ -155,7 +144,7 @@
                                 </tr>
                                 <tr class="content">
                                     <td></td>
-                                    <td>{{total}}  TND</td>
+                                    <td>{{total}} TND</td>
                                     <td>0</td>
                                     <td class="text-center">{{total}} TND</td>
                                 </tr>
@@ -171,7 +160,7 @@
                                 </tr>
                                 <tr class="content">
                                     <td> {{address}} <br>
-                                        Num Tel : {{phoneNum}}  <br> </td>
+                                        Num Tel : {{phoneNum}} <br> </td>
                                 </tr>
                             </tbody>
                         </table>

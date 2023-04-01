@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       console.log('exp',this.jwtHelper.isTokenExpired());
          
       // if(AuthUtils.isTokenExpired())   
-       this.router.navigateByUrl('auth/login');
+       this.router.navigateByUrl('/login');
       alert("not logged in");
       return false
     }

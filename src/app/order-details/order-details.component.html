@@ -9,19 +9,17 @@
                             <article class="row ">
                                 <div class="col-lg-4">
                                   <figure class="itemside ">
-                                    <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div>
+                                    <div style="width: 50%;"><img src="{{path}}{{item?.card.img}}" class="img-sm img-thumbnail"></div>
                                     <figcaption class="info">
-                                      <h5  class="title">Amin Raach</h5>
-                                      <p  class="text-muted">  
-                                       <mat-icon style="cursor:pointer" [cdkCopyToClipboard]="value">file_copy</mat-icon>
-                                       <label for="clipboard-example-textarea">Text to be copied</label>
-
-                                         </p>
+                                      <h5  class="title">{{item?.user_first_name}}  {{item?.user_last_name}}</h5>
+                                      <!-- <p  class="text-muted">  
+                                       <label for="clipboard-example-textarea">{{item?.subscription?.type}}</label>
+                                         </p> -->
                                     </figcaption>
                                   </figure>
                                 </div>
                                 <div class=" col-sm-2">
-                                    <var class="price h6">dfg</var>
+                                    <var class="price h6">{{item?.cardType?.name}} </var>
                                   <!-- <select style="width: 100px" class="form-select">
                                     <option>1</option>
                                     <option>2</option>  
@@ -31,23 +29,23 @@
                                 </div>
                                 <div class=" col-sm-2">
                                   <div class="price-wrap lh-sm"> 
-                                    <var class="price h6">xcfgh</var>  <br>
+                                    <var class="price h6">{{item?.card?.name}}</var>  <br>
                                     <!-- <small class="text-muted"> $460.00 / per item </small>  -->
                                   </div> <!-- price-wrap .// -->
                                 </div>
-                                <!-- <div class="col-sm-2">
+                                <div class="col-sm-2">
                                     <div class="price-wrap lh-sm"> 
-                                      <var class="price h6">{{item?.color}}</var>  <br>
+                                      <var class="price text-muted h6">{{item?.subscription?.type}}</var>  <br>
                                     </div> 
-                                  </div> -->
-                                  <div class="col-md-4">
+                                  </div>
+                                  <div class="col-md-2">
                                     <figure class="itemside ">
                                         <!-- <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div> -->
-                                        <figcaption class="info">
-                                          <h5  class="title">Amin Raach</h5>
-                                          <p  class="text-muted">  
+                                        <figcaption >
+                                          <b  class="title text-bold">{{item?.price}} TND</b>
+                                          <!-- <p  class="text-muted">  
                                                 <button>sdfdgh</button>
-                                             </p>
+                                             </p> -->
                                         </figcaption>
                                       </figure>
                                   </div>

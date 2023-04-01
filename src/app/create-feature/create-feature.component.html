@@ -1,0 +1,25 @@
+
+
+
+<h1 id="createCard" mat-dialog-title>Ajouter une nouvelle fonction</h1>
+<form [formGroup]="cardForm" (ngSubmit)="submit()">
+<div mat-dialog-content>
+    <mat-form-field appearance="outline">
+    <mat-label>Nom </mat-label>
+    <input type="text" formControlName="name" matInput>
+  </mat-form-field>
+    <mat-label >Importer une image</mat-label>
+    <div class="col-md-9 " style="padding-bottom: 4%;">
+      <input  type="file" id="image" class="file-input" (change)="onSelectedFile($event)" />
+      <div *ngIf="imagePath">
+        <br />
+        <img [src]="imagePath" width="100px">
+      </div>
+  </div>
+</div>
+<div mat-dialog-actions class="mt-15">
+  <button type="submit" mat-raised-button class="btn"
+   cdkFocusInitial>Ajouter</button>
+  <button mat-raised-button mat-dialog-close>Annuler</button>
+</div>
+</form>
