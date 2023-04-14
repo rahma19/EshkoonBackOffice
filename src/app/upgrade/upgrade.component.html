@@ -1,22 +1,24 @@
-<div class="main-content">
-  <div class="container-fluid">
+<div *ngIf="isLoading">
+  <div id="spinner"
+  class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+  <div class="spinner-grow text-primary" role="status"></div>
+</div>
+</div>
+
+<div *ngIf="!isLoading" class="main-content">
+  <div class="px-2">
       <div class="row">
 
           <div class="col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title ">Détails de la commande </h4>
-
-                      <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
-                  </div>
+              <div>
                   <div class="card-body">
                     <div style="width: 70%;">
                       <mat-form-field floatPlaceholder="never" width="100%" color="accent">
                           <input matInput #filter [(ngModel)]="searchText" (input)="filterData()" placeholder="Recherche">
                         </mat-form-field>
                   </div>
-                      <div *ngFor="let item of filteredData"  class="card">
-                          <article class="row ">
+                      <div *ngFor="let item of filteredData | filter : searchText : 'first_name','last_name'"  class="card">
+                          <article  class="row ">
                               <div class="col-lg-4">
                                 <figure class="itemside ">
                                   <!-- <div style="width: 50%;"><img src="{{path}}{{item?.img}}" class="img-sm img-thumbnail"></div> -->
@@ -25,8 +27,8 @@
                                       <h5  class="title">{{item?.first_name}} {{item?.last_name}}</h5></div>
                                     <p  class="text-muted"> 
                                       <div style="display: flex;">
-                                      <mat-icon style="cursor:pointer"  class="text-muted" [cdkCopyToClipboard]="value">file_copy</mat-icon>
-                                     <label for="clipboard-example-textarea">Link to be copied</label>
+                                      <mat-icon style="cursor:pointer"  class="text-muted" [cdkCopyToClipboard]="item?.link">file_copy</mat-icon>
+                                     <label  for="clipboard-example-textarea">{{item?.link}}</label>
 </div>
                                   </figcaption>
                                 </figure>
@@ -34,9 +36,9 @@
                               <!-- <div class=" col-sm-2">
                                   <var class="price h6">dfg</var>
                                </div> -->
-                              <div class=" col-sm-2">
+                              <div class=" col-lg-2">
                                 <div class="price-wrap lh-sm"> 
-                                  <var class="price h6">{{item?.createdAt | date:"MM/dd/yyyy" }}</var>  <br>
+                                  <var class="price h6">Crée le {{item?.createdAt | date:'dd/MM/yyyy HH:mm' }}</var>  <br>
                                   <!-- <small class="text-muted"> $460.00 / per item </small>  -->
                                 </div> <!-- price-wrap .// -->
                               </div>
@@ -45,23 +47,20 @@
                                     <var class="price h6">{{item?.color}}</var>  <br>
                                   </div>  
                                 </div> -->
-                                <div style="float: right;margin-left: auto;" class="col-md-4">
+                                <div style="float: right;margin-left: auto;" class="col-lg-4">
                                   <figure class="itemside ">
-                                      <div style="width: 50%;"><img src="{{path}}{{item?.qrImg}}" class="img-sm img-thumbnail"></div>
+                                      <div *ngIf="item?.qrImg" style="width: 50%;"><img src="{{path}}{{item?.qrImg}}" class="img-sm img-thumbnail"></div>
                                       <figcaption class="info">
                                         <h5  class="title"> </h5>
                                         <p  class="text-muted">  
-                                              <button (click)="downloadAsPDF(item)" class="btn btn-primary">Télécharger</button>
+                                              <button *ngIf="item?.qrImg"  (click)="downloadAsPDF(item?.qrImg)" class="btn btn-primary">Télécharger</button>
+                                              <button *ngIf="!item?.qrImg"  (click)="edit(item)" class="btn btn-warning">Génerer un Qr Code</button>
+
                                            </p>
                                       </figcaption>
                                     </figure>
                                 </div>
-                              <div class="col-auto" style="margin-top: 1%;">
-                                <div class="price-wrap lh-sm" >
-                                  <!-- <a *ngIf="item.card.cardTypeCardTypeId!=3" (click)="edit(item)" class="btn btn-light"> <i class="fa fa-edit"></i></a> 
-                                  <a (click)="deleteItem(item?.cartId)" class="btn btn-light text-danger"> Annuler</a> -->
-                                </div>
-                              </div>
+                               
                             </article>
                       </div>
                   </div>
@@ -79,7 +78,6 @@
           <div class="col-md-8">
               <div class="card">
                 <img src="{{path}}{{img}}" class="img-sm img-thumbnail">
-
           </div>
           </div>
           </div>

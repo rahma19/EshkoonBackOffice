@@ -1,0 +1,83 @@
+<div *ngIf="isLoading">
+    <div id="spinner"
+    class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+  </div>
+  </div>
+  
+  <div *ngIf="!isLoading" class="main-content">
+    <div class="px-2">
+        <div class="row">
+  
+            <div class="col-md-12">
+                <div>
+                    <div class="card-body">
+                      <div style="width: 70%;">
+                        <mat-form-field floatPlaceholder="never" width="100%" color="accent">
+                            <input matInput #filter [(ngModel)]="searchText" (input)="filterData()" placeholder="Recherche">
+                          </mat-form-field>
+                    </div>
+                        <div *ngFor="let item of filteredData " class="card">
+                            <article  class="row ">
+                                <div class="col-lg-4">
+                                  <figure class="itemside ">
+                                    <!-- <div style="width: 50%;"><img src="{{path}}{{item?.img}}" class="img-sm img-thumbnail"></div> -->
+                                    <figcaption class="info">
+                                      <div style="display: flex;"><mat-icon>supervised_user_circle</mat-icon>
+                                        <h5  class="title">{{item?.first_name}} {{item?.last_name}}</h5></div>
+                                      <p  class="text-muted"> 
+                                        <div style="display: flex;">
+                                        <mat-icon style="cursor:pointer"  class="text-muted" [cdkCopyToClipboard]="item?.link">file_copy</mat-icon>
+                                       <label  for="clipboard-example-textarea">{{item?.link}}</label>
+  </div>
+                                    </figcaption>
+                                  </figure>
+                                </div>
+                                <!-- <div class=" col-sm-2">
+                                    <var class="price h6">dfg</var>
+                                 </div> -->
+                                <div class=" col-lg-2">
+                                  <div class="price-wrap lh-sm"> 
+                                    <var class="price h6">Crée le {{item?.createdAt | date:'dd/MM/yyyy HH:mm' }}</var>  <br>
+                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
+                                  </div> <!-- price-wrap .// -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="price-wrap lh-sm"> 
+                                      <var class="price h6">{{item?.nbrMenu}} tables</var>  <br>
+                                    </div>  
+                                  </div>
+                                  <div style="float: right;margin-left: auto;" class="col-lg-4">
+                                    <figure class="itemside ">
+                                        <div style="width: 50%;"><img src="{{path}}{{item?.qrImg}}" class="img-sm img-thumbnail"></div>
+                                        <figcaption class="info">
+                                          <h5  class="title"> </h5>
+                                          <p  class="text-muted">  
+                                                <button  (click)="downloadAsPDF(item?.qrImg)" class="btn btn-primary">Télécharger</button>
+                                             </p>
+                                        </figcaption>
+                                      </figure>
+                                  </div>
+                                 
+                              </article>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+    </div>
+  </div>
+  
+  
+  <div [hidden]="true">
+    <div class="container" id="pdfTable" #pdfTable>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                  <img src="{{path}}{{img}}" class="img-sm img-thumbnail">
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>

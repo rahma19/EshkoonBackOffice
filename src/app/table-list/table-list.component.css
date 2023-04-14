@@ -89,3 +89,8 @@
     -webkit-hyphens: auto;
     hyphens: auto;
   }
+
+  .mat-row{
+  padding-bottom: 2%;
+  padding-top: 2%;
+  }

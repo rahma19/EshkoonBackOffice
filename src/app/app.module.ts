@@ -26,6 +26,7 @@ import { HttpResponseInterceptor } from './core/interceptors/http-response.inter
 import { AuthService } from './services/auth.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { MenuService } from './services/menu.service';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -48,13 +49,12 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-
 ], 
   exports:[MatIconModule,MatDialogModule,MatRadioModule
   ,MatSelectModule,MatInputModule,MatFormFieldModule],
   entryComponents:[],
   providers: [CardsService,OrderService, AuthService, AuthGuard,
-    JwtHelperService,
+    JwtHelperService,MenuService,
     { provide: JWT_OPTIONS, useValue: {} },
     {
       provide: HTTP_INTERCEPTORS,

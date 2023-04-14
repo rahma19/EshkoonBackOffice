@@ -16,8 +16,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/listSM', title: 'Liste des réseaux Sociaux',  icon:'unarchive', class: '' },
     { path: '/icons', title: 'Liste des commandes',  icon:'bubble_chart', class: '' },
     // { path: '/maps', title: 'Liste des utilisateurs',  icon:'location_on', class: '' },
-    { path: '/upgrade', title: 'Liste des profils',  icon:'notifications', class: '' },
-    // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+    { path: '/upgrade', title: 'Liste des cartes  ',  icon:'notifications', class: '' },
+    { path: '/menu', title: 'Liste des menu  ',  icon:'notifications', class: '' },
+    // { path: '/menu', title: 'Liste des menu',  icon:'unarchive', class: 'active-pro' },
 ];
 
 @Component({

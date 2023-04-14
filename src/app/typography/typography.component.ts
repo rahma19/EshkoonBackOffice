@@ -19,8 +19,12 @@ export class TypographyComponent implements OnInit {
   serviceSubscribe:Subscription = new Subscription();
   searchText = '';
   filteredData: any[] = [];
-
-    constructor(private cardService : CardsService,public dialog: MatDialog) { }
+  isLoading=true
+    constructor(private cardService : CardsService,public dialog: MatDialog) { 
+      setTimeout(() => {
+        this.isLoading = false; // Set isLoading to false when loading is complete
+      }, 1000);
+    }
     filterData() {
       this.filteredData = this.menu.filter(item => {
         // Return true if the item matches the search text

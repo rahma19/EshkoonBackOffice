@@ -20,8 +20,12 @@ export class AllFeatureComponent implements OnInit {
   
   serviceSubscribe:Subscription = new Subscription();
 path='http://localhost:3000/uploads/features/';
-
-  constructor(private orderService : OrderService,public dialog: MatDialog) { }
+isLoading=true
+  constructor(private orderService : OrderService,public dialog: MatDialog) {
+    setTimeout(() => {
+      this.isLoading = false; // Set isLoading to false when loading is complete
+    }, 1000);
+   }
 
   filterData() {
     this.filteredData = this.features.filter(item => {

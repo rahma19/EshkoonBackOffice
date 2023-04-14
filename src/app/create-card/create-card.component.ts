@@ -28,7 +28,7 @@ file:any;
   fname:string='';
   selectedFW = new FormControl();
   menu: any[] = [];
-  imagePath: string="";
+  imagePath: any="";
 
   submitForm(e:any){
     console.log(this.MyForm);
@@ -92,9 +92,16 @@ file:any;
   }
 
   onSelectedFile(event:any) {
+    const reader = new FileReader();
+
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
       this.cardForm.value.img= this.file;
+      reader.readAsDataURL(this.file);
+      reader.onload = () => {
+        this.imagePath = reader.result;
+
+      }
     }
   }
 

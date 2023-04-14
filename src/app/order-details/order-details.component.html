@@ -1,5 +1,12 @@
-<div class="main-content">
-    <div class="container-fluid">
+<div *ngIf="isLoading">
+  <div id="spinner"
+  class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+  <div class="spinner-grow text-primary" role="status"></div>
+</div>
+</div>
+
+<div *ngIf="!isLoading" class="main-content">
+    <div class="px-2">
         <div class="row">
             <div class="col-md-12">
                         <h4 class="card-title ">Details de la commande</h4>
@@ -11,50 +18,45 @@
                                   <figure class="itemside ">
                                     <div style="width: 50%;"><img src="{{path}}{{item?.card.img}}" class="img-sm img-thumbnail"></div>
                                     <figcaption class="info">
-                                      <h5  class="title">{{item?.user_first_name}}  {{item?.user_last_name}}</h5>
-                                      <!-- <p  class="text-muted">  
-                                       <label for="clipboard-example-textarea">{{item?.subscription?.type}}</label>
-                                         </p> -->
+                                      <label  class="title">{{item?.card?.name}}</label>
+                                      <p  class="text-muted">  
+                                       <!-- <label for="clipboard-example-textarea">  <label>{{item?.cardType?.name}} </label>
+                                       </label> -->
+                                         </p>
                                     </figcaption>
                                   </figure>
                                 </div>
-                                <div class=" col-sm-2">
-                                    <var class="price h6">{{item?.cardType?.name}} </var>
-                                  <!-- <select style="width: 100px" class="form-select">
-                                    <option>1</option>
-                                    <option>2</option>  
-                                    <option>3</option>  
-                                    <option>4</option>  
-                                  </select>  -->
-                                </div>
-                                <div class=" col-sm-2">
+                                <div class=" col-lg-3">
+                                  <label>Type {{item?.cardType?.name}} </label>
+                                 </div>
+                                <div class=" col-lg-2">
+                                    <label>{{item?.user_first_name}}  {{item?.user_last_name}} </label>
+                                   </div>
+                                <div *ngIf="!item?.cardType?.name.includes('Google')" class=" col-lg-2">
                                   <div class="price-wrap lh-sm"> 
-                                    <var class="price h6">{{item?.card?.name}}</var>  <br>
+                                    <label>Abonnement {{item?.subscription?.type}}</label>  <br>
                                     <!-- <small class="text-muted"> $460.00 / per item </small>  -->
                                   </div> <!-- price-wrap .// -->
                                 </div>
-                                <div class="col-sm-2">
+                                <div *ngIf="item?.cardType?.name.includes('Google')" class=" col-lg-2">
+                                  <div class="price-wrap lh-sm"> 
+                                    <label>{{item?.entreprise}}</label>  <br>
+                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
+                                  </div> <!-- price-wrap .// -->
+                                </div>
+                                <div class="col-lg-1">
                                     <div class="price-wrap lh-sm"> 
-                                      <var class="price text-muted h6">{{item?.subscription?.type}}</var>  <br>
+                                      <label style="font-weight: bold;" >{{item?.price}} TND</label>  <br>
                                     </div> 
                                   </div>
-                                  <div class="col-md-2">
+                                  <!-- <div class="col-lg-3">
                                     <figure class="itemside ">
-                                        <!-- <div style="width: 50%;"><img src="https://m-card.fr/images/products/da76738e4cd2b07d5adc549d91d1abc2fc5f0c70.gif" class="img-sm img-thumbnail"></div> -->
                                         <figcaption >
-                                          <b  class="title text-bold">{{item?.price}} TND</b>
-                                          <!-- <p  class="text-muted">  
-                                                <button>sdfdgh</button>
-                                             </p> -->
+                                          <b  class="title text-bold"><a  class="btn btn-success">Génerer un QR code</a></b>
                                         </figcaption>
                                       </figure>
-                                  </div>
-                                <div class="col-auto" style="margin-top: 1%;">
-                                  <div class="price-wrap lh-sm" >
-                                    <!-- <a *ngIf="item.card.cardTypeCardTypeId!=3" (click)="edit(item)" class="btn btn-light"> <i class="fa fa-edit"></i></a> 
-                                    <a (click)="deleteItem(item?.cartId)" class="btn btn-light text-danger"> Annuler</a> -->
-                                  </div>
-                                </div>
+                                  </div> -->
+                              
                               </article>
                         </div>
                     </div>

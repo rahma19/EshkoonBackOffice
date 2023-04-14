@@ -15,8 +15,12 @@ export class NotificationsComponent implements OnInit {
 
   serviceSubscribe:Subscription = new Subscription();
   subscriptions:any;
-
-    constructor(private cardService : CardsService,public dialog: MatDialog) { }
+  isLoading=true
+    constructor(private cardService : CardsService,public dialog: MatDialog) {
+      setTimeout(() => {
+        this.isLoading = false; // Set isLoading to false when loading is complete
+      }, 1000);
+     }
     // showNotification(from, align){
   //     const type = ['','info','success','warning','danger'];
 

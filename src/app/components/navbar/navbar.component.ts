@@ -7,7 +7,7 @@ import { AuthService } from 'app/services/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
     private listTitles: any[];
@@ -20,6 +20,8 @@ export class NavbarComponent implements OnInit {
       this.location = location;
           this.sidebarVisible = false;
     }
+
+   
 
     ngOnInit(){
       this.listTitles = ROUTES.filter(listTitle => listTitle);
@@ -121,7 +123,7 @@ export class NavbarComponent implements OnInit {
               return this.listTitles[item].title;
           }
       }
-      return 'Dashboard';
+      return 'Tableau de bord';
     }
 
 

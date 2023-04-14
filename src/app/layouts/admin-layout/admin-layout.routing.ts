@@ -11,6 +11,8 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { CreateCardComponent } from '../../create-card/create-card.component';
 import { OrderDetailsComponent } from 'app/order-details/order-details.component';
 import { AllFeatureComponent } from 'app/all-feature/all-feature.component';
+import { MenuComponent } from 'app/menu/menu.component';
+import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -71,4 +73,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'listSM',        component: AllFeatureComponent },
+    { path: 'menu',        component: MenuComponent },
+    { path: 'createMenu',        component: CreateMenuComponent },
 ];

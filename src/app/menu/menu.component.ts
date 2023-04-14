@@ -5,16 +5,17 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateProfileComponent } from 'app/update-profile/update-profile.component';
+import { MenuService } from 'app/services/menu.service';
 const htmlToPdfmake = require("html-to-pdfmake");
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-  selector: 'app-upgrade',
-  templateUrl: './upgrade.component.html',
-  styleUrls: ['./upgrade.component.css']
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
+export class MenuComponent implements OnInit {
 
-export class UpgradeComponent implements OnInit {
   @ViewChild('pdfTable')
   pdfTable!: ElementRef;
   profile:any;
@@ -26,7 +27,7 @@ export class UpgradeComponent implements OnInit {
    searchText = '';
    filteredData: any[] = [];
    isLoading=true
-  constructor(private orderService: OrderService,public dialog: MatDialog) {
+  constructor(private orderService: OrderService,public dialog: MatDialog,private menuService: MenuService) {
     setTimeout(() => {
       this.isLoading = false; // Set isLoading to false when loading is complete
     }, 1000);
@@ -37,17 +38,28 @@ export class UpgradeComponent implements OnInit {
       // Return true if the item matches the search text
       return item?.first_name.toLowerCase().includes(this.searchText.toLowerCase())
       || item?.last_name.toLowerCase().includes(this.searchText.toLowerCase())
+      || item?.restoName.toLowerCase().includes(this.searchText.toLowerCase())
+      || item?.email.toLowerCase().includes(this.searchText.toLowerCase())
+      || item?.phoneNum.toLowerCase().includes(this.searchText.toLowerCase())
+      || item?.nbrMenu.includes(Number(this.searchText))
     });
   }
 
 
   ngOnInit() {
-    this.orderService.getProfiles();
-    this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {
-
-      this.profiles = res;   
+    this.menuService.getAllMenu();
+    this.serviceSubscribe = this.menuService.menu$.subscribe(res => {
+      console.log(res);
       this.filteredData=res    
+      
     })
+
+    // this.orderService.getProfiles();
+    // this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {
+
+    //   this.profiles = res;   
+    //   this.filteredData=res    
+    // })
   }
 
   async downloadAsPDF(item) {  
@@ -74,4 +86,5 @@ export class UpgradeComponent implements OnInit {
   }
 
   
+
 }

@@ -1,4 +1,12 @@
-<div class="main-content">
+<div *ngIf="isLoading">
+    <div id="spinner"
+    class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+  </div>
+  </div>
+
+  
+<div  *ngIf="!isLoading" class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -14,8 +22,8 @@
                                 </mat-form-field>
                             </div>
                             <mat-table [dataSource]="dataSource" matSort>
-                                <ng-container matColumnDef="Commande ID">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Commande ID </mat-header-cell>
+                                <ng-container matColumnDef="CommandeID">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Numéro de la commande </mat-header-cell>
                                     <mat-cell *matCellDef="let row"> {{row.orderId}} </mat-cell>
                                 </ng-container>
 
@@ -36,12 +44,12 @@
 
                                 <ng-container matColumnDef="Date">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Crée le</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> {{row?.createdAt | date:"MM/dd/yyyy"}} </mat-cell>
+                                    <mat-cell *matCellDef="let row"> {{row?.createdAt | date:'dd/MM/yyyy HH:mm' }} </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Status">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Livraison</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"><span class="badge text-white" [ngClass]="{' bg-danger  mr-1' : row?.status.trim() == 'DISABLED' ,  ' bg-warning ': row?.status.trim() == 'pending', 
+                                    <mat-cell *matCellDef="let row"><span class="badge text-white" [ngClass]="{ ' bg-warning ': row?.status.trim() == 'pending', 
                                       'bg-success ': row?.status.trim() == 'ACTIVATED'}">{{row?.status |
                                             status}}</span> </mat-cell>
                                 </ng-container>
@@ -49,21 +57,21 @@
                                 <ng-container matColumnDef="Facture">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Facture</mat-header-cell>
                                     <mat-cell *matCellDef="let row"> <button class="btn btn-danger"
-                                            style="font-size: 12px;" (click)="downloadAsPDF(item)">Telecharger</button>
+                                            style="font-size: 12px;" (click)="downloadAsPDF(row)">Telecharger</button>
                                     </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Livrer">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Livrer</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> <mat-slide-toggle [checked]="item?.enabled"
-                                            (change)="onChangeStatus($event, item)"></mat-slide-toggle>
+                                    <mat-cell *matCellDef="let row"> <mat-slide-toggle [checked]="row?.enabled"
+                                            (change)="onChangeStatus($event, row)"></mat-slide-toggle>
                                     </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Detail">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
                                     <mat-cell *matCellDef="let row"> <button mat-icon-button color="accent"
-                                            (click)="orderDetails(item?.orderId)">
+                                            (click)="orderDetails(row?.orderId)">
                                             <mat-icon class="text-warn" aria-label="Delete">open_in_new</mat-icon>
                                         </button> </mat-cell>
                                 </ng-container>
@@ -84,89 +92,124 @@
     </div>
 </div>
 
-
 <div [hidden]="true">
+    <!-- <h4 class="card-title mb-4">Revue de la carte</h4> -->
     <div class="container" id="pdfTable" #pdfTable>
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="d-flex flex-row p-2">
-                        <div class="d-flex flex-column"> <span class="font-weight-bold">Commande
-                                ID</span> <small> {{id}}</small> </div>
+        <div class="container-fluid invoice-container" id="invoice">
 
+            <!-- Header -->
+            <header>
+                <div class="row align-items-center">
+                    <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
+                        <!-- <img id="logo" src="{{ asset('images/ospoly-logo.png') }}" title="Ospoly" alt="Ospoly Logo" /> -->
                     </div>
-
-                    <hr>
-                    <div class="table-responsive p-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr class="add">
-                                    <th>A</th>
-                                    <th>De</th>
-                                </tr>
-                                <tr class="content">
-                                    <td class="font-weight-bold"> {{user}} <br></td>
-                                    <td class="font-weight-bold">info@e-shkoon.com <br></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                    <div class="products p-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr class="add">
-                                    <th>Nom Carte</th>
-                                    <!-- <th>Type</th> -->
-                                    <th>Nom et prenom</th>
-                                    <th>Abonnement</th>
-                                    <!-- <th class="text-center">Total</th> -->
-                                </tr>
-                                <tr *ngFor="let item of orders" class="content">
-                                    <td>{{cardName}} </td>
-                                    <!-- <td>{{item?.typeCard}}</td> -->
-                                    <td>{{firstName}} {{lastName}}</td>
-                                    <td>{{subs}} </td>
-                                    <!-- <td class="text-center">{{item?.typeCard}}</td> -->
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                    <div class="products p-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr class="add">
-                                    <td></td>
-                                    <th>Sous-Total</th>
-                                    <th>Taxe</th>
-                                    <th class="text-center">Total</th>
-                                </tr>
-                                <tr class="content">
-                                    <td></td>
-                                    <td>{{total}} TND</td>
-                                    <td>0</td>
-                                    <td class="text-center">{{total}} TND</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                    <div class="address p-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr class="add">
-                                    <td>Adresse :</td>
-                                </tr>
-                                <tr class="content">
-                                    <td> {{address}} <br>
-                                        Num Tel : {{phoneNum}} <br> </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-sm-5 mt-5 text-center text-sm-right">
+                        <!-- <img src="assets/img/logo.png" class="navbar-brand ms-4 ms-lg-0" style="width: 7%;"> -->
                     </div>
                 </div>
-            </div>
+                <!-- <hr style="background-color: green;"> -->
+            </header>
+
+            <!-- Main Content -->
+            <main id="receipt">
+                <div class="row">
+                    <div class="col-sm-12 text-sm-center">
+                        <h3 style="padding-top: 15px;">Facture</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div><strong>Date:</strong> {{dte | date:'dd/MM/yyyy HH:mm' }} </div><br>
+                    <div class="text-sm-right"> <strong>Reference Num: </strong>{{id}}</div>
+
+                </div>
+
+                <hr style="background-color: black;">
+                <div style="display: flex;" class="row">
+                    <div class="text-sm-right order-sm-1"> <!--<strong>OSPOLY PAY:</strong>-->
+                        <address>
+                            {{firstName}} {{lastName}}<br /><br>
+                            {{address}}<br /><br>
+                            {{phoneNum}}<br><br>
+
+                        </address>
+                    </div>
+                    <div style="float: right;" class="order-sm-0"> <!--<strong>Payment By:</strong>-->
+                        <address>
+                            {{user}}
+                        </address><br>
+                        <p class="py-2">Méthode de paiement : Paiement à la livraison</p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card-body p-0">
+                        <div>
+                            <table class="table mb-0">
+                                <thead class="card-header">
+                                    <tr>
+                                        <td class="col-3 border-0"><strong>Produit</strong></td>
+                                        <td class="col-4 border-0"><strong>Nom</strong></td>
+                                        <td class="col-2 text-center border-0"><strong>Prenom</strong></td>
+                                        <td class="col-1 text-center border-0"><strong>Abonnement</strong></td>
+                                        <td class="col-2 text-right border-0"><strong>Prix</strong></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of orderDetail">
+                                        <td class="col-3 border-0" style="background-color: #dcd8cf;color: #000;">
+                                            {{item?.cardName}}</td>
+                                        <td class="col-4 text-1 border-0"
+                                            style="background-color: #dcd8cf;color: #000;">
+                                            {{item?.firstName}}</td>
+                                        <td class="col-2 text-center border-0"
+                                            style="background-color: #dcd8cf;color: #000;">
+                                            {{item?.lastName}}</td>
+                                        <td class="col-1 text-center border-0"
+                                            style="background-color: #dcd8cf;color: #000;">{{item?.subs}}
+                                        </td>
+                                        <td class="col-2 text-right border-0"
+                                            style="background-color: #2264c4;color: #fff;">{{item?.price}} TND</td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot class="card-footer">
+                                    <tr>
+                                        <td colspan="4" class="text-right"><strong>Sous Total :</strong></td>
+                                        <td class="text-right">{{substotal}} TND</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right"><strong>Expédition :</strong></td>
+                                        <td class="text-right">5 TND <small>(Livraison)</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right"><strong>Total :</strong></td>
+                                        <td class="text-right" style="background-color: #2264c4;color: #fff;">{{total}}
+                                            TND</td>
+                                    </tr>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+            <!-- Footer -->
+            <footer class="text-center mt-4">
+                <p class="text-1"><strong>NB :</strong> Toute modification de ce reçu sera invalidée. .</p>
+                <br><br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- <img src="{{ asset('images/signatures/pres.png') }}" style="margin-left: 70px;" width="50" /> -->
+                        Equipe<strong> E-SHKOON</strong>
+                    </div>
+
+                </div>
+
+                <br>
+              </footer>
+
         </div>
     </div>
 </div>
+

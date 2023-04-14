@@ -5154,12 +5154,12 @@ button.bg-warning:focus {
   background-color: #ffe608 !important; }
 
 .bg-danger {
-  background-color: #f44336 !important; }
+  background-color: #a94442 !important; }
 
 a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,
 button.bg-danger:focus {
-  background-color: #ea1c0d !important; }
+  background-color: #a94442 !important; }
 
 .bg-light {
   background-color: #f8f9fa !important; }

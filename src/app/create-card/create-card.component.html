@@ -23,10 +23,7 @@
     <mat-label >Importer une image</mat-label>
     <div class="col-md-9 " style="padding-bottom: 4%;">
       <input  type="file" id="image" class="file-input" (change)="onSelectedFile($event)" />
-      <div *ngIf="imagePath">
-        <br />
         <img [src]="imagePath" width="100px">
-      </div>
   </div>
   <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>

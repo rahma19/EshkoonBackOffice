@@ -39,6 +39,10 @@ import { DeleteFeatureComponent } from 'app/delete-feature/delete-feature.compon
 import { AllFeatureComponent } from 'app/all-feature/all-feature.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {  MatTableModule } from '@angular/material/table';
+import { UpdateProfileComponent } from 'app/update-profile/update-profile.component';
+import { FilterPipe } from 'app/core/pipes/filter.pipe';
+import { MenuComponent } from 'app/menu/menu.component';
+import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
 
 @NgModule({
   imports: [
@@ -61,7 +65,8 @@ import {  MatTableModule } from '@angular/material/table';
     MatSlideToggleModule
   ],
   declarations: [
-    status,
+    UpdateProfileComponent,
+    status,FilterPipe,
     OrderDetailsComponent,
     DashboardComponent,
     DeleteFeatureComponent,
@@ -82,7 +87,9 @@ import {  MatTableModule } from '@angular/material/table';
     UpdateSubscriptionComponent,
     UpdateTypeCarteComponent,
     DeleteTypeCarteComponent,
-    CreateTypeCarteComponent
+    CreateTypeCarteComponent,
+    MenuComponent,
+    CreateMenuComponent
   ],
   exports:[MatFormFieldModule,MatDialogModule],
   entryComponents:[CreateCardComponent],

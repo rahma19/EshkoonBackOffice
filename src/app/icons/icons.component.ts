@@ -16,7 +16,7 @@ const htmlToPdfmake = require("html-to-pdfmake");
   styleUrls: ['./icons.component.css']
 })
 export class IconsComponent  {
-  displayedColumns = ['Commande ID', 'Client','Nbr','Total','Date','Status','Facture','Livrer','Detail'];
+  displayedColumns = ['CommandeID', 'Client','Nbr','Total','Date','Status','Facture','Livrer','Detail'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
@@ -27,14 +27,21 @@ user='';
   orders: any;
   firstName='';
   lastName='';
+  orderDetail:any[]=[]
   subs='';
   cardName='';
 total=0;
 phoneNum='';
 address='';
 searchText = '';
-
-  constructor(private orderService: OrderService, private router: Router) { }
+dte:any
+substotal=0;
+isLoading =true
+  constructor(private orderService: OrderService, private router: Router) {
+    setTimeout(() => {
+      this.isLoading = false; // Set isLoading to false when loading is complete
+    }, 1000);
+   }
 
   /**
    * Set the paginator and sort after the view init since this component will
@@ -43,6 +50,7 @@ searchText = '';
   ngAfterViewInit() {
     this.orderService.getAllOrders();
     this.orderService.orders$.subscribe((order: any) => {
+      
       this.orders = order;
       this.dataSource = new MatTableDataSource(order);
       this.dataSource.paginator = this.paginator;
@@ -63,27 +71,45 @@ searchText = '';
     this.router.navigateByUrl(`order-dtails/${orderId}`);
   }
 
-  getDetails(item){
+  getDetails(item){    
     this.orderService.getOrderDetails(item.orderId);
     var order ;
     this.orderService.orderDetails$.subscribe( (data: any) => {
+      console.log(data);
+      
        order=  data.orderDetails;
     })
     return order;
   }
 
-  async downloadAsPDF(item) {
-     var order =await this.getDetails(item)
-    this.id= order.orderId 
-    this.user=order.userEmail
-    this.firstName=order.user_first_name
-    this.total=order.total
-    this.lastName=order.user_last_name
-    this.subs=order.orderDetails.subscription.type
-    this.cardName=order.orderDetails.card.name
-    this.phoneNum=order.phoneNum;
-    this.address=order.address
-    
+  async downloadAsPDF(item) {    
+    //  var order =await this.getDetails(item)
+    this.orderService.getOrderDetails(item.orderId);
+    this.phoneNum=item.phoneNum;
+    this.address=item.address
+    this.substotal=item.total
+    this.user=item.userEmail
+    this.firstName=item.firstName
+    this.id = item.orderId
+    this.lastName=item.lastName
+  this.total=Number(item.total)+5
+    this.dte = item.createdAt
+    this.orderService.orderDetails$.subscribe( (data: any) => {
+      this.orderDetail=[]
+      data.forEach(element => {
+        var order = { 
+          firstName : element.user_first_name,
+          lastName : element.user_last_name ,
+          subs : element.subscription.type,
+          cardName : element.card.name,
+          price : Number(element.subscription.price) + Number(element.card.price)
+        } ;
+          this.orderDetail.push(order);
+
+  });
+  console.log(this.orderDetail);
+  
+  })
     setTimeout(() => {
       const pdfTable = this.pdfTable.nativeElement;
     var html = htmlToPdfmake(pdfTable.innerHTML);

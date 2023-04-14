@@ -62,7 +62,7 @@ export class OrderService {
   //get all profiles
   getProfiles() {
     return this.http.get(`${environment.apiUrl}/profile/list`).subscribe((res:any) => {
-       this.profilesSubject.next(res);
+       this.profilesSubject.next(res);       
     });
   }
 
@@ -96,7 +96,7 @@ export class OrderService {
 
   //get AllOrderDetails
   getAllOrderDetails() {
-    return this.http.get(`${environment.apiUrl}/order/listOrders`).pipe(map((orders:any) => {
+    return this.http.get(`${environment.apiUrl}/orderDetails/listOrders`).pipe(map((orders:any) => {
       
        this.orderDetailsSubject.next(orders);
     }));
@@ -111,7 +111,6 @@ export class OrderService {
 
   //update order status 
   updateOrder(order:any){
-    console.log(order);
     let obj={status:order.status,
       enabled : order.enabled
     }
@@ -128,4 +127,15 @@ export class OrderService {
        this.featureSubject.next(JSON.parse(JSON.stringify(features)).data);
     }));
   }
+  
+  //generateQrCodeForLink()
+  generateQrCode(item){    
+    return this.http.post(`${environment.apiUrl}/profile/link`, item).pipe(map(profiles => { 
+      console.log(profiles);
+           
+      this.profilesSubject.next(JSON.parse(JSON.stringify(profiles)).data);
+   }));
+
+  }
+
 }

@@ -10,7 +10,7 @@
     padding: 5px;
   }
 
-  .mat-column-Client, .mat-column-Facture {
+  .mat-column-Client {
     word-wrap: break-word !important;
     white-space: unset !important;
     flex: 0 0 20% !important;
@@ -26,3 +26,36 @@
     hyphens: auto;
   }
 
+  .bg-danger{
+    color: #c62828;
+    background-color: #c62828;
+  }
+  .mat-column-CommandeID , .mat-column-Facture {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;  }
+    
+ .mat-column-Date{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 12% !important;
+  width: 12% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;  }

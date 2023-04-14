@@ -25,8 +25,12 @@ dataSource: MatTableDataSource<any>;
 
 serviceSubscribe:Subscription = new Subscription();
 path='http://localhost:3000/uploads/cards/';
-
-  constructor(private cardService : CardsService,public dialog: MatDialog) { }
+isLoading=true
+  constructor(private cardService : CardsService,public dialog: MatDialog) {
+    setTimeout(() => {
+      this.isLoading = false; // Set isLoading to false when loading is complete
+    }, 1000);
+   }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -57,9 +61,7 @@ path='http://localhost:3000/uploads/cards/';
     })
   }
 
-  edit(data: any) {
-    console.log(data);
-    
+  edit(data: any) {    
     const dialogRef = this.dialog.open(UpdateCardComponent, {
       width: '600px',
       data //: {

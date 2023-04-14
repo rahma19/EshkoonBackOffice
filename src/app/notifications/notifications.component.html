@@ -1,4 +1,11 @@
-<div class="main-content">
+<div *ngIf="isLoading">
+    <div id="spinner"
+    class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+  </div>
+  </div>
+  
+  <div *ngIf="!isLoading" class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -42,7 +49,7 @@
                                             {{item?.price}} TND
                                         </td>
                                         <td>
-                                            {{item?.duration}}
+                                            {{item?.duration}} mois
                                         </td>
                                        
                                         <td>
