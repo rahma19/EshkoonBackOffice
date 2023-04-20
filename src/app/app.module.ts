@@ -27,7 +27,8 @@ import { AuthService } from './services/auth.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { MenuService } from './services/menu.service';
-// import { ToastrModule } from 'ngx-toastr';
+import {  } from './update-menu-detail/update-menu-detail.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -37,6 +38,11 @@ import { MenuService } from './services/menu.service';
     HttpClientModule, MatSelectModule,
     ComponentsModule,MatRadioModule,
     RouterModule,
+    ToastrModule.forRoot({
+      timeOut: 1500,
+      autoDismiss: true,
+      maxOpened:1
+    }),
     // ToastrModule.forRoot({
     //   timeOut: 1500,
     //   autoDismiss: true,
@@ -49,6 +55,7 @@ import { MenuService } from './services/menu.service';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+    
 ], 
   exports:[MatIconModule,MatDialogModule,MatRadioModule
   ,MatSelectModule,MatInputModule,MatFormFieldModule],

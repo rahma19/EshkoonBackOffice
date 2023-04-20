@@ -1,0 +1,25 @@
+<h1 id="createCard" mat-dialog-title>Ajouter une catégorie</h1>
+<form [formGroup]="FormGroup" (ngSubmit)="submit()">
+
+<div mat-dialog-content>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="form-field col-sm-12">
+                        <mat-label>Nom du plat</mat-label>
+                        <input matInput formControlName="name">
+                        <!-- <mat-error
+                                    *ngIf="firstFormGroup.get('ville')?.hasError('required')">La
+                                    ville est
+                                    obligatoire</mat-error> -->
+                    </mat-form-field>
+
+                    
+                </div>
+                <!-- </form> -->
+
+        </div> <!-- card-body.// -->
+
+<div mat-dialog-actions class="mt-15">
+    <button type="submit" mat-raised-button class="btn" cdkFocusInitial>Ajouter</button>
+    <button mat-raised-button mat-dialog-close>Annuler</button>
+</div>
+</form>

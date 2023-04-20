@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div *ngFor="let item of cart"  class="card">
                             <article class="row ">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                   <figure class="itemside ">
                                     <div style="width: 50%;"><img src="{{path}}{{item?.card.img}}" class="img-sm img-thumbnail"></div>
                                     <figcaption class="info">
@@ -26,10 +26,19 @@
                                     </figcaption>
                                   </figure>
                                 </div>
-                                <div class=" col-lg-3">
+                                <div class=" col-lg-2">
                                   <label>Type {{item?.cardType?.name}} </label>
                                  </div>
-                                <div class=" col-lg-2">
+                                 <div *ngIf="!item?.cardType?.name.includes('NFC')" class=" col-lg-2">
+                                  <div class="price-wrap lh-sm"> 
+                                    <label>{{item?.entreprise}}</label>  <br>
+                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
+                                  </div> <!-- price-wrap .// -->
+                                </div>
+                                 <div class=" col-lg-2" *ngIf="item?.cardType?.name.includes('Menu')" >
+                                  <label>{{item?.nbrMenu}} tables</label>
+                                 </div>
+                                <div *ngIf="!item?.cardType?.name.includes('Menu')"  class=" col-lg-2">
                                     <label>{{item?.user_first_name}}  {{item?.user_last_name}} </label>
                                    </div>
                                 <div *ngIf="!item?.cardType?.name.includes('Google')" class=" col-lg-2">
@@ -38,12 +47,7 @@
                                     <!-- <small class="text-muted"> $460.00 / per item </small>  -->
                                   </div> <!-- price-wrap .// -->
                                 </div>
-                                <div *ngIf="item?.cardType?.name.includes('Google')" class=" col-lg-2">
-                                  <div class="price-wrap lh-sm"> 
-                                    <label>{{item?.entreprise}}</label>  <br>
-                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
-                                  </div> <!-- price-wrap .// -->
-                                </div>
+                               
                                 <div class="col-lg-1">
                                     <div class="price-wrap lh-sm"> 
                                       <label style="font-weight: bold;" >{{item?.price}} TND</label>  <br>

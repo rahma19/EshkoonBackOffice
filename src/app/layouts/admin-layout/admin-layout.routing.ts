@@ -13,6 +13,7 @@ import { OrderDetailsComponent } from 'app/order-details/order-details.component
 import { AllFeatureComponent } from 'app/all-feature/all-feature.component';
 import { MenuComponent } from 'app/menu/menu.component';
 import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
+import { MenuListComponent } from 'app/menu-list/menu-list.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -74,5 +75,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'listSM',        component: AllFeatureComponent },
     { path: 'menu',        component: MenuComponent },
+    { path: 'menuList',        component: MenuListComponent },
     { path: 'createMenu',        component: CreateMenuComponent },
 ];

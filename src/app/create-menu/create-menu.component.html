@@ -1,1 +1,64 @@
-<p>create-menu works!</p>
+<div style="display: flex;justify-content: space-between;">
+    <h1 style="float: left;" id="createCard" mat-dialog-title>Ajouter un plat</h1>
+    <!-- <mat-label style="float: right;" class="px-3">Ajouter une catégorie <button (click)="addCateg()" mat-icon-button color="accent"> -->
+    <!-- <mat-icon class="text-warn" aria-label="Delete">add</mat-icon> -->
+    <!-- </button></mat-label> -->
+</div>
+<form [formGroup]="secondFormGroup" (ngSubmit)="submit()">
+
+<div mat-dialog-content>
+        <div class="row">
+            <mat-form-field appearance="outline" class="form-field col-sm-6">
+                <mat-label>Nom du plat</mat-label>
+                <input matInput formControlName="name">
+                <!-- <mat-error
+                                    *ngIf="firstFormGroup.get('ville')?.hasError('required')">La
+                                    ville est
+                                    obligatoire</mat-error> -->
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-sm-6">
+                <mat-label>Categorie</mat-label>
+                <mat-select formControlName="menuCategoryId" [formControl]="selectedFW">
+                    <mat-option *ngFor="let item of categ" [value]="item?.menuCategoryId">
+                        {{ item?.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="outline" class="form-field col-sm-6">
+                <mat-label>Ingrédient</mat-label>
+                <input matInput formControlName="ingredient">
+                <!-- <mat-error
+                                    *ngIf="firstFormGroup.get('ville')?.hasError('required')">La
+                                    ville est
+                                    obligatoire</mat-error> -->
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field col-sm-6">
+                <mat-label>Prix</mat-label>
+                <input matInput formControlName="price">
+                <!-- <mat-error
+                                    *ngIf="firstFormGroup.get('ville')?.hasError('required')">La
+                                    ville est
+                                    obligatoire</mat-error> -->
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-label>Importer une image</mat-label>
+            <div class="col-md-9 " style="padding-bottom: 4%;">
+                <input type="file" id="image" class="file-input" (change)="onSelectedFile($event)" />
+                <img [src]="imagePath" width="100px">
+            </div>
+
+        </div>
+        <!-- </form> -->
+
+</div> <!-- card-body.// -->
+
+<div mat-dialog-actions class="mt-15">
+    <button type="submit" mat-raised-button class="btn" cdkFocusInitial>Ajouter</button>
+    <button mat-raised-button mat-dialog-close>Annuler</button>
+</div>
+</form>

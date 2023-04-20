@@ -1,33 +1,61 @@
 .no-results {
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    text-align: center;
     padding: 14px;
     font-size: 14px;
     font-style: italic;
   }
 
-  .row{
-    /* margin: 10% 0 5% 0; */
-}
+  .badge{
+    padding: 5px;
+  }
 
-.card{
-    padding: 2%;
-}
-.btn-theme{
-    background-color: var(--primary);
-    color: white;
-    padding-left: 2%;
-}
+  .mat-column-Client {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 20% !important;
+    width: 20% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
 
-a{
-    text-decoration: none;
-}
-img{
-    width: 70%;
-    padding: 2%;
+  .bg-danger{
+    color: #c62828;
+    background-color: #c62828;
+  }
+   .mat-column-QR code {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;  }
+    
+    .mat-column-MenuID{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 8% !important;
+  width: 8% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 
-}
+  word-break: break-word;
 
-figure{
-    display: flex;
-}
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;  }

@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { OrderService } from 'app/services/order.service';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { MatDialog } from '@angular/material/dialog';
-import { UpdateProfileComponent } from 'app/update-profile/update-profile.component';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { MenuService } from 'app/services/menu.service';
 const htmlToPdfmake = require("html-to-pdfmake");
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -14,77 +15,78 @@ const htmlToPdfmake = require("html-to-pdfmake");
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
-
+export class MenuComponent  {
+  displayedColumns = ['MenuID', 'Client','Numéro de téléphone','Nom Resto','Nombre des tables','Date','Qr code','modifier'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource: MatTableDataSource<any>=new MatTableDataSource([]);
   @ViewChild('pdfTable')
   pdfTable!: ElementRef;
-  profile:any;
-  img:any="";
-   profiles: any[]=[];
-   private serviceSubscribe: Subscription = new Subscription; 
-   private profileSubscribe: Subscription = new Subscription; 
-   path='http://localhost:3000/uploads/qrcodes/';
-   searchText = '';
-   filteredData: any[] = [];
-   isLoading=true
-  constructor(private orderService: OrderService,public dialog: MatDialog,private menuService: MenuService) {
+id:any="";
+path='http://localhost:3000/uploads/qrcodes/';
+img:any="";
+
+isLoading =true
+  constructor(private menuService: MenuService, private router: Router) {
     setTimeout(() => {
       this.isLoading = false; // Set isLoading to false when loading is complete
     }, 1000);
    }
 
-  filterData() {
-    this.filteredData = this.profiles.filter(item => {
-      // Return true if the item matches the search text
-      return item?.first_name.toLowerCase().includes(this.searchText.toLowerCase())
-      || item?.last_name.toLowerCase().includes(this.searchText.toLowerCase())
-      || item?.restoName.toLowerCase().includes(this.searchText.toLowerCase())
-      || item?.email.toLowerCase().includes(this.searchText.toLowerCase())
-      || item?.phoneNum.toLowerCase().includes(this.searchText.toLowerCase())
-      || item?.nbrMenu.includes(Number(this.searchText))
-    });
-  }
+  /**
+   * Set the paginator and sort after the view init since this component will
+   * be able to query its view for the initialized paginator and sort.
+   */
+  ngAfterViewInit() {
 
-
-  ngOnInit() {
-    this.menuService.getAllMenu();
-    this.serviceSubscribe = this.menuService.menu$.subscribe(res => {
-      console.log(res);
-      this.filteredData=res    
-      
+    this.menuService.getAllMenu().subscribe((menu: any) => {
+      this.dataSource = new MatTableDataSource(menu);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  
     })
-
-    // this.orderService.getProfiles();
-    // this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {
-
-    //   this.profiles = res;   
-    //   this.filteredData=res    
-    // })
   }
 
   async downloadAsPDF(item) {  
-     this.img= item ;
-      
-    setTimeout(() => {
-      const pdfTable = this.pdfTable.nativeElement;
-    var html = htmlToPdfmake(pdfTable.innerHTML);
-    const documentDefinition = { content: html };
-    
-    pdfMake.createPdf(documentDefinition).download(); 
-    }, 500);
+    this.img= item ;
      
+   setTimeout(() => {
+     const pdfTable = this.pdfTable.nativeElement;
+   var html = htmlToPdfmake(pdfTable.innerHTML);
+   const documentDefinition = { content: html };
+   
+   pdfMake.createPdf(documentDefinition).download(); 
+   }, 500);
+    
+ }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
-  edit(data: any) {    
-    const dialogRef = this.dialog.open(UpdateProfileComponent, {
-      width: '600px',
-      data : {link : data.link, profileId : data.profileId} 
-      });
+  menuDetails(menu: any) {
+    this.router.navigate(['menuList'],{ queryParams: menu });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
+  onChangeStatus(e, menu) {
+    let enabled = e.checked ? true : false;
+    console.log(enabled);
+
+    if (enabled == false) {
+      menu.status = 'DISABLED';
+      menu.enabled = false; 
+      // this.menuService.updatemenu(menu);
+    }
+    else if (enabled == true) {
+      menu.status = 'ACTIVATED';
+      menu.enabled = true; 
+      // this.msgs = [{severity:'info', summary:'Le restaurant est actif', detail:''}];
+    }
+    this.menuService.updateMenu(menu,e).subscribe((menu: any) => {
+
     });
+
   }
-
-  
-
 }

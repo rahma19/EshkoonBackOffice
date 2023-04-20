@@ -43,12 +43,19 @@ import { UpdateProfileComponent } from 'app/update-profile/update-profile.compon
 import { FilterPipe } from 'app/core/pipes/filter.pipe';
 import { MenuComponent } from 'app/menu/menu.component';
 import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
+import { MenuListComponent } from 'app/menu-list/menu-list.component';
+import { UpdateMenuDetailComponent } from 'app/update-menu-detail/update-menu-detail.component';
+import { DeleteMenuDetailComponent } from 'app/delete-menu-detail/delete-menu-detail.component';
+import { AddCategoryComponent } from 'app/add-category/add-category.component';
+import { UpdateCategoryComponent } from 'app/update-category/update-category.component';
+import { DeleteCategoryComponent } from 'app/delete-category/delete-category.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
+    FormsModule,MatChipsModule,
     MatPaginatorModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -62,6 +69,7 @@ import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
     MatDialogModule,
     MatTooltipModule,
     MatRadioModule,
+    
     MatSlideToggleModule
   ],
   declarations: [
@@ -74,6 +82,7 @@ import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
     AllFeatureComponent,
     UserProfileComponent,
     TableListComponent,
+    MenuListComponent,
     TypographyComponent,
     IconsComponent,
     MapsComponent,
@@ -89,9 +98,14 @@ import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
     DeleteTypeCarteComponent,
     CreateTypeCarteComponent,
     MenuComponent,
-    CreateMenuComponent
+    CreateMenuComponent,
+    UpdateMenuDetailComponent,
+    DeleteMenuDetailComponent,
+    AddCategoryComponent,
+    UpdateCategoryComponent,
+    DeleteCategoryComponent
   ],
-  exports:[MatFormFieldModule,MatDialogModule],
+  exports:[MatFormFieldModule,MatDialogModule,MatChipsModule],
   entryComponents:[CreateCardComponent],
 
 })

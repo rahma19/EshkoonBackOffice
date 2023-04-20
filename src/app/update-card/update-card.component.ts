@@ -40,13 +40,12 @@ export class UpdateCardComponent implements OnInit {
   ) {
     this.cardForm.setValue(data);
   } 
-
+  img :any
+  check=false
   ngOnInit(): void {  
-    console.log(this.data);
-      
     this.id = this.data.cardId;
     this.menu=this.cardService.getTypesValue();
-    // this.file=this.
+    this.img=this.cardForm.value.img
   }
 
   get f() {
@@ -72,16 +71,21 @@ export class UpdateCardComponent implements OnInit {
     return this.f['cardTypeCardTypeId'].value;
   }
 
-  get img() {
-    return this.f['img'].value;
-  }
-
   onSelectedFile(event:any) {
+    const reader = new FileReader();
+
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
-      this.cardForm.value.img= this.file;
+      this.img= this.file;
+      reader.readAsDataURL(this.file);
+      reader.onload = () => {
+        this.img = reader.result;
+        this.check= true
     }
+    console.log(this.img);
+    
   }
+}
 
   submit() {
     if (this.cardForm.invalid) {

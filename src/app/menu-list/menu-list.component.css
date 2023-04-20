@@ -1,5 +1,13 @@
+.no-results {
+    /* display: flex; */
+    text-align: center;
+    /* justify-content: center; */
+    padding: 14px;
+    font-size: 14px;
+    font-style: italic;
+  }
 
-  .mat-mdc-form-field {
+.mat-mdc-form-field {
     margin-top: 16px;
   }
 
