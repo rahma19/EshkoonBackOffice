@@ -42,7 +42,6 @@ export class MenuService {
   getMenuById(menuId : string) {
     return this.http.get(`${environment.apiUrl}/menu/view/${menuId}`)
   //   .pipe(map((res:any) => {
-  //     console.log(res);
   //     this.menuSubject.next(res);
   //  }));
   }
@@ -55,7 +54,6 @@ export class MenuService {
 
   updateMenu(menuId: string,payload:any) {
     return this.http.put(`${environment.apiUrl}/menu/update/${menuId}`,payload).pipe(map(menu => {
-      console.log(menu);
        this.menuSubject.next(JSON.parse(JSON.stringify(menu)).data);
     }));
   }
@@ -72,7 +70,6 @@ export class MenuService {
 
   updatePlat(menuDetailsId: string,payload:any) {
     return this.http.put(`${environment.apiUrl}/menuDetails/update/${menuDetailsId}`,payload).pipe(map(plat => {
-      console.log(plat);
        this.platSubject.next(JSON.parse(JSON.stringify(plat)).data);
     }));
   }

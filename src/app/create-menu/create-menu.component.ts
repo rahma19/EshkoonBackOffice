@@ -53,7 +53,6 @@ private serviceSubscribe: Subscription = new Subscription;
   }
 
   submit(){
-    console.log(this.secondFormGroup.value);
     const formData = new FormData();    
     formData.set('name', this.secondFormGroup.value.name);
     formData.set('price', this.secondFormGroup.value.price);

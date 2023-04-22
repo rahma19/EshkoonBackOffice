@@ -32,19 +32,9 @@ export class UpgradeComponent implements OnInit {
     }, 1000);
    }
 
-  filterData() {
-    this.filteredData = this.profiles.filter(item => {
-      // Return true if the item matches the search text
-      return item?.first_name.toLowerCase().includes(this.searchText.toLowerCase())
-      || item?.last_name.toLowerCase().includes(this.searchText.toLowerCase())
-    });
-  }
-
-
   ngOnInit() {
     this.orderService.getProfiles();
     this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {
-
       this.profiles = res;   
       this.filteredData=res    
     })

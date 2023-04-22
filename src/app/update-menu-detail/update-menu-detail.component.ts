@@ -93,7 +93,6 @@ check=false
     if (this.cardForm.invalid) {
       return;
     }
-    console.log(this.cardForm.value);
     const formData = new FormData();    
     formData.set('name', this.cardForm.value.name);
     formData.set('ingredient', this.cardForm.value.ingredient);

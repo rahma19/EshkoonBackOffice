@@ -21,8 +21,6 @@ export class DeleteTypeCarteComponent implements OnInit {
 
   ngOnInit(): void {
     this.display = true;
-console.log(this.data);
-
   //   const param = this.route.snapshot.paramMap.get('typeId');    
   //   if (param) {
   //        this.id = +param;
@@ -34,7 +32,6 @@ console.log(this.data);
       .pipe(first())
       .subscribe(
         (data:any) => {
-          console.log(data);  
           //  this.router.navigate(['../home']);
         },
         error => {

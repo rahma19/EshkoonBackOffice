@@ -28,8 +28,6 @@ export class UpdateTypeCarteComponent implements OnInit {
       this.cardTypeForm.setValue(data);
      }
   ngOnInit(): void {
-    console.log(this.data);
-    
     // const param = this.route.snapshot.paramMap.get('typeId');  
     // if (param) {
     //      this.id = +param;
@@ -69,7 +67,7 @@ export class UpdateTypeCarteComponent implements OnInit {
   //     .pipe(first())
   //     .subscribe(
   //       data => {
-  //         console.log(data);
+  //         (data);
           
   //         //  this.router.navigate(['../home']);
   //       },
@@ -80,7 +78,6 @@ export class UpdateTypeCarteComponent implements OnInit {
     this.cardService.updatemenu(this.cardTypeId,this.cardTypeForm.value).pipe(first())
             .subscribe(
               async data => {
-                console.log(this.cardService.cardTypeSubject.value);
                 await this.dialogRef.close(Object.assign( this.cardTypeForm.value));
 
                 // this.cardService.getMenu();

@@ -28,7 +28,6 @@ export class CreateFeatureComponent implements OnInit {
   imagePath: any="";
 
   submitForm(e:any){
-    console.log(this.MyForm);
     if(this.MyForm.valid){
         //Submit form logic here!
     }
@@ -78,7 +77,7 @@ export class CreateFeatureComponent implements OnInit {
     
     this.orderService.createFeature(formData).subscribe(
       async res => {
-            console.log(res);
+            (res);
             await this.dialogRef.close();
         },
         error => console.log(error)

@@ -36,8 +36,6 @@ export class CreateTypeCarteComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.cardTypeForm.value);
-    
     if (this.cardTypeForm.invalid) {
       return;
     }
@@ -45,7 +43,6 @@ export class CreateTypeCarteComponent implements OnInit {
       .pipe(first())
       .subscribe(
         async data => {
-          console.log(data);
           await this.dialogRef.close();
         },
         error => {

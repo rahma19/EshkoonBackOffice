@@ -57,7 +57,6 @@ isLoading=true
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(result);
     })
   }
 
@@ -68,13 +67,11 @@ isLoading=true
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       
       if (result) {
         // this.cardService.updatemenu(data.cardTypeId,result).pipe(first())
         //     .subscribe(
         //       data => {
-                console.log(this.cardService.cardTypeSubject.value);
                 // this.cardService.getMenu();
                 // window.location.reload();
               // },

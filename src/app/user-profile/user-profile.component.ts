@@ -55,8 +55,6 @@ get lastName() {
 get f() { return this.form.controls; }
 
 onSubmit() {
-  console.log(this.form.value );
-  
   // stop here if form is invalid
   if (this.form.invalid) {
     // this.toastr.error('Veuillez remplir tous les champs');

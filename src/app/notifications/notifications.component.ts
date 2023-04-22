@@ -52,12 +52,9 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.cardService.getAllSubscription().subscribe((res:any)=>{
-      console.log(res);
-
     })
     this.cardService.getAllSubscription();
     this.serviceSubscribe = this.cardService.subscription$.subscribe((res:any) => {
-      console.log('res', res);
       this.subscriptions=res;
     })
   }
@@ -67,13 +64,10 @@ export class NotificationsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(result);
     })
   }
 
   edit(data: any) {
-    console.log(data);
-    
     const dialogRef = this.dialog.open(UpdateSubscriptionComponent, {
       width: '600px',
       data: {subsId:data.subsId,type:data.type ,price:data.price,duration : data.duration
@@ -81,13 +75,10 @@ export class NotificationsComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
       if (result) {
         // this.cardService.updatemenu(data.cardTypeId,result).pipe(first())
         //     .subscribe(
         //       data => {
-                console.log(this.cardService.cardTypeSubject.value);
                 // this.cardService.getMenu();
                 // window.location.reload();
               // },

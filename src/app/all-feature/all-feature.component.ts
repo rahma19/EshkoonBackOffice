@@ -50,7 +50,6 @@ isLoading=true
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(result);
     })
   }
 

@@ -23,9 +23,7 @@ export class HttpResponseInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       catchError((error) => {
-        console.log(error);
         if(error.status === 401){
-          console.log('errroooor');
           
         }
         if (error.status === 401 && error.error?.msg == 'Token expired') {

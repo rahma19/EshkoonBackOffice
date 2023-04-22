@@ -43,8 +43,6 @@ export class CreateSubscriptionComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.subsForm.value);
-    
     if (this.subsForm.invalid) {
       return;
     }
@@ -52,7 +50,6 @@ export class CreateSubscriptionComponent implements OnInit {
       .pipe(first())
       .subscribe(
         async data => {
-          console.log(data);
           await this.dialogRef.close();
         },
         error => {

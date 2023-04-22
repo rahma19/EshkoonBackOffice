@@ -66,8 +66,6 @@ isLoading =true
   }
 
   orderDetails(orderId: any) {
-    console.log(orderId);
-
     this.router.navigateByUrl(`order-dtails/${orderId}`);
   }
 
@@ -75,8 +73,6 @@ isLoading =true
     this.orderService.getOrderDetails(item.orderId);
     var order ;
     this.orderService.orderDetails$.subscribe( (data: any) => {
-      console.log(data);
-      
        order=  data.orderDetails;
     })
     return order;
@@ -107,8 +103,6 @@ isLoading =true
           this.orderDetail.push(order);
 
   });
-  console.log(this.orderDetail);
-  
   })
     setTimeout(() => {
       const pdfTable = this.pdfTable.nativeElement;
@@ -121,8 +115,6 @@ isLoading =true
 
   onChangeStatus(e, order) {
     let enabled = e.checked ? true : false;
-    console.log(enabled);
-
     if (enabled == false) {
       order.status = 'DISABLED';
       order.enabled = false; 

@@ -82,8 +82,6 @@ export class UpdateCardComponent implements OnInit {
         this.img = reader.result;
         this.check= true
     }
-    console.log(this.img);
-    
   }
 }
 
@@ -91,7 +89,6 @@ export class UpdateCardComponent implements OnInit {
     if (this.cardForm.invalid) {
       return;
     }
-    console.log(this.cardForm.value);
     const formData = new FormData();    
     formData.set('name', this.cardForm.value.name);
     formData.set('description', this.cardForm.value.description);

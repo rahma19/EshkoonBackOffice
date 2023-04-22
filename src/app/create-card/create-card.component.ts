@@ -31,7 +31,6 @@ file:any;
   imagePath: any="";
 
   submitForm(e:any){
-    console.log(this.MyForm);
     if(this.MyForm.valid){
         //Submit form logic here!
     }
@@ -75,17 +74,14 @@ file:any;
 
   ngOnInit(): void {
     // this.cardService.getTypesValue().forEach((element:any) => {
-    //   console.log(element.name)
+    //   (element.name)
     //   this.menu.push(element.name);
     // });
     this.cardService.getMenu().subscribe((res:any)=>{
-      console.log(res)
     })
       ;
     this.cardService.getMenu();
     this.subscription=this.cardService.cardType$.subscribe((res:any)=>{
-      console.log(this.menu);
-
       this.menu= res;
     });
     
@@ -119,7 +115,6 @@ file:any;
     
       this.cardService.createCard(formData).subscribe(
       async res => {
-            console.log(res);
             await this.dialogRef.close();
         },
         error => console.log(error)

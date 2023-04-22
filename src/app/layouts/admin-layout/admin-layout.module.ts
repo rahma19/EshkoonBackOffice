@@ -40,7 +40,6 @@ import { AllFeatureComponent } from 'app/all-feature/all-feature.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {  MatTableModule } from '@angular/material/table';
 import { UpdateProfileComponent } from 'app/update-profile/update-profile.component';
-import { FilterPipe } from 'app/core/pipes/filter.pipe';
 import { MenuComponent } from 'app/menu/menu.component';
 import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
 import { MenuListComponent } from 'app/menu-list/menu-list.component';
@@ -50,6 +49,7 @@ import { AddCategoryComponent } from 'app/add-category/add-category.component';
 import { UpdateCategoryComponent } from 'app/update-category/update-category.component';
 import { DeleteCategoryComponent } from 'app/delete-category/delete-category.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -64,6 +64,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatRippleModule,
     MatFormFieldModule,
     MatIconModule,
+    Ng2SearchPipeModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
@@ -74,7 +75,7 @@ import { MatChipsModule } from '@angular/material/chips';
   ],
   declarations: [
     UpdateProfileComponent,
-    status,FilterPipe,
+    status,
     OrderDetailsComponent,
     DashboardComponent,
     DeleteFeatureComponent,

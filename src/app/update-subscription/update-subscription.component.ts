@@ -29,7 +29,6 @@ export class UpdateSubscriptionComponent implements OnInit {
       this.subsForm.setValue(data);
      }
   ngOnInit(): void {
-    console.log(this.data);
   }
 
   get f() {
@@ -51,7 +50,6 @@ export class UpdateSubscriptionComponent implements OnInit {
     this.cardService.updateSubscription(this.subsId,this.subsForm.value).pipe(first())
             .subscribe(
               async data => {
-                console.log(this.cardService.cardTypeSubject.value);
                 await this.dialogRef.close(Object.assign( this.subsForm.value));
                  },
               error => {

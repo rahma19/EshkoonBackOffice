@@ -18,7 +18,6 @@ export class DeleteCardComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-   console.log(this.data);
    
 }
 
@@ -27,7 +26,6 @@ export class DeleteCardComponent implements OnInit {
       .pipe(first())
       .subscribe(
        async data => {
-          console.log(data);  
           await this.dialogRef.close();
           //  this.router.navigate(['../home']);
         },

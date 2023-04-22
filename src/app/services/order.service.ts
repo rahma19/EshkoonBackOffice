@@ -131,8 +131,6 @@ export class OrderService {
   //generateQrCodeForLink()
   generateQrCode(item){    
     return this.http.post(`${environment.apiUrl}/profile/link`, item).pipe(map(profiles => { 
-      console.log(profiles);
-           
       this.profilesSubject.next(JSON.parse(JSON.stringify(profiles)).data);
    }));
 

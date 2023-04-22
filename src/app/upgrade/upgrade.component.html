@@ -14,10 +14,10 @@
                   <div class="card-body">
                     <div style="width: 70%;">
                       <mat-form-field floatPlaceholder="never" width="100%" color="accent">
-                          <input matInput #filter [(ngModel)]="searchText" (input)="filterData()" placeholder="Recherche">
+                          <input matInput #filter [(ngModel)]="searchText"  placeholder="Recherche">
                         </mat-form-field>
                   </div>
-                      <div *ngFor="let item of filteredData | filter : searchText : 'first_name','last_name'"  class="card">
+                      <div *ngFor="let item of filteredData | filter : searchText"  class="card">
                           <article  class="row ">
                               <div class="col-lg-4">
                                 <figure class="itemside ">

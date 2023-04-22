@@ -72,8 +72,6 @@ isLoading =true
 
   onChangeStatus(e, menu) {
     let enabled = e.checked ? true : false;
-    console.log(enabled);
-
     if (enabled == false) {
       menu.status = 'DISABLED';
       menu.enabled = false; 

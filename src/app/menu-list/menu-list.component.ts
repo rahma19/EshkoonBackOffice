@@ -74,8 +74,6 @@ export class MenuListComponent implements OnInit {
 
     this.menuService.getMenuById(this.id).subscribe( (res: any) => {
       this.menu = res;
-      console.log(res);
-      
     })
 
     this.menuService.getAllCategories(this.id);
@@ -131,7 +129,6 @@ export class MenuListComponent implements OnInit {
   }
 
   submitForm1() {
-    console.log(this.file,this.file2);
     const formData = new FormData();
     formData.set('description', this.menu?.description);
     formData.set('phoneNum', this.menu?.phoneNum);
@@ -142,7 +139,6 @@ export class MenuListComponent implements OnInit {
     formData.append('image', this.file3);
     formData.set('hour', this.menu?.hour);
     formData.forEach(elem=>{
-      console.log(elem);
       
     })
     this.menuService.updateMenu(this.id, formData).subscribe(async res => {
@@ -177,8 +173,6 @@ export class MenuListComponent implements OnInit {
   }
 
   edit(data: any) {
-    console.log(data);
-    
     const dialogRef = this.dialog.open(UpdateMenuDetailComponent, {
       width: '600px',
       data : data.menuDetailsId//: {

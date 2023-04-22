@@ -34,22 +34,17 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    console.log(email, password);
-
     return this.http
       .post<any>(`${environment.apiUrl}/auth/signIn`, { email, password })
       .pipe(
         map((user: any) => {
-          console.log(user);
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.saveTokens(user.accessToken, user.refreshToken);
           const decoded = AuthUtils._decodeToken(user.accessToken);
 
-          console.log('user', decoded);
           localStorage.setItem('user', JSON.stringify(decoded));
           this.getUserByEmail(decoded.email);
           // .pipe(map(user => {
-          //   console.log(user);
         })
       );
 
@@ -111,21 +106,15 @@ export class AuthService {
     return this.http
       .get(`${environment.apiUrl}/auth/users/${email}`)
       .subscribe((data: any) => {
-        console.log(data);
         this.currentUserSubject.next(JSON.parse(JSON.stringify(data.user)));
-        console.log(this.currentUserSubject.value);
       });
   }
   updateUser(form: any, email: any) {
-    console.log(form);
-
     return this.http
       .put(`${environment.apiUrl}/auth/update/${email}`, form)
       .pipe(
         map((data: any) => {
-          console.log(data);
           this.currentUserSubject.next(JSON.parse(JSON.stringify(data.user)));
-          console.log(this.currentUserSubject.value);
         })
       );
   }

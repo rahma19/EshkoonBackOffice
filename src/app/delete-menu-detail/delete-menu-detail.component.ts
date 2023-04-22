@@ -18,7 +18,6 @@ export class DeleteMenuDetailComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-   console.log(this.data);
    
 }
 
@@ -26,8 +25,6 @@ export class DeleteMenuDetailComponent implements OnInit {
     this.menuService.deletePlat(this.data.menuDetailsId)
       .subscribe(
        async data => {
-        console.log(data);
-        
           await this.dialogRef.close();
           //  this.router.navigate(['../home']);
         },

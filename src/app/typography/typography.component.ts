@@ -42,13 +42,10 @@ export class TypographyComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
     })
   }
 
   edit(data: any) {
-    console.log(data);
-    
     const dialogRef = this.dialog.open(UpdateTypeCarteComponent, {
       width: '400px',
       data: {cardTypeId:data.cardTypeId,name:data.name //,price:data.price
@@ -56,13 +53,10 @@ export class TypographyComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
       if (result) {
         // this.cardService.updatemenu(data.cardTypeId,result).pipe(first())
         //     .subscribe(
         //       data => {
-                console.log(this.cardService.cardTypeSubject.value);
                 // this.cardService.getMenu();
                 // window.location.reload();
               // },

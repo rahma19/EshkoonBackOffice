@@ -19,10 +19,10 @@
                                     <div style="width: 50%;"><img src="{{path}}{{item?.card.img}}" class="img-sm img-thumbnail"></div>
                                     <figcaption class="info">
                                       <label  class="title">{{item?.card?.name}}</label>
-                                      <p  class="text-muted">  
-                                       <!-- <label for="clipboard-example-textarea">  <label>{{item?.cardType?.name}} </label>
-                                       </label> -->
-                                         </p>
+                                      <!-- <p  class="text-muted">  
+                                       <label for="clipboard-example-textarea"  class="text-muted">  <label>{{item?.cardType?.name}} </label>
+                                       </label> 
+                                         </p> -->
                                     </figcaption>
                                   </figure>
                                 </div>
@@ -35,10 +35,8 @@
                                     <!-- <small class="text-muted"> $460.00 / per item </small>  -->
                                   </div> <!-- price-wrap .// -->
                                 </div>
-                                 <div class=" col-lg-2" *ngIf="item?.cardType?.name.includes('Menu')" >
-                                  <label>{{item?.nbrMenu}} tables</label>
-                                 </div>
-                                <div *ngIf="!item?.cardType?.name.includes('Menu')"  class=" col-lg-2">
+                                 
+                                <div *ngIf="item?.cardType?.name.includes('NFC')"  class=" col-lg-2">
                                     <label>{{item?.user_first_name}}  {{item?.user_last_name}} </label>
                                    </div>
                                 <div *ngIf="!item?.cardType?.name.includes('Google')" class=" col-lg-2">
@@ -47,7 +45,18 @@
                                     <!-- <small class="text-muted"> $460.00 / per item </small>  -->
                                   </div> <!-- price-wrap .// -->
                                 </div>
-                               
+                                <div *ngIf="item?.cardType?.name.includes('Google')" class=" col-lg-2">
+                                  <div class="price-wrap lh-sm"> 
+                                    <label>Pas d'abonnement</label>  <br>
+                                    <!-- <small class="text-muted"> $460.00 / per item </small>  -->
+                                  </div> <!-- price-wrap .// -->
+                                </div>
+                                <div class=" col-lg-2" *ngIf="item?.cardType?.name.includes('Menu')" >
+                                  <label>{{item?.nbrMenu}} tables</label>
+                                 </div>
+                                 <div class=" col-lg-2" *ngIf="!item?.cardType?.name.includes('Menu')" >
+                                  <label>x1 carte</label>
+                                 </div>
                                 <div class="col-lg-1">
                                     <div class="price-wrap lh-sm"> 
                                       <label style="font-weight: bold;" >{{item?.price}} TND</label>  <br>

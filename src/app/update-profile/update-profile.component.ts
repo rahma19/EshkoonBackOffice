@@ -29,7 +29,6 @@ export class UpdateProfileComponent implements OnInit {
 
   submit(){
     this.orderService.generateQrCode(this.profileForm.value).subscribe(async res=>{
-      console.log(res);
       await this.dialogRef.close();
 
     })
