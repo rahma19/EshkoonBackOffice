@@ -5154,7 +5154,7 @@ button.bg-warning:focus {
   background-color: #ffe608 !important; }
 
 .bg-danger {
-  background-color: #a94442 !important; }
+  background-color: #c62828 !important; }
 
 a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,
@@ -13004,7 +13004,7 @@ h2.title {
       color: #fff;
       line-height: 20px; }
     .sidebar .logo .simple-text {
-      text-transform: uppercase;
+      /* text-transform: uppercase; */
       padding: 5px 0px;
       display: inline-block;
       font-size: 18px;

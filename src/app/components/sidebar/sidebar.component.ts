@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
+  value='e-shkoon'
   constructor() { }
 
   ngOnInit() {

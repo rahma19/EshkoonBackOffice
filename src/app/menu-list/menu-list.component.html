@@ -181,7 +181,7 @@
                             </mat-table>
                             <div class="no-results" *ngIf="dataSource.data.length === 0">Aucun résultat</div>
 
-                            <mat-paginator [pageSizeOptions]="[ 10, 25, 50, 100]"></mat-paginator>
+                            <mat-paginator [pageSizeOptions]="[ 10, 25, 50, 100]" [pageSize]="10" ></mat-paginator>
 
                         </div>
                     </div> <!-- card-body.// -->

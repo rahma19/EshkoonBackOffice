@@ -8144,13 +8144,13 @@
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
-    color: #115b5d; }
+    color: #3B5D50; }
     a:hover, a:focus {
       text-decoration: none !important;
       outline: none !important;
       -webkit-box-shadow: none;
       box-shadow: none;
-      color: #115b5d; }
+      color: #3B5D50; }
   
   h1, h2, h3, h4, h5,
   .h1, .h2, .h3, .h4, .h5 {
@@ -8160,7 +8160,7 @@
     color: #000; }
   
   .bg-primary {
-    background: #115b5d !important; }
+    background: #3B5D50 !important; }
   
   .ftco-section {
     padding: 7em 0; }
@@ -8190,11 +8190,11 @@
     .login-wrap h3 {
       font-weight: 700;
       font-size: 20px;
-      color: #115b5d; }
+      color: #3B5D50; }
     .login-wrap .icon {
       width: 80px;
       height: 80px;
-      background: #115b5d;
+      background: #3B5D50;
       border-radius: 50%;
       font-size: 30px;
       margin: 0 auto;
@@ -8292,9 +8292,9 @@
   
   /* Style the checkmark/indicator */
   .checkbox-primary {
-    color: #115b5d; }
+    color: #3B5D50; }
     .checkbox-primary input:checked ~ .checkmark:after {
-      color: #115b5d; }
+      color: #3B5D50; }
   
   .btn {
     cursor: pointer;
@@ -8305,20 +8305,20 @@
     .btn:hover, .btn:active, .btn:focus {
       outline: none; }
     .btn.btn-primary {
-      background: #115b5d !important;
-      border: 1px solid #115b5d !important;
+      background: #3B5D50 !important;
+      border: 1px solid #3B5D50 !important;
       color: #fff !important; }
       .btn.btn-primary:hover {
-        border: 1px solid #115b5d;
+        border: 1px solid #3B5D50;
         background: transparent;
-        color: #115b5d; }
+        color: #3B5D50; }
       .btn.btn-primary.btn-outline-primary {
-        border: 1px solid #115b5d;
+        border: 1px solid #3B5D50;
         background: transparent;
-        color: #115b5d; }
+        color: #3B5D50; }
         .btn.btn-primary.btn-outline-primary:hover {
           border: 1px solid transparent;
-          background: #115b5d;
+          background: #3B5D50;
           color: #fff; }
   
   .form-group {

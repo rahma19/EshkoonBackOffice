@@ -74,6 +74,7 @@ export class MenuListComponent implements OnInit {
 
     this.menuService.getMenuById(this.id).subscribe( (res: any) => {
       this.menu = res;
+      
     })
 
     this.menuService.getAllCategories(this.id);

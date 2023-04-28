@@ -24,7 +24,8 @@
                                   <!-- <div style="width: 50%;"><img src="{{path}}{{item?.img}}" class="img-sm img-thumbnail"></div> -->
                                   <figcaption class="info">
                                     <div style="display: flex;"><mat-icon>supervised_user_circle</mat-icon>
-                                      <h5  class="title">{{item?.first_name}} {{item?.last_name}}</h5></div>
+                                      <h5 *ngIf="item?.type.includes('Google')" class="title">{{item?.entreprise}}</h5>
+                                      <h5 *ngIf="item?.type.includes('NFC')" class="title">{{item?.first_name}} {{item?.last_name}}</h5></div>
                                     <p  class="text-muted"> 
                                       <div style="display: flex;">
                                       <mat-icon style="cursor:pointer"  class="text-muted" [cdkCopyToClipboard]="item?.link">file_copy</mat-icon>
