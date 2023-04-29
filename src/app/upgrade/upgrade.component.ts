@@ -35,7 +35,7 @@ export class UpgradeComponent implements OnInit {
   ngOnInit() {
     this.orderService.getProfiles();
     this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {
-      console.log(res);
+console.log(res);
 
       this.profiles = res;   
       this.filteredData=res    
@@ -62,6 +62,8 @@ export class UpgradeComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      
     });
   }
 

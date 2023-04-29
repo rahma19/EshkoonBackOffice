@@ -19,7 +19,7 @@ cards:any[]=[];
 searchText = '';
 filteredData: any[] = [];
 displayedColumns = ['Nom', 'Type','Prix','Description','Image','Detail'];
-@ViewChild(MatPaginator) paginator: MatPaginator;
+@ViewChild('paginator') paginator!: MatPaginator;
 @ViewChild(MatSort) sort: MatSort;
 dataSource: MatTableDataSource<any>;
 
@@ -44,12 +44,10 @@ isLoading=true
       this.cardService.getAllCards();
       this.serviceSubscribe = this.cardService.cards$.subscribe(res => {
         this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-  
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     })
   }
-
 
   add() {    
     const dialogRef = this.dialog.open(CreateCardComponent, {

@@ -1,0 +1,110 @@
+<section class="form-02-main">
+    <div class="container">
+        <div class="row bg-img">
+            <div class="col-md-12">
+                <div class="_lk_de overlay">
+                    <div class="form-03-main container">
+                        <div class="logo">
+                            <h1>S'inscrire</h1>
+                            <h5>Inscrivez-vous pour avoir accès à notre interface et commandez vos cartes e-shkoon</h5>
+                        </div>
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="row mt-5">
+                                <div class="col-lg-6">
+                                    <mat-form-field  appearance="outline" class="form-field">
+                                        <mat-label>Prénom</mat-label>
+                                        <input  matInput formControlName="name" name="lastName" >
+                                        <mat-error *ngIf="form.get('lastName')?.hasError('required')">Le prénom est obligatoire</mat-error>
+                                </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <mat-form-field appearance="outline" class="form-field">
+                                        <mat-label>Nom</mat-label>
+                                        <input matInput formControlName="lastName" name="name" >
+                                        <mat-error *ngIf="form.get('name')?.hasError('required')">Le nom est obligatoire</mat-error>
+                                </mat-form-field>
+                                </div>
+                                                                
+                            </div>
+                            <div class="row mt-3">
+                                <!-- <div class="col-lg-6">
+                                    <label for="inscription_phone_number" class="required">Numéro de téléphone </label>
+                                    <input type="text" id="inscription_phone_number" formControlName="phoneNum"
+                                        required="required" class="form-control" placeholder="Num tel">
+
+                                    <div><label for="inscription_referer">Comment avez-vous entendu parler de nous
+                                            ?</label><select id="inscription_referer" name="inscription[referer]"
+                                            class="form-select">
+                                            <option value=""></option>
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="Google">Google</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Linkedin">Linkedin</option>
+                                            <option value="TikTok">TikTok</option>
+                                            <option value="Snapchat">Snapchat</option>
+                                            <option value="Bing">Bing</option>
+                                            <option value="Bouche à oreille">Bouche à oreille</option>
+                                        </select></div>
+                                </div> -->
+                                <mat-form-field  appearance="outline" class="form-field">
+                                    <mat-label>Email</mat-label> 
+                                    <input  matInput formControlName="email" name="email" >
+                        </mat-form-field>
+                        <div style="font-size: 75%" *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)" >
+                                        <mat-error *ngIf="form.get('email')?.hasError('required') ">L'email est obligatoire</mat-error>
+                                        <mat-error *ngIf="form.get('email')?.hasError('pattern')">
+                                            Format attendu : exemple@gmail.com
+                                        </mat-error>
+                                     </div> 
+                                <!-- <div>
+                                    <label for="inscription_email" class="required">Adresse e-mail</label>
+                                    <input type="email" id="inscription_email" formControlName="email"
+                                        required="required" class="form-control" placeholder="email@email.com">
+                                </div> -->
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-6">
+                                    <mat-form-field  appearance="outline" class="form-field">
+                                        <mat-label>Mot de passe</mat-label>
+                                        <input  matInput formControlName="password" name="password" >
+                                        <mat-error *ngIf="form.get('password')?.hasError('required')">Le Mot de passe est obligatoire</mat-error>
+                                </mat-form-field>
+                                    <!-- <label for="inscription_plainPassword_first" class="required">Mot de passe</label>
+                                    <input type="password" id="inscription_plainPassword_first"
+                                        formControlName="password" required="required" class="form-control"
+                                        placeholder="Mot de passe"> -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <mat-form-field  appearance="outline" class="form-field">
+                                        <mat-label>Vérification mot
+                                            de passe</mat-label>
+                                        <input  matInput formControlName="confirmPassword" name="confirmPassword" >
+                                        <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')">Ce champs est obligatoire</mat-error>
+                                </mat-form-field>
+                                    <!-- <div><label for="inscription_plainPassword_second" class="required">Vérification mot
+                                            de passe</label><input type="password" id="inscription_plainPassword_second"
+                                            formControlName="confirmPassword" required="required" class="form-control"
+                                            placeholder="Mot de passe"></div> -->
+                                </div>
+                            </div>
+                         <div class="row mb-3">
+                                <div style="display: contents;" class="col-lg-6">
+
+                                    <a style="cursor: pointer;" routerLink="/login" >Vous avez un compte ?</a>
+                                </div>
+                            </div>
+                            <!-- <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response"
+                                value="03AFY_a8V6SQpek2jaijcmRWarM_VTMRUH3wV3bJttUzBJnfbDAgddAWSDH-k-fDOsBugtpKdef0HT1Mx1FEHGboqD8HTHt3kDnwfcTiHf-RaiClJk8kXtbEw_u0JFw4-3bEwL-T9prYIiO3GbxJWUiK18CDtWjmlEitgR0hheac3GXjCw0O2_b0SckRVXVEpFnL-sk7u9JpfQvoY5IV8pov5bF2ZHHWPc2Wo38Hh-1t4h1WaGxMK4SBQ_4ZEY3wD0_OYje2JHchG9WBbr4gGsTRLD_lmeGJt6I-JtSc9IcVT4i6tzzLvMBjNmFtIg2Q3AOCojEL3OCuNemE5bZAHbhJ1JFanA2_vby0volNlWKpr4N-eMRiweSadRmKpEuwT-MK1671HUC3p4DaxXguk-TBpj_jIUanhALQ8yY9UDy9QP7GbbdgESu0Xm5EgX4_43CrDjtFnOaTHbWJW3A8dmIf34axrcnfKiMSdsubkCNAP-ylxhvbV06NEwVV-AVmEwXBOTErRVlyhm"> -->
+                            <div><button [disabled]="verif" type="submit" id="inscription_envoyer" name="inscription[envoyer]"
+                                    class="btn btn-theme">Inscription</button></div>
+                            <!-- <input type="hidden" id="inscription__token" name="inscription[_token]"
+                                value="99492356cc31f.LEmC5rbPPOZ90cvsaks8bolFfYX-R2Pp1CsQUpJRzJs.Hxb3ovuEeK00kPyiRyx1NtkyRdPGMwC55XtCPcgQk8x8JrSv95lQuS6goA"> -->
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

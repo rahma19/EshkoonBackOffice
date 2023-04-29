@@ -29,6 +29,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { MenuService } from './services/menu.service';
 import {  } from './update-menu-detail/update-menu-detail.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,7 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    
+    RegisterComponent
 ], 
   exports:[MatIconModule,MatDialogModule,MatRadioModule
   ,MatSelectModule,MatInputModule,MatFormFieldModule],
