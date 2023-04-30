@@ -19,13 +19,15 @@ cards:any[]=[];
 searchText = '';
 filteredData: any[] = [];
 displayedColumns = ['Nom', 'Type','Prix','Description','Image','Detail'];
-@ViewChild('paginator') paginator!: MatPaginator;
-@ViewChild(MatSort) sort: MatSort;
+@ViewChild('paginator') paginator: MatPaginator;
+// @ViewChild(MatSort) sort: MatSort;
 dataSource: MatTableDataSource<any>;
 
 serviceSubscribe:Subscription = new Subscription();
 path='http://localhost:3000/uploads/cards/';
 isLoading=true
+pageSizes = [3, 5, 7];
+
   constructor(private cardService : CardsService,public dialog: MatDialog) {
     setTimeout(() => {
       this.isLoading = false; // Set isLoading to false when loading is complete
@@ -39,14 +41,17 @@ isLoading=true
   }
 
   ngAfterViewInit() {
-    this.cardService.getAllCards().subscribe((res:any)=>{
-    })
-      this.cardService.getAllCards();
+ 
+      this.cardService.getAllCards().subscribe((res:any)=>{
+      });
       this.serviceSubscribe = this.cardService.cards$.subscribe(res => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource.paginator.pageSize = 5;
+        // this.dataSource.sort = this.sort;
     })
+    
+
   }
 
   add() {    
