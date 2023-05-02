@@ -17,7 +17,7 @@ export class OrderDetailsComponent implements OnInit {
    }
   param: any;
   value = "dfgfdv";
-  path = 'http://localhost:3000/uploads/cards/';
+  path = 'https://backend.e-shkoon.com/uploads/cards/';
 
   cart: any[] = []
   ngOnInit(): void {

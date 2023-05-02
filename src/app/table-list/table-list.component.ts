@@ -24,7 +24,7 @@ displayedColumns = ['Nom', 'Type','Prix','Description','Image','Detail'];
 dataSource: MatTableDataSource<any>;
 
 serviceSubscribe:Subscription = new Subscription();
-path='http://localhost:3000/uploads/cards/';
+path='https://backend.e-shkoon.com/uploads/cards/';
 isLoading=true
 pageSizes = [3, 5, 7];
 

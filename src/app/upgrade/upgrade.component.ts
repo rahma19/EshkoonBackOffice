@@ -22,7 +22,7 @@ export class UpgradeComponent implements OnInit {
    profiles: any[]=[];
    private serviceSubscribe: Subscription = new Subscription; 
    private profileSubscribe: Subscription = new Subscription; 
-   path='http://localhost:3000/uploads/qrcodes/';
+   path='https://backend.e-shkoon.com/uploads/qrcodes/';
    searchText = '';
    filteredData: any[] = [];
    isLoading=true

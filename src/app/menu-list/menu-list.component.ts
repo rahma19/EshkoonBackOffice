@@ -53,8 +53,8 @@ export class MenuListComponent implements OnInit {
   arr:any[]=[]
   dataSource: MatTableDataSource<any> = new MatTableDataSource(this.arr);
   private serviceSubscribe: Subscription = new Subscription;
-  path = 'http://localhost:3000/uploads/menu_details/';
-  menuPath = 'http://localhost:3000/uploads/menus/';
+  path = 'https://backend.e-shkoon.com/uploads/menu_details/';
+  menuPath = 'https://backend.e-shkoon.com/uploads/menus/';
   check = false
   checkBg=false
   checkOpt=false

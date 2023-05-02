@@ -19,7 +19,7 @@ export class AllFeatureComponent implements OnInit {
   filteredData: any[] = [];
   
   serviceSubscribe:Subscription = new Subscription();
-path='http://localhost:3000/uploads/features/';
+path='https://backend.e-shkoon.com/uploads/features/';
 isLoading=true
   constructor(private orderService : OrderService,public dialog: MatDialog) {
     setTimeout(() => {

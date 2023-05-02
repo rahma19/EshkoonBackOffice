@@ -31,7 +31,7 @@ export class UpdateCardComponent implements OnInit {
   });
   formData: any;
   imagePath: string="";
-  path='http://localhost:3000/uploads/cards/';
+  path='https://backend.e-shkoon.com/uploads/cards/';
 
   menu:any[]=[];
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,

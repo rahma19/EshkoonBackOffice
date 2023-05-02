@@ -30,7 +30,7 @@ export class UpdateMenuDetailComponent implements OnInit {
   });
   formData: any;
   imagePath: string="";
-  path='http://localhost:3000/uploads/menu_details/';
+  path='https://backend.e-shkoon.com/uploads/menu_details/';
 img:any
 check=false
   menu:any[]=[];
