@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     else{
       // if(AuthUtils.isTokenExpired())   
        this.router.navigateByUrl('/login');
-      alert("not logged in");
+      // alert("not logged in");
       return false
     }
   }
