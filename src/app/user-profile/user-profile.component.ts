@@ -34,7 +34,7 @@ export class UserProfileComponent implements OnInit {
 
         setTimeout(() => {
           this.isLoading = false; // Set isLoading to false when loading is complete
-        }, 1000);
+        }, 3000);
   }
  
 
