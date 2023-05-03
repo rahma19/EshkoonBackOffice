@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 // import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs';
 
@@ -12,27 +13,37 @@ import { first } from 'rxjs';
 export class UserProfileComponent implements OnInit {
 
   form!: FormGroup;
-  confirmPassword="";
+  // confirmPassword="";
   user:any;
+  isLoading=true
   constructor(private formBuilder: FormBuilder,private authService:AuthService,
+    private toastr:ToastrService
     // private toastr:ToastrService
     ){
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      email: [''],
+      email: ['', [Validators.required]],
       role: [''],
       isActif: [''],
       createdAt:[''],
     updatedAt:[''],
-      password: [''],
-    })
+      password: ['', [Validators.required]],
+      confirmPassword:[''],
+        });
+
+        setTimeout(() => {
+          this.isLoading = false; // Set isLoading to false when loading is complete
+        }, 1000);
   }
  
 
 ngOnInit(): void {
-  this.authService.user$.subscribe(user=>{
-    this.user=user;
+  this.authService.getUserByEmail(JSON.parse(this.authService.currentUserValue)?.email);
+    this.authService.user$.subscribe(async user => {    
+      console.log(user);
+       
+      this.user = await user;
   });
 }
 
@@ -57,20 +68,20 @@ get f() { return this.form.controls; }
 onSubmit() {
   // stop here if form is invalid
   if (this.form.invalid) {
-    // this.toastr.error('Veuillez remplir tous les champs');
+    return this.toastr.error('Veuillez remplir tous les champs');
   }      
-  if(this.password && this.confirmPassword && this.password!=this.confirmPassword){
-    // this.toastr.error('Veuillez vérifier le mot de passe');
+  if(this.form.value.password && this.form.value.confirmPassword && this.form.value.password!=this.form.value.confirmPassword){
+    return  this.toastr.error('Veuillez vérifier le mot de passe');
   }
   return this.authService.updateUser(this.form.value,this.user.email)
   .pipe(first())
   .subscribe(
     async (data:any) => {
-      // this.toastr.success('Vos données ont été modifiés avec succès');
+      this.toastr.success('Vos données ont été modifiés avec succès');
 
     },
     error => {
-      // this.toastr.error('Erreur lors de l enregistrement');
+      this.toastr.error('Erreur lors de l enregistrement');
 
     });
 }

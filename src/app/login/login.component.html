@@ -16,7 +16,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="form-field " >
                     <mat-label>Mot de passe</mat-label>
-                    <input matInput formControlName="password" name="password" >
+                    <input matInput type="password" formControlName="password" name="password" >
                     <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Le mot de passe est
                         obligatoire</mat-error>
                 </mat-form-field>

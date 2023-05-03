@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, Subscription } from 'rxjs';
 import { CardsService } from '../services/cards.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-card',
@@ -37,7 +38,7 @@ file:any;
   }
 
   subscription = new Subscription();
-  constructor(private formBuilder: FormBuilder,  
+  constructor(private formBuilder: FormBuilder, private toastr:ToastrService, 
     private cardService: CardsService,public dialogRef: MatDialogRef<CreateCardComponent>) { }
 
   get f() {
@@ -102,9 +103,11 @@ file:any;
   }
 
   submit(){
-    // if (this.cardForm.invalid) {
-    //   return;
-    // }    
+    console.log(this.cardForm.value);
+    
+//     if (this.cardForm.invalid) {
+//     return this.toastr.error('Veuillez remplir tout les champs');
+// }  
     const formData = new FormData();    
     formData.set('name', this.cardForm.value.name);
     formData.set('description', this.cardForm.value.description);
@@ -113,11 +116,17 @@ file:any;
     formData.set('image', this.file);
     formData.set('isService', this.cardForm.value.isService);
     
-      this.cardService.createCard(formData).subscribe(
+     return this.cardService.createCard(formData).subscribe(
       async res => {
+        console.log(res);
+        
             await this.dialogRef.close();
+      this.toastr.success('Carte a été ajoutée avec succès');
+
         },
-        error => console.log(error)
+        error => 
+{      this.toastr.error('Erreur');
+}        
       );
   }
 

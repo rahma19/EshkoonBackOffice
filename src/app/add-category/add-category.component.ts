@@ -26,12 +26,17 @@ export class AddCategoryComponent implements OnInit {
   }
 
   submit(){
+    if (this.FormGroup.invalid) {
+      return this.toast.error('Veuillez remplir tout les champs');
+    }
     this.menuService.createCateg(this.FormGroup.value).subscribe( async res=>{
       this.toast.success("Catégorie a été ajoutée avec succés ");
       await this.dialogRef.close();
       //  this.router.navigate(['../home']);
     },
     error => {
+      this.toast.error("Erreur ");
+
     });
   }
 }

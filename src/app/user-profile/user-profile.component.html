@@ -1,4 +1,11 @@
-<div class="main-content">
+<div *ngIf="isLoading">
+  <div id="spinner"
+  class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+  <div class="spinner-grow text-primary" role="status"></div>
+</div>
+</div>
+
+<div  *ngIf="!isLoading" class="main-content">
   <div class="container-fluid">
       <div class="row">
           <div class="col-md-8">
@@ -8,35 +15,36 @@
                       <!-- <p class="card-category">Complete your profile</p> -->
                   </div>
                   <div class="card-body">
-                      <form>
-                          <div class="row">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                      <div class="row">
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Fist Name" type="text">
+                                  <input matInput formControlName="name" placeholder="Nom" type="text" [(ngModel)]="user.name">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Last Name" type="text">
+                                  <input matInput formControlName="lastName" placeholder="Prénom" type="text" [(ngModel)]="user.lastName">
                                 </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Username">
+                                  <input matInput formControlName="Email" [(ngModel)]="user.email" placeholder="Username">
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-6">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Email address" type="email">
-                                </mat-form-field>
-                            </div>
+                           
                         </div>
                           <div class="row">
-                              <div class="col-md-12">
+                            <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input matInput type="password" placeholder="Mot de passe" formControlName="password" [(ngModel)]="user.password">
+                              </mat-form-field>
+                          </div>
+                              <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Adress" type="text">
+                                  <input matInput placeholder="Confirmer mot de passe" type="password" formControlName="confirmPassword">
                                 </mat-form-field>
                               </div>
                           </div>
@@ -65,7 +73,7 @@
                                  </mat-form-field>
                                  </div>
                           </div> -->
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Modifier</button>
                           <div class="clearfix"></div>
                       </form>
                   </div>

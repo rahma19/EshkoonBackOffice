@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs';
 import { CardsService } from '../services/cards.service';
 
@@ -14,7 +15,7 @@ export class CreateTypeCarteComponent implements OnInit {
     name: ['', Validators.required],
     });
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,private toastr:ToastrService,
     private cardService: CardsService,public dialogRef: MatDialogRef<CreateTypeCarteComponent>) { 
       dialogRef.disableClose = true;
 
@@ -37,15 +38,17 @@ export class CreateTypeCarteComponent implements OnInit {
 
   submit(){
     if (this.cardTypeForm.invalid) {
-      return;
+      return this.toastr.error('Veuillez remplir tout les champs');
     }
     this.cardService.createmenuType(this.cardTypeForm.value)
       .pipe(first())
       .subscribe(
         async data => {
+      this.toastr.success('Type a été ajouté avec succès');
           await this.dialogRef.close();
         },
         error => {
+      this.toastr.error('Erreur');
         });
   }
 

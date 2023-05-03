@@ -47,7 +47,7 @@ pageSizes = [3, 5, 7];
       this.serviceSubscribe = this.cardService.cards$.subscribe(res => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.paginator.pageSize = 5;
+        // this.dataSource.paginator.pageSize = 5;
         // this.dataSource.sort = this.sort;
     })
     

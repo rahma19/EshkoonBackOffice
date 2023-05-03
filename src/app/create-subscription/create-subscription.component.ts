@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CardsService } from 'app/services/cards.service';
+import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs';
 
 @Component({
@@ -17,7 +18,7 @@ export class CreateSubscriptionComponent implements OnInit {
     duration: ['', Validators.required],
     });
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,private toastr:ToastrService,
     private cardService: CardsService,public dialogRef: MatDialogRef<CreateSubscriptionComponent>) { 
       dialogRef.disableClose = true;
 
@@ -44,15 +45,18 @@ export class CreateSubscriptionComponent implements OnInit {
 
   submit(){
     if (this.subsForm.invalid) {
-      return;
+      return this.toastr.error('Veuillez remplir tout les champs');
     }
     this.cardService.createSubscription(this.subsForm.value)
       .pipe(first())
       .subscribe(
         async data => {
+      this.toastr.success('Abonnement a été ajoutée avec succès');
           await this.dialogRef.close();
         },
         error => {
+    return this.toastr.error('Erreur');
+
         });
   }
 

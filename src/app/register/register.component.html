@@ -67,7 +67,7 @@
                                 <div class="col-lg-6">
                                     <mat-form-field  appearance="outline" class="form-field">
                                         <mat-label>Mot de passe</mat-label>
-                                        <input  matInput formControlName="password" name="password" >
+                                        <input  matInput formControlName="password" type="password" name="password" >
                                         <mat-error *ngIf="form.get('password')?.hasError('required')">Le Mot de passe est obligatoire</mat-error>
                                 </mat-form-field>
                                     <!-- <label for="inscription_plainPassword_first" class="required">Mot de passe</label>
@@ -79,7 +79,7 @@
                                     <mat-form-field  appearance="outline" class="form-field">
                                         <mat-label>Vérification mot
                                             de passe</mat-label>
-                                        <input  matInput formControlName="confirmPassword" name="confirmPassword" >
+                                        <input  matInput formControlName="confirmPassword" type="password" name="confirmPassword" >
                                         <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')">Ce champs est obligatoire</mat-error>
                                 </mat-form-field>
                                     <!-- <div><label for="inscription_plainPassword_second" class="required">Vérification mot

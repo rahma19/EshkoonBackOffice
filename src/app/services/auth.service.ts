@@ -37,7 +37,7 @@ export class AuthService {
     return this.http
       .post<any>(`${environment.apiUrl}/auth/signIn`, { email, password })
       .pipe(
-        map((user: any) => {
+        map(async (user: any) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.saveTokens(user.accessToken, user.refreshToken);
           const decoded = AuthUtils._decodeToken(user.accessToken);
@@ -109,6 +109,7 @@ export class AuthService {
         this.currentUserSubject.next(JSON.parse(JSON.stringify(data.user)));
       });
   }
+  
   updateUser(form: any, email: any) {
     return this.http
       .put(`${environment.apiUrl}/auth/update/${email}`, form)

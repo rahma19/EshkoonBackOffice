@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'app/services/auth.service';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 
 @Component({ templateUrl: 'login.component.html',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private toast:ToastrService,
     private authenticationService: AuthService
   ) {
     // redirect to home if already logged in
@@ -61,6 +63,8 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         async (data: any) => {
+          console.log(data);
+          
           if (JSON.parse(localStorage.getItem('user')).role!='admin'){
             this.authenticationService.logout();            
           }
@@ -69,6 +73,9 @@ export class LoginComponent implements OnInit {
           }
         },
         error => {
+
+          this.toast.error('données incorrectes')
+
         });
     // .pipe(first())
     // .subscribe(

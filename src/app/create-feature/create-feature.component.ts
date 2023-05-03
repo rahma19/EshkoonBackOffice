@@ -6,6 +6,7 @@ import { first, Subscription } from 'rxjs';
 import { CardsService } from '../services/cards.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { OrderService } from 'app/services/order.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-feature',
@@ -34,7 +35,7 @@ export class CreateFeatureComponent implements OnInit {
   }
 
   subscription = new Subscription();
-  constructor(private formBuilder: FormBuilder,  
+  constructor(private formBuilder: FormBuilder,  private toastr:ToastrService,
     private orderService: OrderService,public dialogRef: MatDialogRef<CreateFeatureComponent>) { }
 
   get f() {
@@ -68,9 +69,10 @@ export class CreateFeatureComponent implements OnInit {
   }
 
   submit(){
-    // if (this.cardForm.invalid) {
-    //   return;
-    // }    
+    if (this.cardForm.invalid) {
+      this.toastr.error('Veuillez saisir des données valides');
+      return ;
+    }    
     const formData = new FormData();    
     formData.set('name', this.cardForm.value.name);
     formData.set('image', this.file);
@@ -78,9 +80,11 @@ export class CreateFeatureComponent implements OnInit {
     this.orderService.createFeature(formData).subscribe(
       async res => {
             (res);
+      this.toastr.success('Fonctionnalité a été ajouté avec succès');
             await this.dialogRef.close();
         },
-        error => console.log(error)
+        error =>       {this.toastr.success('Erreur');}
+
       );
   }
 
