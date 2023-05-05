@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavbarService } from 'app/services/navbar.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -14,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/table-list', title: 'Liste des cartes',  icon:'content_paste', class: '' },
     { path: '/notifications', title: 'Liste des abonnements',  icon:'library_books', class: '' },
     { path: '/listSM', title: 'Liste des réseaux Sociaux',  icon:'unarchive', class: '' },
-    { path: '/icons', title: 'Liste des commandes',  icon:'bubble_chart', class: '' },
+    { path: '/oders', title: 'Liste des commandes',  icon:'bubble_chart', class: '' },
     // { path: '/maps', title: 'Liste des utilisateurs',  icon:'location_on', class: '' },
     { path: '/upgrade', title: 'Liste des cartes  ',  icon:'notifications', class: '' },
     { path: '/menu', title: 'Liste des menu  ',  icon:'notifications', class: '' },
@@ -29,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   value='e-shkoon'
-  constructor() { }
+  constructor(public nav:NavbarService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

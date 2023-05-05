@@ -123,4 +123,21 @@ export class AuthService {
   GetUsers() {
     return this.http.get(`${environment.apiUrl}/auth/users`);
   }
+
+  forgotPassword(email:any){      
+    return this.http.post(`${environment.apiUrl}/auth/reset-password`, {email : email}).pipe(map((data:any)=>{
+  
+      }));
+
+  }
+
+  checkTokenPass(token:any){
+    return this.http.post(`${environment.apiUrl}/auth/ValidPasswordToken`, token);
+
+  }
+
+  updatePassword(form: any) {
+    return this.http.post(`${environment.apiUrl}/auth/forgotPassword`, form);
+
+  }
 }

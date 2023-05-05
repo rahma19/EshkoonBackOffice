@@ -50,7 +50,6 @@ isLoading =true
   ngAfterViewInit() {
     this.orderService.getAllOrders();
     this.orderService.orders$.subscribe((order: any) => {
-      
       this.orders = order;
       this.dataSource = new MatTableDataSource(order);
       this.dataSource.paginator = this.paginator;
@@ -78,38 +77,21 @@ isLoading =true
     return order;
   }
 
-  async downloadAsPDF(item) {    
+  async downloadAsPDF(item) {
     //  var order =await this.getDetails(item)
-    this.orderService.getOrderDetails(item.orderId);
-    this.phoneNum=item.phoneNum;
-    this.address=item.address
-    this.substotal=item.total
-    this.user=item.userEmail
-    this.firstName=item.firstName
-    this.id = item.orderId
-    this.lastName=item.lastName
-  this.total=Number(item.total)+5
-    this.dte = item.createdAt
-    this.orderService.orderDetails$.subscribe( (data: any) => {
-      this.orderDetail=[]
-      data.forEach(element => {
-        var order = { 
-          firstName : element.user_first_name,
-          lastName : element.user_last_name ,
-          subs : element.subscription.type,
-          cardName : element.card.name,
-          price : Number(element.subscription.price) + Number(element.card.price)
-        } ;
-          this.orderDetail.push(order);
+  
 
-  });
-  })
-    setTimeout(() => {
-      const pdfTable = this.pdfTable.nativeElement;
-    var html = htmlToPdfmake(pdfTable.innerHTML);
-    const documentDefinition = { content: html };
-    pdfMake.createPdf(documentDefinition).open(); 
-    }, 500);
+  // });
+  // })
+    // setTimeout(() => {
+    //   const pdfTable = this.pdfTable.nativeElement;
+    // var html = htmlToPdfmake(pdfTable.innerHTML);
+    // const documentDefinition = { content: html };
+    // pdfMake.createPdf(documentDefinition).open(); 
+    // }, 500);
+    this.router.navigateByUrl(`/exportInvoice/${item.orderId}`);
+
+    // this.router.navigate(['exportInvoice',item.orderId]);
      
   }
 

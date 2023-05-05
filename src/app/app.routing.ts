@@ -7,6 +7,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { GetInvoiceComponent } from './get-invoice/get-invoice.component';
 
 const routes: Routes =[
   {
@@ -18,6 +20,18 @@ const routes: Routes =[
     path: 'register',
     component: RegisterComponent,
     pathMatch: 'full',
+  },
+  {
+    path:'forgotPassword',
+    component: ForgotPasswordComponent,
+    pathMatch: 'full',
+
+  },
+  {
+    path:'exportInvoice/:orderId',
+    component: GetInvoiceComponent,
+    pathMatch: 'full',
+
   },
   {
     path: '',

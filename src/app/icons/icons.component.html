@@ -49,14 +49,15 @@
 
                                 <ng-container matColumnDef="Status">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Livraison</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"><span style="font-size: 12px;" class="badge text-white" [ngClass]="{ ' bg ': row?.status.trim() == 'pending', 
-                                      'bg-success ': row?.status.trim() == 'ACTIVATED'}">{{row?.status |
+                                    <mat-cell *matCellDef="let row"><span style="font-size: 12px;" class="badge text-white" [ngClass]="{ ' bgred ': row?.status.trim() == 'pending',
+                                         ' bg ': row?.status.trim() == 'DISABLED',
+                                         'bg-success ': row?.status.trim() == 'ACTIVATED'}">{{row?.status |
                                             status}}</span> </mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Facture">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Facture</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> <button class="btn btn-danger"
+                                    <mat-cell *matCellDef="let row"> <button class="btn btn-danger" target="_blank"
                                             style="font-size: 12px;" (click)="downloadAsPDF(row)">Telecharger</button>
                                     </mat-cell>
                                 </ng-container>

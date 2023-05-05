@@ -12,10 +12,10 @@ export class status implements PipeTransform {
         return 'En attente';
       }
       case "ACTIVATED" : {
-        return 'Livré';
+        return 'Livrée';
       }
       case "DISABLED" : {
-        return 'INACTIF';
+        return 'Annulée';
       }
   }
 }

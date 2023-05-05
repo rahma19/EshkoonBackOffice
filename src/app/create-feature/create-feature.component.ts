@@ -69,10 +69,10 @@ export class CreateFeatureComponent implements OnInit {
   }
 
   submit(){
-    if (this.cardForm.invalid) {
-      this.toastr.error('Veuillez saisir des données valides');
-      return ;
-    }    
+    // if (this.cardForm.invalid) {
+    //   this.toastr.error('Veuillez saisir des données valides');
+    //   return ;
+    // }    
     const formData = new FormData();    
     formData.set('name', this.cardForm.value.name);
     formData.set('image', this.file);

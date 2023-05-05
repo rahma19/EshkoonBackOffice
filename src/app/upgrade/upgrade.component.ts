@@ -38,7 +38,6 @@ export class UpgradeComponent implements OnInit {
    downloadImage(img) {
     let imageUrl =this.path+img
      this.getBase64ImageFromURL(imageUrl).subscribe(base64data => {
-       console.log(base64data);
        this.base64Image = "data:image/jpg;base64," + base64data;
        // save image to disk
        var link = document.createElement("a");
@@ -85,8 +84,6 @@ export class UpgradeComponent implements OnInit {
   ngOnInit() {
     this.orderService.getProfiles();
     this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {
-console.log(this.path+res[0].qrImg);
-
       this.profiles = res;   
       this.filteredData=res    
     })
@@ -112,8 +109,6 @@ console.log(this.path+res[0].qrImg);
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
     });
   }
 

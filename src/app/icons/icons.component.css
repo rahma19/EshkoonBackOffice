@@ -30,6 +30,10 @@
     color: #c62828;
     background-color: #c62828;
   }
+  .bgred{
+    color: #ec832c;
+    background-color: #ec832c;
+  }
   .mat-column-CommandeID , .mat-column-Facture {
     word-wrap: break-word !important;
     white-space: unset !important;

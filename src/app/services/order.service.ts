@@ -94,6 +94,12 @@ export class OrderService {
     });
   }
 
+  //get Order by id view
+  getOrderById(orderId){
+    return this.http.get(`${environment.apiUrl}/order/view/${orderId}`)
+
+  }
+
   //get AllOrderDetails
   getAllOrderDetails() {
     return this.http.get(`${environment.apiUrl}/orderDetails/listOrders`).pipe(map((orders:any) => {

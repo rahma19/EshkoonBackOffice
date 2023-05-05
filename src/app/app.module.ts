@@ -30,12 +30,18 @@ import { MenuService } from './services/menu.service';
 import {  } from './update-menu-detail/update-menu-detail.component';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NavbarService } from './services/navbar.service';
+import { CommonModule } from '@angular/common';
+import { GetInvoiceComponent } from './get-invoice/get-invoice.component';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     FormsModule,MatFormFieldModule,
     ReactiveFormsModule,MatInputModule,
+    CommonModule,
     HttpClientModule, MatSelectModule,
     ComponentsModule,MatRadioModule,
     RouterModule,
@@ -56,13 +62,16 @@ import { RegisterComponent } from './register/register.component';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
+    GetInvoiceComponent
 ], 
   exports:[MatIconModule,MatDialogModule,MatRadioModule
   ,MatSelectModule,MatInputModule,MatFormFieldModule],
   entryComponents:[],
   providers: [CardsService,OrderService, AuthService, AuthGuard,
-    JwtHelperService,MenuService,
+    JwtHelperService,MenuService,NavbarService,
     { provide: JWT_OPTIONS, useValue: {} },
     {
       provide: HTTP_INTERCEPTORS,

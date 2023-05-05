@@ -1,0 +1,118 @@
+<div class="container mt-5 body" id="pdfTable" #pdfTable>
+    <div class="container-fluid invoice-container" id="invoice">
+        <!-- Main Content -->
+        <main id="receipt">
+
+            <div class="row d-flex">
+                <div class="text-sm-left  cl col-sm-6"> <strong class="mini">Commande NO°
+                    </strong>{{order?.orderId}}<br>
+                    <strong class="mini">Date:</strong> {{order?.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                </div>
+                <div class="col-sm-6 cl text-sm-right mb-0">
+                    <h1 class="section-title mb-0" style="text-align: right;">Facture</h1>
+                </div>
+            </div>
+
+            <hr style="background-color: black;" class="h-100">
+
+            <div class="row d-flex mb-5 mt-4">
+                <div class="text-sm-left cl  col-sm-6">
+                    <p class="mini stl">Facture à<br>
+                    </p>
+                    <p class="mini stl">Numéro de téléphone<br></p>
+                    <p class="mini stl">Adresse </p>
+                </div>
+                <div class="col-sm-6 cl text-sm-right mb-0">
+                    <p class="mini mb-0 stl" style="text-align: right;">{{order?.firstName}} {{order?.lastName}}<br>
+                        {{order?.phoneNum}}<br>
+                        {{order?.address}}</p>
+                </div>
+            </div>
+
+            <div id="print-section">
+                <div class="card-body p-0">
+                    <table class="table mb-0">
+                        <thead class="card-header" style="background-color: #3B5D50 ;">
+                            <tr>
+                                <td class=" border-0"><strong>Article</strong></td>
+                                <td class=" border-0"><strong>Nom</strong></td>
+                                <td class=" text-center border-0"><strong>Prenom</strong></td>
+                                <td class=" text-center border-0"><strong>Abonnement</strong></td>
+                                <td class=" text-right border-0"><strong>Prix</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of orderDetail" style="border-bottom: #5d5d5d 1px solid;">
+                                <td class=" border-0" style="color: #000;">
+                                    {{item?.card?.name}} </td>
+                                <td class=" text-1 border-0" style="color: #000;">
+                                    {{item?.user_first_name}} </td>
+                                <td class=" text-center border-0" style="color: #000;">
+                                    {{item?.user_last_name}} </td>
+                                <td *ngIf="!item?.card_type?.name.toLowerCase().includes('google')" class=" text-center border-0"
+                                    style="color: #000;">{{item?.subscription?.type}}
+                                </td>
+                                <td *ngIf="item?.card_type?.name.toLowerCase().includes('google')" class=" text-center border-0"
+                                    style="color: #000;">Pas d'abonnement
+                                </td>
+                                <td class=" text-right border-0" style="color: #000;"><strong>{{item?.price}}
+                                        TND</strong></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="col-lg-7 mt-3" style="float: right;">
+                        <table class=" px-3" style="float:right;background-color: rgb(243, 255, 255);">
+                            <tr>
+                                <td colspan="4" class="text-right px-2 py-2 mini stl">Sous Total :</td>
+                                <td class="text-right">{{sous_totale}} TND</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right px-2 py-2 mini stl">Expédition :</td>
+                                <td class="text-right">{{frait_expedition}} TND <small>(Livraison)</small></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">
+                                    Total :</td>
+                                <td class="text-right"><strong>{{order?.total}}
+                                        TND</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div><br>
+            </div>
+
+        </main><br>
+    </div>
+    <div class=" py-5">
+        <div class="text-left mt-5">
+            <p class="mini "><strong>Méthode de paiement <br></strong></p>
+            <p>Livraison à domicile.</p>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class=" mt-5">
+        <br><br>
+        <div class="row text-center">
+            <div class="col-sm-12 mini py-2">
+                <!-- <img src="{{ asset('images/signatures/pres.png') }}" style="margin-left: 70px;" width="50" /> -->
+                <strong>Merci de vos achats ! <br>
+                    Bonne journnée</strong>
+            </div>
+            <hr>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-sm-12 mb-2">
+                <!-- <img src="{{ asset('images/signatures/pres.png') }}" style="margin-left: 70px;" width="50" /> -->
+                info@e-shkoon.com | Le Bardo.2000 Tunis Tunisie | +216 29 151 784
+            </div>
+        </div>
+        <div class=" btn-group-sm d-print-none pb-5" style="display: flex;justify-content: center;">
+            <a style="text-align: center;" href="javascript:window.print()"
+                class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-print"></i> Imprimer</a>
+            <!-- <a href="#" id="download" class="btn btn-light border text-black-50 shadow-none"><i class="fa fa-download"></i> Download</a>  -->
+        </div>
+    </footer>
+
+</div>

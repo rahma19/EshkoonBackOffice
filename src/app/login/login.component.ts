@@ -63,8 +63,6 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         async (data: any) => {
-          console.log(data);
-          
           if (JSON.parse(localStorage.getItem('user')).role!='admin'){
             this.authenticationService.logout();            
           }
@@ -90,5 +88,9 @@ export class LoginComponent implements OnInit {
   }
   goToRegistration() {
     this.router.navigateByUrl('auth/register');
+  }
+
+  forgotPassword(){
+    this.router.navigateByUrl('forgotPassword');
   }
 }

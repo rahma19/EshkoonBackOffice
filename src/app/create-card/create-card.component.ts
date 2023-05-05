@@ -103,8 +103,6 @@ file:any;
   }
 
   submit(){
-    console.log(this.cardForm.value);
-    
 //     if (this.cardForm.invalid) {
 //     return this.toastr.error('Veuillez remplir tout les champs');
 // }  
@@ -118,8 +116,6 @@ file:any;
     
      return this.cardService.createCard(formData).subscribe(
       async res => {
-        console.log(res);
-        
             await this.dialogRef.close();
       this.toastr.success('Carte a été ajoutée avec succès');
 

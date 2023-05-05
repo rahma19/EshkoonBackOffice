@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'ngx-toastr/toastr';
+:root {
+    --blue: #3B5D50;
+    --primary:#3B5D50;
+    --bs-font-sans-serif: 'Arimo', sans-serif;
+    --bs-font-monospace: 'Arimo', sans-serif;
+} 
