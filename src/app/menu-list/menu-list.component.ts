@@ -20,15 +20,15 @@ import { Subscription } from 'rxjs';
 })
 export class MenuListComponent implements OnInit {
   firstFormGroup = this._formBuilder.group({
-    restoName: ['', Validators.required],
-    description: ['', Validators.required],
-    email: ['', Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])],
-    hour: ['', Validators.required],
-    img: ['', Validators.required],
-    // phoneNum: ['', Validators.required],
+    restoName: [''],
+    description: [''],
+    email: ['',Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+    hour: [''],
+    img: [''],
+    // phoneNum: [''],
     backgroundImg: [''],
     optionalImg: [''],
-    phoneNum: ['', Validators.compose([Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(8), Validators.minLength(8)])],
+    phoneNum: [''],
   });
 
   constructor(private _formBuilder: FormBuilder, private menuService: MenuService,
@@ -139,10 +139,7 @@ export class MenuListComponent implements OnInit {
     formData.append('image', this.file);
     formData.append('image', this.file3);
     formData.set('hour', this.menu?.hour);
-    formData.forEach(elem=>{
-      
-    })
-    this.menuService.updateMenu(this.id, formData).subscribe(async res => {
+   this.menuService.updateMenu(this.id, formData).subscribe(async res => {
       this.toast.success('Menu a été ajoutée avec succées')
     }, error => {
       this.toast.error("Erreur");

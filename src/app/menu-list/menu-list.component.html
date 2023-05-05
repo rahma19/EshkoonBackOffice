@@ -15,13 +15,13 @@
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" class="col-sm-6">
                                     <mat-label>Email</mat-label>
-                                    <input matInput name="email" [(ngModel)]="menu.email"  required #email="ngModel">
+                                    <input matInput name="email" [(ngModel)]="menu.email"   #email="ngModel">
                                 </mat-form-field>
                             </div>
                             <div class="row">
                                 <mat-form-field appearance="outline" class="form-field col-sm-6">
                                     <mat-label>Numéro de téléphone</mat-label>
-                                    <input matInput name="phoneNum" [(ngModel)]="menu.phoneNum"  required #phoneNum="ngModel">
+                                    <input matInput name="phoneNum" [(ngModel)]="menu.phoneNum"   #phoneNum="ngModel">
                                     <!-- <mat-error
                                         *ngIf="firstFormGroup.get('ville').hasError('required')">La
                                         ville est
@@ -29,9 +29,9 @@
                                 </mat-form-field>
                                 <mat-form-field appearance="outline" class="form-field col-sm-6">
                                     <mat-label>Horaires</mat-label>
-                                    <input matInput name="hour" [(ngModel)]="menu.hour"  required #hour="ngModel">
+                                    <input matInput name="hour" [(ngModel)]="menu.hour"   #hour="ngModel">
                                     <!-- <mat-error
-                                        *ngIf="firstFormGroup.get('ville').hasError('required')">La
+                                        *ngIf="firstFormGroup.get('ville').hasError('')">La
                                         ville est
                                         obligatoire</mat-error> -->
                                 </mat-form-field>
@@ -41,7 +41,7 @@
 
                                 <mat-form-field appearance="outline" class="col-sm-12">
                                     <mat-label>Description</mat-label>
-                                    <textarea matInput name="description" [(ngModel)]="menu.description"  required #description="ngModel"
+                                    <textarea matInput name="description" [(ngModel)]="menu.description"   #description="ngModel"
                                         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
                                         cdkAutosizeMaxRows="5"></textarea>
                                 </mat-form-field>
