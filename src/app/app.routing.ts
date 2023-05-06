@@ -9,6 +9,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { GetInvoiceComponent } from './get-invoice/get-invoice.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes =[
   {
@@ -25,7 +26,11 @@ const routes: Routes =[
     path:'forgotPassword',
     component: ForgotPasswordComponent,
     pathMatch: 'full',
-
+  },
+  {
+    path: 'resetPassword/:token',
+    component: ResetPasswordComponent ,
+    pathMatch:'full'
   },
   {
     path:'exportInvoice/:orderId',

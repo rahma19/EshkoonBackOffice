@@ -125,10 +125,9 @@ export class AuthService {
   }
 
   forgotPassword(email:any){      
-    return this.http.post(`${environment.apiUrl}/auth/reset-password`, {email : email}).pipe(map((data:any)=>{
-  
+    let type='bo'  
+    return this.http.post(`${environment.apiUrl}/auth/reset-password/${type}`, {email : email}).pipe(map((data:any)=>{
       }));
-
   }
 
   checkTokenPass(token:any){
