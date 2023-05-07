@@ -28,7 +28,7 @@
                                       <h5 *ngIf="item?.type.includes('NFC')" class="title">{{item?.first_name}} {{item?.last_name}}</h5></div>
                                     <p  class="text-muted"> 
                                       <div style="display: flex;">
-                                      <mat-icon style="cursor:pointer"  class="text-muted" [cdkCopyToClipboard]="item?.link">file_copy</mat-icon>
+                                      <mat-icon style="cursor:pointer" class="text-muted" (click)="showLinkCopied()" [cdkCopyToClipboard]="item?.link">file_copy</mat-icon>
                                      <label  for="clipboard-example-textarea">{{item?.link}}</label>
 </div>
                                   </figcaption>

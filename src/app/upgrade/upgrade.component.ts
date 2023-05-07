@@ -5,6 +5,7 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateProfileComponent } from 'app/update-profile/update-profile.component';
+import { ToastrService } from 'ngx-toastr';
 const htmlToPdfmake = require("html-to-pdfmake");
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -26,7 +27,7 @@ export class UpgradeComponent implements OnInit {
    searchText = '';
    filteredData: any[] = [];
    isLoading=true
-  constructor(private orderService: OrderService,public dialog: MatDialog) {
+  constructor(private orderService: OrderService,public dialog: MatDialog, private toast: ToastrService) {
     setTimeout(() => {
       this.isLoading = false; // Set isLoading to false when loading is complete
     }, 1000);
@@ -110,6 +111,12 @@ export class UpgradeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  showLinkCopied()
+  {
+    this.toast.success('Lien copié dans le presse papier!')
+
   }
 
   

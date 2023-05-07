@@ -17,7 +17,7 @@ export class CreateMenuComponent implements OnInit {
 
   secondFormGroup = this._formBuilder.group({
     name: ['', Validators.required],
-    ingredient: ['', Validators.required],
+    ingredient: [''],
     price: ['',Validators.required],
     img: ['', Validators.required],
     menuCategoryId : ['', Validators.required],
