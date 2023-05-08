@@ -42,7 +42,7 @@ isLoading =true
     this.menuService.getAllMenu().subscribe((menu: any) => {
       this.dataSource = new MatTableDataSource(menu);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      // this.dataSource.sort = this.sort;
   
     })
   }

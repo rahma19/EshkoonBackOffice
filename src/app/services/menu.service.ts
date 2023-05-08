@@ -92,18 +92,23 @@ export class MenuService {
     });
   }
 
+  getCategById(menuCategoryId){
+    return this.http.get(`${environment.apiUrl}/menuCategory/view/${menuCategoryId}`)
+  }
+
   createCateg(categ){
     return this.http.post(`${environment.apiUrl}/menuCategory/create`, categ).pipe(map(categ => {
        this.categSubject.next(JSON.parse(JSON.stringify(categ)).data);
     }));
   }
-
-  updateCateg(){
-
+  updateCateg(menuCategoryId: string,payload:any) {
+    return this.http.put(`${environment.apiUrl}/menuCategory/update/${menuCategoryId}`,payload).pipe(map(categ => {
+       this.categSubject.next(JSON.parse(JSON.stringify(categ)).data);
+    }));
   }
 
-  deleteCateg(menuId){
-    return this.http.delete(`${environment.apiUrl}/menuCategory/remove/${menuId}` ).pipe(map(menu => {
+  deleteCateg(menuCategoryId){
+    return this.http.delete(`${environment.apiUrl}/menuCategory/remove/${menuCategoryId}` ).pipe(map(menu => {
       this.categSubject.next(JSON.parse(JSON.stringify(menu)).data);
    }));
   }

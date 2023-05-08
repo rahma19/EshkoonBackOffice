@@ -7,8 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { AddCategoryComponent } from 'app/add-category/add-category.component';
 import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
+import { DeleteCategoryComponent } from 'app/delete-category/delete-category.component';
 import { DeleteMenuDetailComponent } from 'app/delete-menu-detail/delete-menu-detail.component';
 import { MenuService } from 'app/services/menu.service';
+import { UpdateCategoryComponent } from 'app/update-category/update-category.component';
 import { UpdateMenuDetailComponent } from 'app/update-menu-detail/update-menu-detail.component';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -166,6 +168,23 @@ export class MenuListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '400px',
       data: this.id
+
+    });
+  }
+
+  editCateg(id) {
+    const dialogRef = this.dialog.open(UpdateCategoryComponent, {
+      width: '400px',
+      data: id
+
+    });
+  }
+
+
+  deleteCateg(id) {
+    const dialogRef = this.dialog.open(DeleteCategoryComponent, {
+      width: '400px',
+      data: id
 
     });
   }

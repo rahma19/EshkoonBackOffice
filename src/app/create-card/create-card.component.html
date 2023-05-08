@@ -27,9 +27,11 @@
   </div>
   <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
-    <textarea matInput formControlName="description" cdkTextareaAutosize
-    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
-    cdkAutosizeMaxRows="5"></textarea>
+    <textarea id="myTextarea" matInput id="story" formControlName="description"
+          rows="5" cols="33"></textarea>
+    <!-- <textarea matInput formControlName="description" cdkTextareaAutosize
+    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+   ></textarea> -->
     <!-- <input type="text" formControlName="description" matInput> -->
   </mat-form-field>
   <mat-form-field appearance="outline">

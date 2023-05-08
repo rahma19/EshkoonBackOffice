@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuService } from 'app/services/menu.service';
 import { first } from 'rxjs';
 import { CardsService } from '../services/cards.service';
 
@@ -12,7 +13,7 @@ import { CardsService } from '../services/cards.service';
 export class DeleteCategoryComponent implements OnInit {
   id:any;
   constructor(private cardService: CardsService,
-              private router: Router,
+              private router: Router,private menuService: MenuService,
               @Inject(MAT_DIALOG_DATA) public data:any,public dialogRef: MatDialogRef<DeleteCategoryComponent>,
               private route: ActivatedRoute) { }
 
@@ -21,12 +22,11 @@ export class DeleteCategoryComponent implements OnInit {
 }
 
    submit(){   
-    this.cardService.deleteCard(this.data.cardId)
+    this.menuService.deleteCateg(this.data)
       .pipe(first())
       .subscribe(
        async data => {
           await this.dialogRef.close();
-          //  this.router.navigate(['../home']);
         },
         error => {
         });

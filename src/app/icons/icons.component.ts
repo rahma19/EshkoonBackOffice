@@ -53,7 +53,7 @@ isLoading =true
       this.orders = order;
       this.dataSource = new MatTableDataSource(order);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      // this.dataSource.sort = this.sort;
   
     })
   }

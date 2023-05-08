@@ -82,9 +82,9 @@ export class UpgradeComponent implements OnInit {
      return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
    }
 
-  ngOnInit() {
+  ngOnInit() { 
     this.orderService.getProfiles();
-    this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {
+    this.serviceSubscribe = this.orderService.profiles$.subscribe(res => {      
       this.profiles = res;   
       this.filteredData=res    
     })

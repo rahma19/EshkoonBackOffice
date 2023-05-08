@@ -127,8 +127,14 @@
                                 </button></mat-label>
                         </div>
                         <mat-chip-list aria-label="Fish selection">
-                            <mat-chip style="cursor: pointer;" *ngFor="let item of categ; let i = index" color="primary"
-                                selected="">{{item?.name}}</mat-chip>
+                            <mat-chip style="cursor: pointer;" *ngFor="let item of categ; let i = index" color="light"
+                                selected="">{{item?.name}}  <button mat-icon-button color="accent" (click)="editCateg(item?.menuCategoryId)">
+                                    <mat-icon class="text-primary" aria-label="Edit">edit</mat-icon>
+                                </button>
+
+                                <button mat-icon-button color="danger" (click)="deleteCateg(item['menuCategoryId'])">
+                                    <mat-icon class="text-danger" aria-label="Delete">delete</mat-icon>
+                                </button></mat-chip>
                         </mat-chip-list>
                     </div>
 

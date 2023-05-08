@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
 import { CardsService } from '../services/cards.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-type-carte',
@@ -12,7 +13,7 @@ import { CardsService } from '../services/cards.service';
 })
 export class UpdateTypeCarteComponent implements OnInit {
 
-  id:any;
+  id: any;
   card!: any;
   cardTypeForm: FormGroup = this.formBuilder.group({
     cardTypeId: ['', Validators.required],
@@ -21,19 +22,15 @@ export class UpdateTypeCarteComponent implements OnInit {
   });
   formData: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any,private formBuilder: FormBuilder,
-    private cardService: CardsService, private router: Router,
-    private route: ActivatedRoute,public dialogRef: MatDialogRef<UpdateTypeCarteComponent>
-    ) {
-      this.cardTypeForm.setValue(data);
-     }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder,
+    private cardService: CardsService, private router: Router,private toast:ToastrService,
+    private route: ActivatedRoute, public dialogRef: MatDialogRef<UpdateTypeCarteComponent>
+  ) {
+    this.cardTypeForm.setValue(data);
+  }
   ngOnInit(): void {
-    // const param = this.route.snapshot.paramMap.get('typeId');  
-    // if (param) {
-    //      this.id = +param;
-    //     this.getcard(this.id);
-    // }
-}
+
+  }
 
   get f() {
     return this.cardTypeForm.controls;
@@ -42,49 +39,22 @@ export class UpdateTypeCarteComponent implements OnInit {
   get name() {
     return this.f['name'].value;
   }
- 
+
   get cardTypeId() {
     return this.f['cardTypeId'].value;
   }
-
-    // getcard(id: string) {
-    //     this.cardService.getmenuCardById(id).subscribe(
-    //       (data : any) => {            
-    //         this.card = data.typeCarte;
-    //         this.formData = this.card;
-    //         this.cardTypeForm.patchValue({
-    //           name:this.card.name
-    //          });
-    //       }      
-    //     );
-    // }
-
-  // submit(){
-  //   if (this.cardTypeForm.invalid) {
-  //     return;
-  //   }    
-  //   this.cardService.updatemenu(this.id,this.cardTypeForm.value)
-  //     .pipe(first())
-  //     .subscribe(
-  //       data => {
-  //         (data);
-          
-  //         //  this.router.navigate(['../home']);
-  //       },
-  //       error => {
-  //       });
-  // }
   submit(): void {
-    this.cardService.updatemenu(this.cardTypeId,this.cardTypeForm.value).pipe(first())
-            .subscribe(
-              async data => {
-                await this.dialogRef.close(Object.assign( this.cardTypeForm.value));
+    this.cardService.updatemenu(this.cardTypeId, this.cardTypeForm.value).pipe(first())
+      .subscribe(
+        async data => {
+          await this.dialogRef.close(Object.assign(this.cardTypeForm.value));
+      this.toast.success('Type a été modifié avec succées')
 
-                // this.cardService.getMenu();
-                // window.location.reload();
-              },
-              error => {
-              });
+        },
+        error => {
+      this.toast.error('erreur')
+
+        });
   }
 
 }

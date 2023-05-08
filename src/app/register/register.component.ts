@@ -104,6 +104,8 @@ export class RegisterComponent implements OnInit {
         }
       });
     }
+    this.verif=false;
+
   }
 
   public errorHandling = (control: string, error: string) => {
