@@ -110,6 +110,8 @@ check=false
 this.toast.success('Plat a été modifié avec succées')
       await this.dialogRef.close();        },
         error => {
+      this.toast.error('Veuillez vérifier vos données')
+
         });
   }
 

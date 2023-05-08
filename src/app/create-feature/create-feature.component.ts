@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./create-feature.component.css']
 })
 export class CreateFeatureComponent implements OnInit {
-  file:any;
+  file: any;
   cardForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     img: ['', Validators.required],
@@ -23,20 +23,20 @@ export class CreateFeatureComponent implements OnInit {
   @ViewChild('myForm', { static: false })
   public MyForm: any;
 
-  fname:string='';
+  fname: string = '';
   selectedFW = new FormControl();
   menu: any[] = [];
-  imagePath: any="";
+  imagePath: any = "";
 
-  submitForm(e:any){
-    if(this.MyForm.valid){
-        //Submit form logic here!
+  submitForm(e: any) {
+    if (this.MyForm.valid) {
+      //Submit form logic here!
     }
   }
 
   subscription = new Subscription();
-  constructor(private formBuilder: FormBuilder,  private toastr:ToastrService,
-    private orderService: OrderService,public dialogRef: MatDialogRef<CreateFeatureComponent>) { }
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService,
+    private orderService: OrderService, public dialogRef: MatDialogRef<CreateFeatureComponent>) { }
 
   get f() {
     return this.cardForm.controls;
@@ -51,15 +51,15 @@ export class CreateFeatureComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
+
   }
 
-  onSelectedFile(event:any) {
+  onSelectedFile(event: any) {
     const reader = new FileReader();
 
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
-      this.cardForm.value.img= this.file;
+      this.cardForm.value.img = this.file;
       reader.readAsDataURL(this.file);
       reader.onload = () => {
         this.imagePath = reader.result;
@@ -68,24 +68,26 @@ export class CreateFeatureComponent implements OnInit {
     }
   }
 
-  submit(){
+  submit() {
     // if (this.cardForm.invalid) {
     //   this.toastr.error('Veuillez saisir des données valides');
     //   return ;
     // }    
-    const formData = new FormData();    
+    const formData = new FormData();
     formData.set('name', this.cardForm.value.name);
     formData.set('image', this.file);
-    
+
     this.orderService.createFeature(formData).subscribe(
       async res => {
-            (res);
-      this.toastr.success('Fonctionnalité a été ajouté avec succès');
-            await this.dialogRef.close();
-        },
-        error =>       {this.toastr.success('Erreur');}
+        (res);
+        this.toastr.success('Fonctionnalité a été ajouté avec succès');
+        await this.dialogRef.close();
+      },
+      error => { 
+        return this.toastr.error('Veuillez remplir tout les champs');
+      }
 
-      );
+    );
   }
 
 }

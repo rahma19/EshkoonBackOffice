@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreateCardComponent implements OnInit {
 
-   cardForm: FormGroup = this.formBuilder.group({
+  cardForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     isService: [false, Validators.required],
     price: ['', Validators.required],
@@ -25,21 +25,21 @@ export class CreateCardComponent implements OnInit {
 
   @ViewChild('myForm', { static: false })
   public MyForm: any;
-file:any;
-  fname:string='';
+  file: any;
+  fname: string = '';
   selectedFW = new FormControl();
   menu: any[] = [];
-  imagePath: any="";
+  imagePath: any = "";
 
-  submitForm(e:any){
-    if(this.MyForm.valid){
-        //Submit form logic here!
+  submitForm(e: any) {
+    if (this.MyForm.valid) {
+      //Submit form logic here!
     }
   }
 
   subscription = new Subscription();
-  constructor(private formBuilder: FormBuilder, private toastr:ToastrService, 
-    private cardService: CardsService,public dialogRef: MatDialogRef<CreateCardComponent>) { }
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService,
+    private cardService: CardsService, public dialogRef: MatDialogRef<CreateCardComponent>) { }
 
   get f() {
     return this.cardForm.controls;
@@ -78,22 +78,22 @@ file:any;
     //   (element.name)
     //   this.menu.push(element.name);
     // });
-    this.cardService.getMenu().subscribe((res:any)=>{
+    this.cardService.getMenu().subscribe((res: any) => {
     })
       ;
     this.cardService.getMenu();
-    this.subscription=this.cardService.cardType$.subscribe((res:any)=>{
-      this.menu= res;
+    this.subscription = this.cardService.cardType$.subscribe((res: any) => {
+      this.menu = res;
     });
-    
+
   }
 
-  onSelectedFile(event:any) {
+  onSelectedFile(event: any) {
     const reader = new FileReader();
 
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
-      this.cardForm.value.img= this.file;
+      this.cardForm.value.img = this.file;
       reader.readAsDataURL(this.file);
       reader.onload = () => {
         this.imagePath = reader.result;
@@ -102,28 +102,28 @@ file:any;
     }
   }
 
-  submit(){
-//     if (this.cardForm.invalid) {
-//     return this.toastr.error('Veuillez remplir tout les champs');
-// }  
-    const formData = new FormData();    
+  submit() {
+    //     if (this.cardForm.invalid) {
+    //     return this.toastr.error('Veuillez remplir tout les champs');
+    // }  
+    const formData = new FormData();
     formData.set('name', this.cardForm.value.name);
     formData.set('description', this.cardForm.value.description);
     formData.set('price', this.cardForm.value.price);
     formData.set('cardTypeCardTypeId', this.cardForm.value.cardTypeCardTypeId);
     formData.set('image', this.file);
     formData.set('isService', this.cardForm.value.isService);
-    
-     return this.cardService.createCard(formData).subscribe(
-      async res => {
-            await this.dialogRef.close();
-      this.toastr.success('Carte a été ajoutée avec succès');
 
-        },
-        error => 
-{      this.toastr.error('Erreur');
-}        
-      );
+    return this.cardService.createCard(formData).subscribe(
+      async res => {
+        await this.dialogRef.close();
+        this.toastr.success('Carte a été ajoutée avec succès');
+
+      },
+      error => {
+        return this.toastr.error('Veuillez remplir tout les champs');
+      }
+    );
   }
 
 }

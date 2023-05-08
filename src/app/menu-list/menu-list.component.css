@@ -49,4 +49,48 @@ a[x-apple-data-detectors] {
     color: white;
     padding-left: 2%;
 }
+.mat-column-Prix{
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 9% !important;
+    width: 9% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;  }
+
+    .mat-column-Categorie{
+        word-wrap: break-word !important;
+        white-space: unset !important;
+        flex: 0 0 10% !important;
+        width: 10% !important;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      
+        word-break: break-word;
+      
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;  }
+    
+        .mat-column-Ingredient{
+            word-wrap: break-word !important;
+            white-space: unset !important;
+            flex: 0 0 30% !important;
+            width: 30% !important;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+          
+            word-break: break-word;
+          
+            -ms-hyphens: auto;
+            -moz-hyphens: auto;
+            -webkit-hyphens: auto;
+            hyphens: auto;  }
 /* div[style*="margin: 16px 0;"] { margin: 0 !important; } */

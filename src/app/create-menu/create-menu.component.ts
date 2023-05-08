@@ -66,6 +66,8 @@ private serviceSubscribe: Subscription = new Subscription;
       //  this.router.navigate(['../home']);
     },
     error => {
+       this.toast.error('Veuillez remplir tout les champs');
+
     });
   }
 

@@ -45,6 +45,10 @@ pageSizes = [3, 5, 7];
       this.cardService.getAllCards().subscribe((res:any)=>{
       });
       this.serviceSubscribe = this.cardService.cards$.subscribe(res => {
+        res.forEach(element => {
+          element?.description.replace(/\n/g, '<br>');
+
+        });
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         // this.dataSource.paginator.pageSize = 5;
@@ -53,6 +57,10 @@ pageSizes = [3, 5, 7];
     
 
   }
+
+  // public formatTextareaValue(): string {
+  //   return this.textareaValue.replace(/\n/g, '<br>');
+  // }
 
   add() {    
     const dialogRef = this.dialog.open(CreateCardComponent, {

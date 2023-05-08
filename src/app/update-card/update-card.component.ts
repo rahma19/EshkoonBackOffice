@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs';
 import { CardsService } from '../services/cards.service';
 
@@ -36,7 +37,7 @@ export class UpdateCardComponent implements OnInit {
   menu:any[]=[];
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,
     private cardService: CardsService, private router: Router, public dialogRef: MatDialogRef<UpdateCardComponent>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private toast:ToastrService
   ) {
     this.cardForm.setValue(data);
   } 
@@ -102,12 +103,16 @@ export class UpdateCardComponent implements OnInit {
       .pipe(first())
       .subscribe(
         async data => {
+      this.toast.success('Carte a été modifiée avec succées')
+
           await this.dialogRef.close(Object.assign(this.cardForm.value));
 
           // this.cardService.getMenu();
           // window.location.reload();
         },
         error => {
+      this.toast.error('Veuillez vérifier vos données')
+
         });
   }
 }

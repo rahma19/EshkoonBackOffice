@@ -74,6 +74,8 @@
     hyphens: auto;
   }
 
+  .message { white-space: pre-wrap;}
+
   .mat-column-Prix {
     word-wrap: break-word !important;
     white-space: unset !important;

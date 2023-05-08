@@ -49,7 +49,7 @@ export class MenuListComponent implements OnInit {
   selectedFW = ''
   categ: any[] = []
   id = '';
-  displayedColumns = ['Nom', 'Categorie', 'Prix', 'Image', 'Ingrédient', 'Detail'];
+  displayedColumns = ['Nom', 'Categorie', 'Prix', 'Image', 'Ingredient', 'Detail'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   arr:any[]=[]

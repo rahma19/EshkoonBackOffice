@@ -55,9 +55,15 @@
                                   <mat-header-cell *matHeaderCellDef mat-sort-header>QR code</mat-header-cell>
                                   <mat-cell *matCellDef="let row"><span class="badge text-white"><img src="{{path}}{{row?.qrImg}}" class="img-sm img-thumbnail"></span> </mat-cell>
                               </ng-container>
-
+                              <ng-container matColumnDef="telecharger">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Télécharger QR code</mat-header-cell>
+                                <mat-cell *matCellDef="let row"> <button mat-icon-button color="accent"
+                                    (click)="downloadImage(row?.qrImg)">
+                                        <mat-icon class="text-warn" aria-label="Delete">download</mat-icon>
+                                    </button> </mat-cell>
+                            </ng-container>
                               <ng-container matColumnDef="modifier">
-                                  <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header>Voir détail</mat-header-cell>
                                   <mat-cell *matCellDef="let row"> <button mat-icon-button color="accent"
                                           (click)="menuDetails(row)">
                                           <mat-icon class="text-warn" aria-label="Delete">open_in_new</mat-icon>

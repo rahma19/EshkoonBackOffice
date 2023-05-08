@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Observer, Subscription } from 'rxjs';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -16,7 +16,7 @@ const htmlToPdfmake = require("html-to-pdfmake");
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent  {
-  displayedColumns = ['MenuID', 'Client','Numéro de téléphone','Nom Resto','Nombre des tables','Date','Qr code','modifier'];
+  displayedColumns = ['MenuID', 'Client','Numéro de téléphone','Nom Resto','Nombre des tables','Date','Qr code','telecharger','modifier'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>=new MatTableDataSource([]);
@@ -25,6 +25,7 @@ export class MenuComponent  {
 id:any="";
 path='https://backend.e-shkoon.com/uploads/qrcodes/';
 img:any="";
+base64Image: any;
 
 isLoading =true
   constructor(private menuService: MenuService, private router: Router) {
@@ -85,6 +86,51 @@ isLoading =true
     this.menuService.updateMenu(menu,e).subscribe((menu: any) => {
 
     });
-
   }
+
+  getBase64ImageFromURL(url: string) {
+    return Observable.create((observer: Observer<string>) => {
+      const img: HTMLImageElement = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = url;
+      if (!img.complete) {
+        img.onload = () => {
+          observer.next(this.getBase64Image(img));
+          observer.complete();
+        };
+        img.onerror = err => {
+          observer.error(err);
+        };
+      } else {
+        observer.next(this.getBase64Image(img));
+        observer.complete();
+      }
+    });
+  }
+
+  getBase64Image(img: HTMLImageElement) {
+    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    const dataURL: string = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
+
+  downloadImage(img) {
+    let imageUrl =this.path+img
+     this.getBase64ImageFromURL(imageUrl).subscribe(base64data => {
+       this.base64Image = "data:image/jpg;base64," + base64data;
+       // save image to disk
+       var link = document.createElement("a");
+ 
+       document.body.appendChild(link); // for Firefox
+ 
+       link.setAttribute("href", this.base64Image);
+       link.setAttribute("download", "mrHankey.jpg");
+       link.click();
+     });
+   }
 }

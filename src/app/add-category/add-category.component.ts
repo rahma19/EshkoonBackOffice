@@ -30,7 +30,7 @@ export class AddCategoryComponent implements OnInit {
       return this.toast.error('Veuillez remplir tout les champs');
     }
     this.menuService.createCateg(this.FormGroup.value).subscribe( async res=>{
-      this.toast.success("Catégorie a été ajoutée avec succés ");
+      this.toast.success("Catégorie a été ajoutée avec succès ");
       await this.dialogRef.close();
       //  this.router.navigate(['../home']);
     },
