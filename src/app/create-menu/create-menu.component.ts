@@ -1,5 +1,5 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -26,7 +26,8 @@ export class CreateMenuComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,private menuService: MenuService,
     @Inject(MAT_DIALOG_DATA) public data:any,private toast: ToastrService,
-    private route: ActivatedRoute, private dialog:Dialog,public dialogRef: MatDialogRef<CreateMenuComponent>
+    private route: ActivatedRoute, private dialog:Dialog,public dialogRef: MatDialogRef<CreateMenuComponent>,
+    private changeDetectorRef: ChangeDetectorRef
     ) { }
 
 menu : any;
@@ -71,17 +72,59 @@ private serviceSubscribe: Subscription = new Subscription;
     });
   }
 
-  onSelectedFile(event:any) {
+  onSelectedFile(event: any) {
     const reader = new FileReader();
 
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
-      this.secondFormGroup.value.img= this.file;
-      reader.readAsDataURL(this.file);
-      reader.onload = () => {
-        this.imagePath = reader.result;
+      const fileSizeInMB = this.file.size / (1024 * 1024);
 
-      }
+      // if (fileSizeInMB > 10) {
+      //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
+      //   return;
+      // }
+
+      const image = new Image();
+      image.src = URL.createObjectURL(this.file);
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = image.width;
+        let height = image.height;
+
+        if (width > height) {
+          if (width > 1024) {
+            height *= 1024 / width;
+            width = 1024;
+          }
+        } else {
+          if (height > 1024) {
+            width *= 1024 / height;
+            height = 1024;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(image, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+
+          if (blob !== null) {
+            const newFile = new File([blob], this.file.name, { type: blob.type });
+            this.file= newFile;
+
+            reader.readAsDataURL(newFile);
+            reader.onload = () => {
+        this.imagePath = reader.result;
+              this.changeDetectorRef.detectChanges()
+            }
+          }
+
+        }, this.file.type);
+      };
+
     }
   }
 }

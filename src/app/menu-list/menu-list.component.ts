@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -35,7 +35,8 @@ export class MenuListComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private menuService: MenuService,
     private route: ActivatedRoute, public dialog: MatDialog,
-    private toast: ToastrService
+    private changeDetectorRef: ChangeDetectorRef,
+    private toast: ToastrService,
   ) {
   }
 
@@ -55,8 +56,8 @@ export class MenuListComponent implements OnInit {
   arr:any[]=[]
   dataSource: MatTableDataSource<any> = new MatTableDataSource(this.arr);
   private serviceSubscribe: Subscription = new Subscription;
-  path = 'https://backend.e-shkoon.com/uploads/menu_details/';
-  menuPath = 'https://backend.e-shkoon.com/uploads/menus/';
+  path = 'http://localhost:3000/uploads/menu_details/';
+  menuPath = 'http://localhost:3000/uploads/menus/';
   check = false
   checkBg=false
   checkOpt=false
@@ -89,45 +90,124 @@ export class MenuListComponent implements OnInit {
     this.checkOpt=false
   }
 
-  onSelectedFile(event: any) {
-    const reader = new FileReader();
-
-    if (event.target.files.length > 0) {
-      this.file = event.target.files[0];
-      reader.readAsDataURL(this.file);
-      reader.onload = () => {
-        this.imagePath = reader.result;
-        this.check = true
-
-      }
-    }
-  }
+  // onSelectedFile(event: any) {
+  //   this.onSelectedGlobalFile(event,this.imagePath);
+  // }
 
   onSelectedFile2(event: any) {
-    const reader = new FileReader();
-
-    if (event.target.files.length > 0) {
-      this.file2 = event.target.files[0];
-      reader.readAsDataURL(this.file2);
-      reader.onload = () => {
-        this.imagePath2 = reader.result;
-        this.checkBg = true
-
+      const reader = new FileReader();  
+      if (event.target.files.length > 0) {
+        this.file2 = event.target.files[0];
+        // reader.readAsDataURL(this.file2);
+        // this.file = event.target.files[0];
+        const fileSizeInMB = this.file2.size / (1024 * 1024);
+  
+        // if (fileSizeInMB > 10) {
+        //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
+        //   return;
+        // }
+  
+        const image = new Image();
+        image.src = URL.createObjectURL(this.file2);
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = image.width;
+          let height = image.height;
+  
+          if (width > height) {
+            if (width > 1024) {
+              height *= 1024 / width;
+              width = 1024;
+            }
+          } else {
+            if (height > 1024) {
+              width *= 1024 / height;
+              height = 1024;
+            }
+          }
+  
+          canvas.width = width;
+          canvas.height = height;
+  
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(image, 0, 0, width, height);
+  
+          canvas.toBlob((blob) => {
+  
+            if (blob !== null) {
+              const newFile = new File([blob], this.file2.name, { type: blob.type });
+              this.file2 = newFile
+              reader.readAsDataURL(newFile);
+              reader.onload = () => {
+                
+                this.imagePath2 = reader.result;
+                this.checkBg = true
+                this.changeDetectorRef.detectChanges()
+              }
+            }
+  
+          }, this.file2.type);
+        };
+  
       }
     }
-  }
 
   onSelectedFile3(event: any) {
     const reader = new FileReader();
 
     if (event.target.files.length > 0) {
       this.file3 = event.target.files[0];
-      reader.readAsDataURL(this.file3);
-      reader.onload = () => {
-        this.imagePath3 = reader.result;
-        this.checkOpt = true
 
-      }
+      const fileSizeInMB = this.file3.size / (1024 * 1024);
+
+      // if (fileSizeInMB > 10) {
+      //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
+      //   return;
+      // }
+
+      const image = new Image();
+      image.src = URL.createObjectURL(this.file3);
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = image.width;
+        let height = image.height;
+
+        if (width > height) {
+          if (width > 1024) {
+            height *= 1024 / width;
+            width = 1024;
+          }
+        } else {
+          if (height > 1024) {
+            width *= 1024 / height;
+            height = 1024;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(image, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+
+          if (blob !== null) {
+            const newFile = new File([blob], this.file3.name, { type: blob.type });
+            this.file3 = newFile;
+
+            reader.readAsDataURL(newFile);
+            reader.onload = () => {
+              
+              this.imagePath3 = reader.result;
+              this.checkOpt = true
+              this.changeDetectorRef.detectChanges()
+            }
+          }
+
+        }, this.file3.type);
+      };
+
     }
   }
 
@@ -205,6 +285,65 @@ export class MenuListComponent implements OnInit {
       data: { menuDetailsId: id }
     });
 
+  }
+
+
+  onSelectedFile(event: any) {
+    const reader = new FileReader();
+
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+
+      const fileSizeInMB = this.file.size / (1024 * 1024);
+
+      // if (fileSizeInMB > 10) {
+      //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
+      //   return;
+      // }
+
+      const image = new Image();
+      image.src = URL.createObjectURL(this.file);
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = image.width;
+        let height = image.height;
+
+        if (width > height) {
+          if (width > 1024) {
+            height *= 1024 / width;
+            width = 1024;
+          }
+        } else {
+          if (height > 1024) {
+            width *= 1024 / height;
+            height = 1024;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(image, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+
+          if (blob !== null) {
+            const newFile = new File([blob], this.file.name, { type: blob.type });
+            this.file = newFile;
+
+            reader.readAsDataURL(newFile);
+            reader.onload = () => {
+              this.imagePath = reader.result;
+              this.check = true
+              this.changeDetectorRef.detectChanges()
+            }
+          }
+
+        }, this.file.type);
+      };
+
+    }
   }
 
 }

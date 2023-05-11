@@ -105,11 +105,12 @@ isLoading =true
     else if (enabled == true) {
       order.status = 'ACTIVATED';
       order.enabled = true; 
+      this.orderService.updateOrder(order).subscribe((order: any) => {
+
+      });
       // this.msgs = [{severity:'info', summary:'Le restaurant est actif', detail:''}];
     }
-    this.orderService.updateOrder(order).subscribe((order: any) => {
-
-    });
+   
 
   }
 }

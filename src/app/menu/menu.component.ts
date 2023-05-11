@@ -23,7 +23,7 @@ export class MenuComponent  {
   @ViewChild('pdfTable')
   pdfTable!: ElementRef;
 id:any="";
-path='https://backend.e-shkoon.com/uploads/qrcodes/';
+path='http://localhost:3000/uploads/qrcodes/';
 img:any="";
 base64Image: any;
 
