@@ -19,7 +19,7 @@ export class CreateMenuComponent implements OnInit {
     name: ['', Validators.required],
     ingredient: [''],
     price: ['',Validators.required],
-    img: ['', Validators.required],
+    img: [''],
     menuCategoryId : ['', Validators.required],
     menuId : [this.data, Validators.required],
     });
