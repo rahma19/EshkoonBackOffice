@@ -69,6 +69,7 @@ export class MenuListComponent implements OnInit {
       this.checkBg = false
       this.menuService.getAllPlat(this.id);
       this.menuService.plat$.subscribe(res => {
+        
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

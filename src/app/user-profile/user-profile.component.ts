@@ -28,8 +28,9 @@ export class UserProfileComponent implements OnInit {
       isActif: [''],
       createdAt:[''],
     updatedAt:[''],
-      password: ['', [Validators.required]],
-      confirmPassword:[''],
+    password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/),
+    Validators.minLength(8),]],
+         confirmPassword:[''],
         });
 
         setTimeout(() => {
