@@ -54,7 +54,8 @@
                                       <figcaption class="info">
                                         <h5  class="title"> </h5>
                                         <p  class="text-muted">  
-                                              <button *ngIf="item?.qrImg"  (click)="downloadImage(item?.qrImg)" class="btn btn-primary">Télécharger</button>
+                                            <mat-icon *ngIf="item?.qrImg" style="cursor: pointer;"  (click)="downloadImage(item?.qrImg)"  class="text-success px-4" aria-label="Download">download</mat-icon>
+                                            <mat-icon *ngIf="item?.qrImg" style="cursor: pointer;" (click)="edit(item)"  class="text-primary px-4" aria-label="Edit">edit</mat-icon>
                                               <button *ngIf="!item?.qrImg"  (click)="edit(item)" class="btn btn-warning">Génerer un Qr Code</button>
 
                                            </p>

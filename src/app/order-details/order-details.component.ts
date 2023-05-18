@@ -22,10 +22,9 @@ export class OrderDetailsComponent implements OnInit {
   cart: any[] = []
   ngOnInit(): void {
     this.param = this.route.snapshot.paramMap.get('orderId');
-    this.orderService.getOrderDetails(this.param);
-    this.orderService.orderDetails$.subscribe((order: any) => {
+    this.orderService.getOrderDetails(this.param).subscribe((order: any) => {
       this.cart = [];
-      order.forEach((element: any) => {
+      order.orderDetails.forEach((element: any) => {
         this.orderService.getCardById(element.cardCardId).subscribe((res: any) => {
           element.cardType = res.card_type
           if(res?.card_type?.name.includes('Google')){

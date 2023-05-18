@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -61,19 +61,39 @@ export class MenuListComponent implements OnInit {
   check = false
   checkBg=false
   checkOpt=false
+  currentPage = 1;
+  pageSize = 10;
+  totalItems = 0;
+  plats:any[]=[]
+
+  getData(){
+    console.log(this.id,this.currentPage, this.pageSize);
+    
+    this.menuService.getAllPlat(this.id,this.currentPage, this.pageSize);
+      this.menuService.plat$.subscribe(res => {
+        for (const key in res.data) {
+          const arrayValues = res.data[key];
+          console.log(arrayValues);
+          
+          this.plats.push(arrayValues)
+      }
+      console.log(this.plats);
+
+        this.dataSource = new MatTableDataSource(this.plats);
+        this.totalItems = res.data?.length;
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+  }
+
    ngOnInit(){
      this.route.queryParams.subscribe( params => {
       // this.menu =  {...params}
       this.id =  params.menuId
       this.check = false
       this.checkBg = false
-      this.menuService.getAllPlat(this.id);
-      this.menuService.plat$.subscribe(res => {
-        
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
+      this.getData()
     });
 
     this.menuService.getMenuById(this.id).subscribe( (res: any) => {
@@ -91,10 +111,14 @@ export class MenuListComponent implements OnInit {
     this.checkOpt=false
   }
 
-  // onSelectedFile(event: any) {
-  //   this.onSelectedGlobalFile(event,this.imagePath);
-  // }
-
+  onPageChange(event: PageEvent) {
+    console.log(event);
+    
+    this.paginator.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getData();
+  }
+  
   onSelectedFile2(event: any) {
       const reader = new FileReader();  
       if (event.target.files.length > 0) {

@@ -14,6 +14,7 @@ import { AllFeatureComponent } from 'app/all-feature/all-feature.component';
 import { MenuComponent } from 'app/menu/menu.component';
 import { CreateMenuComponent } from 'app/create-menu/create-menu.component';
 import { MenuListComponent } from 'app/menu-list/menu-list.component';
+import { AllUsersComponent } from 'app/all-users/all-users.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -65,6 +66,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'users',   component: AllUsersComponent },
     { path: 'order-dtails/:orderId',   component: OrderDetailsComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },

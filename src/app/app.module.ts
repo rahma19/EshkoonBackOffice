@@ -65,7 +65,7 @@ import { GetInvoiceComponent } from './get-invoice/get-invoice.component';
     RegisterComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
-    GetInvoiceComponent
+    GetInvoiceComponent,
 ], 
   exports:[MatIconModule,MatDialogModule,MatRadioModule
   ,MatSelectModule,MatInputModule,MatFormFieldModule],

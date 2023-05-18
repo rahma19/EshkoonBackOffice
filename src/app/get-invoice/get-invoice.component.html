@@ -49,10 +49,10 @@
                                     {{item?.user_first_name}} </td>
                                 <td class=" text-center border-0" style="color: #000;">
                                     {{item?.user_last_name}} </td>
-                                <td *ngIf="!item?.card_type?.name.toLowerCase().includes('google')" class=" text-center border-0"
+                                <td *ngIf="!item?.cardType?.name.toLowerCase().includes('google')" class=" text-center border-0"
                                     style="color: #000;">{{item?.subscription?.type}}
                                 </td>
-                                <td *ngIf="item?.card_type?.name.toLowerCase().includes('google')" class=" text-center border-0"
+                                <td *ngIf="item?.cardType?.name.toLowerCase().includes('google')" class=" text-center border-0"
                                     style="color: #000;">Pas d'abonnement
                                 </td>
                                 <td class=" text-right border-0" style="color: #000;"><strong>{{item?.price}}
@@ -64,17 +64,41 @@
                     <div class="col-lg-7 mt-3" style="float: right;">
                         <table class=" px-3" style="float:right;background-color: rgb(243, 255, 255);">
                             <tr>
-                                <td colspan="4" class="text-right px-2 py-2 mini stl">Sous Total :</td>
-                                <td class="text-right">{{sous_totale}} TND</td>
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">Nombre de carte :</td>
+                                <td class="text-right">{{orderDetail?.length}}</td>
+                            </tr>
+                            <tr *ngIf="google">
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">
+                                    Entreprise :</td>
+                                <td class="text-right">{{google?.entreprise}}</td>
+                            </tr>
+                            <tr *ngIf="menu">
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">
+                                    Restaurant :</td>
+                                <td class="text-right">{{menu?.entreprise}}</td>
+                            </tr>
+                            <tr *ngIf="menu">
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">
+                                    Nombre des tables Resto :</td>
+                                <td class="text-right">{{menu?.nbrMenu}}</td>
+                            </tr>
+                            <tr *ngIf="menu">
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">
+                                    Prix d'abonnement Resto :</td>
+                                <td class="text-right">{{menu?.subscription?.price}} TND</td>
                             </tr>
                             <tr>
-                                <td colspan="4" class="text-right px-2 py-2 mini stl">Expédition :</td>
-                                <td class="text-right">{{frait_expedition}} TND <small>(Livraison)</small></td>
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">TVA :</td>
+                                <td class="text-right">19%</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">Montant HT :</td>
+                                <td class="text-right"><strong>{{frait_expedition}} TND</strong> </td>
                             </tr>
                             <tr>
                                 <td colspan="4" class="text-right px-2 py-2 mini stl" style="font-weight: bolder;">
-                                    Total :</td>
-                                <td class="text-right"><strong>{{order?.total}}
+                                    Total TTC :</td>
+                                <td class="text-right"><strong>{{totale}}
                                         TND</strong></td>
                             </tr>
                         </table>

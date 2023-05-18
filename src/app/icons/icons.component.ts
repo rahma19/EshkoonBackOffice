@@ -68,10 +68,10 @@ isLoading =true
     this.router.navigateByUrl(`order-dtails/${orderId}`);
   }
 
-  getDetails(item){    
-    this.orderService.getOrderDetails(item.orderId);
+  getDetails(item){   
     var order ;
-    this.orderService.orderDetails$.subscribe( (data: any) => {
+
+    this.orderService.getOrderDetails(item.orderId).subscribe( (data: any) => {
        order=  data.orderDetails;
     })
     return order;
@@ -89,7 +89,7 @@ isLoading =true
     // const documentDefinition = { content: html };
     // pdfMake.createPdf(documentDefinition).open(); 
     // }, 500);
-    this.router.navigateByUrl(`/exportInvoice/${item.orderId}`);
+    this.router.navigateByUrl(`/exportInvoice/${item.orderId}`); //, { queryParams: obj }
 
     // this.router.navigate(['exportInvoice',item.orderId]);
      

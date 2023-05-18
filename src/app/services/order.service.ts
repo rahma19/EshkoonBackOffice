@@ -110,9 +110,10 @@ export class OrderService {
 
   //get orderDetails by order
   getOrderDetails(orderId){
-    return this.http.get(`${environment.apiUrl}/order/listDetails/${orderId}`).subscribe((orders:any) => {
-       this.orderDetailsSubject.next(orders.orderDetails);
-    });
+    return this.http.get(`${environment.apiUrl}/order/listDetails/${orderId}`)
+    // .subscribe((orders:any) => {
+    //    this.orderDetailsSubject.next(orders.orderDetails);
+    // });
   }
 
   //update order status 

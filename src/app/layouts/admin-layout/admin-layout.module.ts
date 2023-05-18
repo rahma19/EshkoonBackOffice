@@ -50,6 +50,7 @@ import { UpdateCategoryComponent } from 'app/update-category/update-category.com
 import { DeleteCategoryComponent } from 'app/delete-category/delete-category.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AllUsersComponent } from 'app/all-users/all-users.component';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
   declarations: [
     UpdateProfileComponent,
     status,
+    AllUsersComponent,
     OrderDetailsComponent,
     DashboardComponent,
     DeleteFeatureComponent,

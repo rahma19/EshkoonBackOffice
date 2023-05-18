@@ -62,8 +62,8 @@ export class MenuService {
     return this.http.get(`${environment.apiUrl}/menuDetails/view/${menuDetailsId}`)
   }
 
-  getAllPlat(menuId){
-    return this.http.get(`${environment.apiUrl}/menuDetails/list/${menuId}`).subscribe((res:any) => {
+  getAllPlat(menuId,pageIndex: number, pageSize: number){
+    return this.http.get(`${environment.apiUrl}/menuDetails/list/${menuId}/${pageIndex}/${pageSize}`).subscribe((res:any) => {
       this.platSubject.next(JSON.parse(JSON.stringify(res)));
    });
   }

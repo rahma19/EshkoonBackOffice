@@ -39,7 +39,7 @@
 
                                 <ng-container matColumnDef="Description">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"><span class="message" [innerHTML]="row?.description"></span></mat-cell>
+                                    <mat-cell *matCellDef="let row"><span [innerHTML]="row?.description"></span></mat-cell>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Image">
