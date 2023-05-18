@@ -15,8 +15,6 @@ export class AppComponent {
    // Disable right-click
 document.addEventListener('contextmenu', (e) => e.preventDefault());
 
-
-
 document.onkeydown = (e) => {
   // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
   if (

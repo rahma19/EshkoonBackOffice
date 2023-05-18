@@ -51,6 +51,7 @@ import { DeleteCategoryComponent } from 'app/delete-category/delete-category.com
 import { MatChipsModule } from '@angular/material/chips';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AllUsersComponent } from 'app/all-users/all-users.component';
+import { userStatus } from 'app/core/pipes/userStatus.pipe';
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import { AllUsersComponent } from 'app/all-users/all-users.component';
   declarations: [
     UpdateProfileComponent,
     status,
+    userStatus,
     AllUsersComponent,
     OrderDetailsComponent,
     DashboardComponent,

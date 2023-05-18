@@ -59,7 +59,7 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header>Télécharger QR code</mat-header-cell>
                                 <mat-cell *matCellDef="let row"> <button mat-icon-button color="accent"
                                     (click)="downloadImage(row?.qrImg)">
-                                        <mat-icon class="text-warn" aria-label="Delete">download</mat-icon>
+                                        <mat-icon style="text-align: right;" class="text-warn text-end" aria-label="Delete">download</mat-icon>
                                     </button> </mat-cell>
                             </ng-container>
                               <ng-container matColumnDef="modifier">

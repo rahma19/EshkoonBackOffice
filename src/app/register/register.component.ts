@@ -93,8 +93,8 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe({
          next: async () => {
-       await   this.toastr.success('Utilisateur a été créé avec succès');
-          this.router.navigateByUrl('/login');
+       await   this.toastr.success("Utilisateur a été créé avec succès, Veuillez attendre la confirmation de l'admin");
+          // this.router.navigateByUrl('/login');
         },
         error: error => {
           if(error.status=='403'){

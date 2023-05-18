@@ -1,1 +1,74 @@
-<p>all-users works!</p>
+<div *ngIf="isLoading">
+    <div id="spinner"
+    class=" show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+  </div>
+  </div>
+
+  
+<div  *ngIf="!isLoading" class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Liste des utilisateurs</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div style="width: 70%;">
+                                <mat-form-field floatPlaceholder="never" width="100%" color="accent">
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
+                                </mat-form-field>
+                            </div>
+                            <mat-table [dataSource]="dataSource" matSort>
+                                <ng-container matColumnDef="FirstName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="LastName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nom</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row?.lastName}}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Email">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                                    <mat-cell *matCellDef="let row">{{row?.email}}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Date">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Crée le</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row?.createdAt | date:'dd/MM/yyyy HH:mm' }} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Status">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Statut</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"><span style="font-size: 12px;" class="badge text-white" [ngClass]="{ ' bgred ': row?.isActif == false,
+                                         'bg-success ': row?.isActif == true}">{{row?.isActif | userStatus}}</span> </mat-cell>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="Activate">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Activer</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> <mat-slide-toggle [checked]="row?.isActif"
+                                            (change)="onChangeStatus($event, row)"></mat-slide-toggle>
+                                    </mat-cell>
+                                </ng-container>
+
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </mat-row>
+                            </mat-table>
+
+                            <mat-paginator #paginator [pageSizeOptions]="[ 5,10, 25, 50, 100]" [pageSize]="5" ></mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -41,7 +41,7 @@ export class UserProfileComponent implements OnInit {
 
 ngOnInit(): void {
   this.authService.getUserByEmail(JSON.parse(this.authService.currentUserValue)?.email);
-    this.authService.user$.subscribe(async user => {    
+    this.authService.user$.subscribe(async user => {   
       this.user = await user;
   });
 }

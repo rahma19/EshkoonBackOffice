@@ -7,8 +7,9 @@ import { AuthService } from 'app/services/auth.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 
 
-@Component({ templateUrl: 'login.component.html',
-styleUrls: ['./login.component.css']
+@Component({
+  templateUrl: 'login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.formBuilder.group({
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private toast:ToastrService,
+    private toast: ToastrService,
     private authenticationService: AuthService
   ) {
     // redirect to home if already logged in
@@ -63,16 +64,16 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         async (data: any) => {
-          if (JSON.parse(localStorage.getItem("user")).role != 'admin'){
-            this.authenticationService.logout();            
-          }
-          else{
             this.router.navigate(['/']);
-          }
         },
         error => {
-
-          this.toast.error('données incorrectes')
+          if (error.error.error == 'User must be approved first') {
+            this.toast.error("Ce compte n'est pas encore approuvé")
+          } else
+            if (error.error.error == 'User is not registered, Sign Up first') {
+              this.toast.error("Ce compte n'est pas inscrit")
+            } else
+              this.toast.error('données incorrectes')
 
         });
     // .pipe(first())
@@ -90,7 +91,7 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('auth/register');
   }
 
-  forgotPassword(){
+  forgotPassword() {
     this.router.navigateByUrl('forgotPassword');
   }
 }

@@ -12,6 +12,7 @@ import { AuthUtils } from './auth.utils';
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<any>;
+  private allUsersSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
   constructor(
@@ -19,14 +20,17 @@ export class AuthService {
     private router: Router,
     public dialog: MatDialog
   ) {
-    this.currentUserSubject = new BehaviorSubject<any>(
-      localStorage.getItem('user')
-    );
+    this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('user'));
+    this.allUsersSubject = new BehaviorSubject<any>([]);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get user$(): Observable<any> {
     return this.currentUserSubject.asObservable();
+  }
+
+  public get users$(): Observable<any> {
+    return this.allUsersSubject.asObservable();
   }
 
   public get currentUserValue(): any {
@@ -109,7 +113,18 @@ export class AuthService {
         this.currentUserSubject.next(JSON.parse(JSON.stringify(data.user)));
       });
   }
-  
+
+  //update user status 
+  updateUserStatus(user: any) {
+    let obj = {
+      isActif: user.isActif
+    }
+    return this.http.put(`${environment.apiUrl}/auth/updateStatus/${user?.email}`, obj).pipe(map((users: any) => {
+      this.allUsersSubject.next(users.users);
+    }));
+  }
+
+  //update User
   updateUser(form: any, email: any) {
     return this.http
       .put(`${environment.apiUrl}/auth/update/${email}`, form)
@@ -121,16 +136,18 @@ export class AuthService {
   }
 
   GetUsers() {
-    return this.http.get(`${environment.apiUrl}/auth/users`);
+    return this.http.get(`${environment.apiUrl}/auth/list`).subscribe((users: any) => {
+      this.allUsersSubject.next(users.users);
+    });
   }
 
-  forgotPassword(email:any){      
-    let type='bo'  
-    return this.http.post(`${environment.apiUrl}/auth/reset-password/${type}`, {email : email}).pipe(map((data:any)=>{
-      }));
+  forgotPassword(email: any) {
+    let type = 'bo'
+    return this.http.post(`${environment.apiUrl}/auth/reset-password/${type}`, { email: email }).pipe(map((data: any) => {
+    }));
   }
 
-  checkTokenPass(token:any){
+  checkTokenPass(token: any) {
     return this.http.post(`${environment.apiUrl}/auth/ValidPasswordToken`, token);
 
   }

@@ -85,11 +85,11 @@ export class OrderService {
    getAllOrders() {
     return this.http.get(`${environment.apiUrl}/order/list`).subscribe((orders:any) => {
       this.orderSubject.next(orders.orders);
-      let s =0 ;
+      let count =0 ;
       orders.orders.forEach(element => {          
         if(element.status=='ACTIVATED'){
-          s++;
-          this.CounterSubject.next(s);
+          count++;
+          this.CounterSubject.next(count);
         }})
     });
   }
@@ -123,8 +123,8 @@ export class OrderService {
     }
     return this.http.put(`${environment.apiUrl}/order/update/${order.orderId}`,obj).pipe(map((orders:any) => {
        this.orderSubject.next(orders.data);
-       let c =this.CounterSubject.value;
-       this.CounterSubject.next(c++);
+       let counter =this.CounterSubject.value;
+       this.CounterSubject.next(counter++);
     }));
   }
 
