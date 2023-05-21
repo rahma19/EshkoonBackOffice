@@ -24,7 +24,7 @@ export class MenuListComponent implements OnInit {
   firstFormGroup = this._formBuilder.group({
     restoName: [''],
     description: [''],
-    email: ['',Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+    email: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
     hour: [''],
     img: [''],
     // phoneNum: [''],
@@ -40,7 +40,7 @@ export class MenuListComponent implements OnInit {
   ) {
   }
 
-  menu: any= {};
+  menu: any = {};
   imagePath: any = "";
   imagePath2: any = "";
   imagePath3: any = "";
@@ -53,52 +53,59 @@ export class MenuListComponent implements OnInit {
   displayedColumns = ['Nom', 'Categorie', 'Prix', 'Image', 'Ingredient', 'Detail'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  arr:any[]=[]
+  arr: any[] = []
   dataSource: MatTableDataSource<any> = new MatTableDataSource(this.arr);
   private serviceSubscribe: Subscription = new Subscription;
   path = 'https://backend.e-shkoon.com/uploads/menu_details/';
   menuPath = 'https://backend.e-shkoon.com/uploads/menus/';
   check = false
-  checkBg=false
-  checkOpt=false
+  checkBg = false
+  checkOpt = false
+  pageSize = 1;
   currentPage = 1;
-  pageSize = 10;
   totalItems = 0;
-  plats:any[]=[]
+  plats: any[] = []
+  data:
 
-  getData(){
-    console.log(this.id,this.currentPage, this.pageSize);
-    
-    this.menuService.getAllPlat(this.id,this.currentPage, this.pageSize);
-      this.menuService.plat$.subscribe(res => {
-        for (const key in res.data) {
-          const arrayValues = res.data[key];
-          console.log(arrayValues);
-          
-          this.plats.push(arrayValues)
+    any[] = []
+  getData() {
+    console.log(this.id, this.currentPage, this.pageSize);
+
+    this.menuService.getAllPlat(this.id, this.currentPage, this.pageSize);
+    this.menuService.plat$.subscribe(res => {
+      const arr: any = []
+      for (const key in res.data) {
+        const arrayValues = res.data[key];
+        arr.push(...arrayValues)
       }
+      this.plats.push(...arr)
       console.log(this.plats);
 
-        this.dataSource = new MatTableDataSource(this.plats);
-        this.totalItems = res.data?.length;
+      this.dataSource = new MatTableDataSource(this.plats);
+      this.totalItems = res.data?.length;
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
 
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
+    })
   }
 
-   ngOnInit(){
-     this.route.queryParams.subscribe( params => {
-      // this.menu =  {...params}
-      this.id =  params.menuId
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.id = params.menuId
       this.check = false
       this.checkBg = false
       this.getData()
     });
 
-    this.menuService.getMenuById(this.id).subscribe( (res: any) => {
+    this.menuService.getPlats(this.id).subscribe((data: any) => {
+      console.log(data);
+      this.dataSource = new MatTableDataSource(data);
+
+      this.data = data
+    })
+
+    this.menuService.getMenuById(this.id).subscribe((res: any) => {
       this.menu = res;
-      
     })
 
     this.menuService.getAllCategories(this.id);
@@ -107,89 +114,85 @@ export class MenuListComponent implements OnInit {
     })
 
     this.check = false
-    this.checkBg=false
-    this.checkOpt=false
+    this.checkBg = false
+    this.checkOpt = false
   }
 
-  onPageChange(event: PageEvent) {
-    console.log(event);
-    
-    this.paginator.pageIndex = event.pageIndex;
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
     this.getData();
   }
-  
+
+  // onPageChange(event: PageEvent) {
+  //   console.log(event);
+  //   if (this.plats.length < this.data.length) 
+  //   {
+  //     this.currentPage = this.currentPage++;
+  //     this.getData();
+  //   }
+  // }
+
   onSelectedFile2(event: any) {
-      const reader = new FileReader();  
-      if (event.target.files.length > 0) {
-        this.file2 = event.target.files[0];
-        // reader.readAsDataURL(this.file2);
-        // this.file = event.target.files[0];
-        const fileSizeInMB = this.file2.size / (1024 * 1024);
-  
-        // if (fileSizeInMB > 10) {
-        //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
-        //   return;
-        // }
-  
-        const image = new Image();
-        image.src = URL.createObjectURL(this.file2);
-        image.onload = () => {
-          const canvas = document.createElement('canvas');
-          let width = image.width;
-          let height = image.height;
-  
-          if (width > height) {
-            if (width > 1024) {
-              height *= 1024 / width;
-              width = 1024;
-            }
-          } else {
-            if (height > 1024) {
-              width *= 1024 / height;
-              height = 1024;
+    const reader = new FileReader();
+    if (event.target.files.length > 0) {
+      this.file2 = event.target.files[0];
+      const fileSizeInMB = this.file2.size / (1024 * 1024);
+      // if (fileSizeInMB > 10) {
+      //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
+      //   return;
+      // }
+
+      const image = new Image();
+      image.src = URL.createObjectURL(this.file2);
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = image.width;
+        let height = image.height;
+
+        if (width > height) {
+          if (width > 1024) {
+            height *= 1024 / width;
+            width = 1024;
+          }
+        } else {
+          if (height > 1024) {
+            width *= 1024 / height;
+            height = 1024;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(image, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+
+          if (blob !== null) {
+            const newFile = new File([blob], this.file2.name, { type: blob.type });
+            this.file2 = newFile
+            reader.readAsDataURL(newFile);
+            reader.onload = () => {
+
+              this.imagePath2 = reader.result;
+              this.checkBg = true
+              this.changeDetectorRef.detectChanges()
             }
           }
-  
-          canvas.width = width;
-          canvas.height = height;
-  
-          const ctx = canvas.getContext('2d');
-          ctx?.drawImage(image, 0, 0, width, height);
-  
-          canvas.toBlob((blob) => {
-  
-            if (blob !== null) {
-              const newFile = new File([blob], this.file2.name, { type: blob.type });
-              this.file2 = newFile
-              reader.readAsDataURL(newFile);
-              reader.onload = () => {
-                
-                this.imagePath2 = reader.result;
-                this.checkBg = true
-                this.changeDetectorRef.detectChanges()
-              }
-            }
-  
-          }, this.file2.type);
-        };
-  
-      }
+
+        }, this.file2.type);
+      };
+
     }
+  }
 
   onSelectedFile3(event: any) {
     const reader = new FileReader();
 
     if (event.target.files.length > 0) {
       this.file3 = event.target.files[0];
-
-      const fileSizeInMB = this.file3.size / (1024 * 1024);
-
-      // if (fileSizeInMB > 10) {
-      //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
-      //   return;
-      // }
-
       const image = new Image();
       image.src = URL.createObjectURL(this.file3);
       image.onload = () => {
@@ -223,7 +226,7 @@ export class MenuListComponent implements OnInit {
 
             reader.readAsDataURL(newFile);
             reader.onload = () => {
-              
+
               this.imagePath3 = reader.result;
               this.checkOpt = true
               this.changeDetectorRef.detectChanges()
@@ -242,11 +245,11 @@ export class MenuListComponent implements OnInit {
     formData.set('phoneNum', this.menu?.phoneNum);
     formData.set('email', this.menu?.email);
     // formData.set('image', this.file2);
-    formData.append("image",this.file2)
+    formData.append("image", this.file2)
     formData.append('image', this.file);
     formData.append('image', this.file3);
     formData.set('hour', this.menu?.hour);
-   this.menuService.updateMenu(this.id, formData).subscribe(async res => {
+    this.menuService.updateMenu(this.id, formData).subscribe(async res => {
       this.toast.success('Menu a été ajoutée avec succées')
     }, error => {
       this.toast.error("Erreur");
@@ -297,7 +300,7 @@ export class MenuListComponent implements OnInit {
   edit(data: any) {
     const dialogRef = this.dialog.open(UpdateMenuDetailComponent, {
       width: '600px',
-      data : data.menuDetailsId//: {
+      data: data.menuDetailsId//: {
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -318,14 +321,6 @@ export class MenuListComponent implements OnInit {
 
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
-
-      const fileSizeInMB = this.file.size / (1024 * 1024);
-
-      // if (fileSizeInMB > 10) {
-      //   this.toastr.warning('La taille du fichier dépasse la limite de 10 Mo');
-      //   return;
-      // }
-
       const image = new Image();
       image.src = URL.createObjectURL(this.file);
       image.onload = () => {
