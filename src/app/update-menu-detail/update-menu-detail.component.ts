@@ -18,7 +18,7 @@ export class UpdateMenuDetailComponent implements OnInit {
   card!: any;
   cardForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
-    ingredient: ['', Validators.required],
+    ingredient: [''],
     price: ['',Validators.required],
     img: ['', Validators.required],
     menuCategoryMenuCategoryId : ['', Validators.required],

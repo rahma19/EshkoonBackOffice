@@ -64,13 +64,14 @@ export class MenuService {
 
   getAllPlat(menuId,pageIndex: number, pageSize: number){
     return this.http.get(`${environment.apiUrl}/menuDetails/list/${menuId}/${pageIndex}/${pageSize}`).subscribe((res:any) => {
-      console.log(res);
       this.platSubject.next(JSON.parse(JSON.stringify(res)));
    });
   }
   
   getPlats(menuId:any){
-    return this.http.get(`${environment.apiUrl}/menuDetails/listPlat/${menuId}`)
+    return this.http.get(`${environment.apiUrl}/menuDetails/listPlat/${menuId}`).subscribe((res:any) => {
+      this.platSubject.next(JSON.parse(JSON.stringify(res)));
+   });
   }
 
   updatePlat(menuDetailsId: string,payload:any) {

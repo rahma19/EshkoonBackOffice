@@ -94,11 +94,11 @@ export class MenuListComponent implements OnInit {
       this.id = params.menuId
       this.check = false
       this.checkBg = false
-      this.getData()
+      // this.getData()
     });
 
-    this.menuService.getPlats(this.id).subscribe((data: any) => {
-      console.log(data);
+    this.menuService.getPlats(this.id)
+    this.menuService.plat$.subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
 
       this.data = data
