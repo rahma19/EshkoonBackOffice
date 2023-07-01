@@ -19,7 +19,13 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  pass: string = '';
+  showPassword: boolean = false;
+  hide = true;
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
   constructor(
     // public dialogRef: MatDialogRef<LoginComponent>,
     private formBuilder: FormBuilder,

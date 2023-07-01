@@ -71,7 +71,8 @@
                                 <div class="col-lg-6">
                                     <mat-form-field appearance="outline" class="form-field">
                                         <mat-label>Mot de passe</mat-label>
-                                        <input matInput formControlName="password" type="password" name="password">
+                                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         <mat-error *ngIf="form.get('password')?.hasError('required')">Le mot de passe
                                             est obligatoire</mat-error>
                                         <mat-error *ngIf="form.get('password')?.hasError('pattern')">
@@ -88,8 +89,8 @@
                                     <mat-form-field appearance="outline" class="form-field">
                                         <mat-label>Vérification mot
                                             de passe</mat-label>
-                                        <input matInput formControlName="confirmPassword" type="password"
-                                            name="confirmPassword">
+                                           <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword"  name="confirmPassword" required>
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')">Ce champs
                                             est obligatoire</mat-error>
                                     </mat-form-field>

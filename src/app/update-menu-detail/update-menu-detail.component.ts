@@ -90,9 +90,9 @@ check=false
   }
 
   submit() {
-    if (this.cardForm.invalid) {
-      return;
-    }
+    // if (this.cardForm.invalid) {
+    //   return;
+    // }
     const formData = new FormData();    
     formData.set('name', this.cardForm.value.name);
     formData.set('ingredient', this.cardForm.value.ingredient);

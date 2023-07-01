@@ -69,8 +69,6 @@ export class MenuListComponent implements OnInit {
 
     any[] = []
   getData() {
-    console.log(this.id, this.currentPage, this.pageSize);
-
     this.menuService.getAllPlat(this.id, this.currentPage, this.pageSize);
     this.menuService.plat$.subscribe(res => {
       const arr: any = []
@@ -79,8 +77,6 @@ export class MenuListComponent implements OnInit {
         arr.push(...arrayValues)
       }
       this.plats.push(...arr)
-      console.log(this.plats);
-
       this.dataSource = new MatTableDataSource(this.plats);
       this.totalItems = res.data?.length;
       // this.dataSource.paginator = this.paginator;

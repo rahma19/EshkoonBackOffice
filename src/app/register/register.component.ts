@@ -18,6 +18,8 @@ export class RegisterComponent implements OnInit {
   verif=false;
   loading = false;
   submitted = false;
+  hide = true;
+
   constructor(private fb: FormBuilder, private http: HttpClient,
     private route: ActivatedRoute, public dialog: MatDialog,
     private router: Router, private toastr: ToastrService,
